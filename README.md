@@ -1,1 +1,0 @@
-# Not-a-creative-company-inc.
