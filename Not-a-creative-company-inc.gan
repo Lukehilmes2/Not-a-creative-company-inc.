@@ -39,17 +39,23 @@
             <customproperty taskproperty-id="tpc1" value="All"/>
             <task id="1" name="GIT" color="#8cb6ce" meeting="false" start="2017-08-31" duration="16" complete="100" expand="true">
                 <notes><![CDATA[Mohammad Alsaad:
-	4 Hours]]></notes>
+	4 Hours
+Luke Hilmes:
+	2 Hours]]></notes>
                 <customproperty taskproperty-id="tpc1" value="All"/>
             </task>
             <task id="2" name="ATOM" color="#8cb6ce" meeting="false" start="2017-09-07" duration="11" complete="100" expand="true">
                 <notes><![CDATA[Mohammad Alsaad:
-	3 Hours]]></notes>
+	3 Hours
+Luke Hilmes:
+	5 Hours]]></notes>
                 <customproperty taskproperty-id="tpc1" value="All"/>
             </task>
             <task id="3" name="Gantt Chart" color="#8cb6ce" meeting="false" start="2017-09-21" duration="4" complete="100" expand="true">
                 <notes><![CDATA[Mohammad Alsaad:
-	2 Hours]]></notes>
+	2 Hours
+Luke Hilmes:
+	1 Hour]]></notes>
                 <customproperty taskproperty-id="tpc1" value="All"/>
             </task>
         </task>
