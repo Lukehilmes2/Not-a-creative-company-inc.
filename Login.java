@@ -7,19 +7,29 @@ class Login extends JPanel {
 
   private JTextField username;
   private JTextField password;
+  private JLabel lblUsername;
+  private JLabel lblPassword;
   private JButton login;
   private final String companyName = "NACC inc.";
   private final String productName = "Money Tracker 2000";
+  private int txtFieldLength = 10;
+  private MainPanel panel;
+  
+  public Login (MainPanel panel) {
 
-  public Login () {
-
-    username = new JTextField("username");
-    password = new JTextField("password");
+	this.panel = panel;
+    username = new JTextField(txtFieldLength);
+    password = new JTextField(txtFieldLength);
+    lblUsername = new JLabel("Username: ");
+    lblPassword = new JLabel("Password: ");
     login = new JButton("login");
+    add(lblUsername);
     add(username);
+    add(lblPassword);
     add(password);
     add(login);
     login.addActionListener(new ButtonListener());
+
   }
 
   public void paint(Graphics g) {
@@ -43,15 +53,13 @@ class Login extends JPanel {
       while (file.hasNext()) {
         String nextLine = file.nextLine();
         String[] login = nextLine.split(",");
-        for(String s : login){
-          System.out.println(s);
-        }
         if (login[0].equals(username.getText().trim()) && login[1].equals(password.getText().trim())) {
-          System.out.println("Logged in");
-        } else {
-          System.out.println("Invalid username or password");
+        	System.out.println("Logged in");
+        	panel.switchPanel("CreateAcct");
+        	return;
         }
       }
-    }
+      System.out.println("bad password");
+	}
   }
 }

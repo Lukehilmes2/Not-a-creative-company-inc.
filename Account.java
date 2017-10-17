@@ -1,12 +1,19 @@
 import java.util.*;
 class Account {
 
-  String name;
-  int balance;
+  private String name;
+  private int balance;
+  private String fName;
+  private String lName;
+  private String password;
   ArrayList<Transaction> transactions;
-  public Account(String name, int balance) {
+  public Account(String name, String fName, String lName, String password) {
     this.name = name;
-    this.balance = balance;
+    this.balance = 0;
+    this.fName = fName;
+    this.lName = lName;
+    this.password = password;
+    this.balance = 0;
     transactions = new ArrayList<Transaction>();
   }
 
@@ -16,6 +23,6 @@ class Account {
   }
 
   public String toString() {
-    return "name: " + name + " balance: " + balance;
+    return name + "," + password + "," + fName + "," + lName;
   }
 }
