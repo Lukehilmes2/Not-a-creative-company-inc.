@@ -71,7 +71,8 @@ Cody Vacca 	.5 Hours]]></notes>
                 <customproperty taskproperty-id="tpc1" value="All"/>
             </task>
             <task id="6" name="Sprint1" color="#8cb6ce" meeting="false" start="2017-10-12" duration="1" complete="0" expand="true">
-                <notes><![CDATA[Luke: 2 hours]]></notes>
+                <notes><![CDATA[Luke: 2 hours
+Max: 3.5 Hours]]></notes>
             </task>
         </task>
     </tasks>
