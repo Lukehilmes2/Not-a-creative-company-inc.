@@ -7,7 +7,7 @@ class Account {
   private String lName;
   private String password;
   ArrayList<Transaction> transactions;
-  public Account(String name, String fName, String lName, String password) {
+  public Account(String name, String password, String fName, String lName) {
     this.name = name;
     this.balance = 0;
     this.fName = fName;

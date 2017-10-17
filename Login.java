@@ -54,8 +54,9 @@ class Login extends JPanel {
         String nextLine = file.nextLine();
         String[] login = nextLine.split(",");
         if (login[0].equals(username.getText().trim()) && login[1].equals(password.getText().trim())) {
-        	System.out.println("Logged in");
-        	panel.switchPanel("CreateAcct");
+        	panel.switchPanel("InitialView");
+        	Account acct = new Account(login[0], login[1], login[2], login[3]);
+        	panel.setAcct(acct);
         	return;
         }
       }
