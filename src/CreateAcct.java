@@ -20,9 +20,6 @@ public class CreateAcct extends JPanel {
 	    JLabel Acct;
 	    JButton Create;
 	    String File = "login.txt";
-
-
-
 	    public CreateAcct()
 	    {
 	    	Name = new JTextField("Name");
