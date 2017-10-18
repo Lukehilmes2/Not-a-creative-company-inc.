@@ -1,2 +1,1 @@
 max,oranges,max,thibeau
-CSAdmin,CSCI323,trish,duce

@@ -12,7 +12,7 @@ import javax.swing.JTextField;
 
 public class CreateAcct extends JPanel {
 
-	
+
     private JTextField name;
 	private JTextField fName, lName, password;
 	private JLabel lblName, lblFirstName, lblLastName, lblPassword;
@@ -21,7 +21,7 @@ public class CreateAcct extends JPanel {
     private String file = "login.txt";
     private int txtFieldLength = 10;
     private MainPanel panel;
-    public CreateAcct(MainPanel panel) 
+    public CreateAcct(MainPanel paBnel) 
     {
     	this.panel = panel;
     	name = new JTextField(txtFieldLength);
@@ -35,7 +35,7 @@ public class CreateAcct extends JPanel {
     	lblFirstName = new JLabel("First name: ");
     	lblLastName = new JLabel("Last name: ");
     	lblPassword = new JLabel("Password: ");
-    	
+
     	add(acct);
     	add(lblName);
     	add(name);
@@ -48,9 +48,9 @@ public class CreateAcct extends JPanel {
     	add(create);
     	create.addActionListener(new ButtonListener());
     }
-    private class ButtonListener implements ActionListener{ 
+    private class ButtonListener implements ActionListener{
     	public void actionPerformed(ActionEvent arg0) {
-    		if (!name.getText().matches(".*\\w.*") || !fName.getText().matches(".*\\w.*") || 
+    		if (!name.getText().matches(".*\\w.*") || !fName.getText().matches(".*\\w.*") ||
     		!lName.getText().matches(".*\\w.*") || !password.getText().matches(".*\\w.*")) {
     			return;
     		}
@@ -63,16 +63,12 @@ public class CreateAcct extends JPanel {
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}	
+			}
 			name.setText("");
 			fName.setText("");
 			lName.setText("");
 			password.setText("");
 		panel.switchPanel("Login");
-    	}    	
+    	}
     }
 }
-
-	
-
-

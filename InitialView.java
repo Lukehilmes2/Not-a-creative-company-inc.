@@ -95,11 +95,11 @@ public class InitialView extends JPanel{
 			else if(evt.getSource() == btnYesDelete) {
 				
 				btnNoDelete.setVisible(false);
-				btnMakeAcct.setVisible(false);
 				btnYesDelete.setVisible(false);
 				lblDelete.setVisible(false);
 				btnDelete.setVisible(true);
 				btnLogOut.setVisible(true);
+				btnMakeAcct.setVisible(true);
 				deleteAcct();
 			}
 		}	
