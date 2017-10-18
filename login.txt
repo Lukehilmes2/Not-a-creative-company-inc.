@@ -1,2 +1,2 @@
-admin,password
-max,oranges
+max,oranges,max,thibeau
+CSAdmin,CSCI323,trish,duce
