@@ -29,7 +29,7 @@ public class InitialView extends JPanel{
 		
 		this.panel = panel;
 		btnDelete = new JButton("Delete Account");
-		lblDelete = new JLabel("Are you sure you want to delte your account?");
+		lblDelete = new JLabel("Are you sure you want to delete your account?");
 		btnYesDelete = new JButton("Yes, delete account");
 		btnMakeAcct = new JButton("Make new Account");
 		btnNoDelete = new JButton("No");
@@ -76,6 +76,9 @@ public class InitialView extends JPanel{
 			}
 			else if (evt.getSource() == btnDelete) {
 				
+				lblName.setVisible(false);
+				lblFName.setVisible(false);
+				lblLName.setVisible(false);
 				btnDelete.setVisible(false);
 				btnLogOut.setVisible(false);
 				btnMakeAcct.setVisible(false);
@@ -86,6 +89,9 @@ public class InitialView extends JPanel{
 			else if (evt.getSource() == btnNoDelete) {
 			
 				btnNoDelete.setVisible(false);
+				lblName.setVisible(true);
+				lblFName.setVisible(true);
+				lblLName.setVisible(true);
 				btnLogOut.setVisible(true);
 				btnMakeAcct.setVisible(true);
 				btnYesDelete.setVisible(false);
@@ -95,6 +101,9 @@ public class InitialView extends JPanel{
 			else if(evt.getSource() == btnYesDelete) {
 				
 				btnNoDelete.setVisible(false);
+				lblName.setVisible(true);
+				lblFName.setVisible(true);
+				lblLName.setVisible(true);
 				btnYesDelete.setVisible(false);
 				lblDelete.setVisible(false);
 				btnDelete.setVisible(true);
