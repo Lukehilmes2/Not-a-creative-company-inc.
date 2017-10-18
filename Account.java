@@ -22,6 +22,18 @@ class Account {
     balance += transaction.getAmount();
   }
 
+  public String getName() {
+	  return name;
+  }
+  
+  public String getfName() {
+	  return fName;
+  }
+  
+  public String getlName() {
+	  return lName;
+  }
+  
   public String toString() {
     return name + "," + password + "," + fName + "," + lName;
   }

@@ -10,11 +10,9 @@ class Login extends JPanel {
   private JLabel lblUsername;
   private JLabel lblPassword;
   private JButton login;
-  private final String companyName = "NACC inc.";
-  private final String productName = "Money Tracker 2000";
   private int txtFieldLength = 10;
   private MainPanel panel;
-  
+  private JLabel lblBadLogin;
   public Login (MainPanel panel) {
 
 	this.panel = panel;
@@ -22,21 +20,16 @@ class Login extends JPanel {
     password = new JTextField(txtFieldLength);
     lblUsername = new JLabel("Username: ");
     lblPassword = new JLabel("Password: ");
+    lblBadLogin = new JLabel("");
     login = new JButton("login");
     add(lblUsername);
     add(username);
     add(lblPassword);
     add(password);
     add(login);
+    add(lblBadLogin);
     login.addActionListener(new ButtonListener());
 
-  }
-
-  public void paint(Graphics g) {
-
-    super.paint(g);
-    g.drawString(companyName, 10, 450);
-    g.drawString(productName, 10, 20);
   }
 
   private class ButtonListener implements ActionListener{
@@ -54,13 +47,16 @@ class Login extends JPanel {
         String nextLine = file.nextLine();
         String[] login = nextLine.split(",");
         if (login[0].equals(username.getText().trim()) && login[1].equals(password.getText().trim())) {
-        	panel.switchPanel("InitialView");
         	Account acct = new Account(login[0], login[1], login[2], login[3]);
+        	username.setText("");
+        	password.setText("");
+        	panel.switchPanel("InitialView");
         	panel.setAcct(acct);
+        	lblBadLogin.setText("");
         	return;
         }
       }
-      System.out.println("bad password");
+      lblBadLogin.setText("bad password");
 	}
   }
 }

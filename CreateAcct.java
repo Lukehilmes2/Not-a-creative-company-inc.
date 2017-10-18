@@ -39,12 +39,12 @@ public class CreateAcct extends JPanel {
     	add(acct);
     	add(lblName);
     	add(name);
+    	add(lblPassword);
+    	add(password);
     	add(lblFirstName);
     	add(fName);
     	add(lblLastName);
     	add(lName);
-    	add(lblPassword);
-    	add(password);
     	add(create);
     	create.addActionListener(new ButtonListener());
     }
@@ -54,7 +54,7 @@ public class CreateAcct extends JPanel {
     		!lName.getText().matches(".*\\w.*") || !password.getText().matches(".*\\w.*")) {
     			return;
     		}
-    		Account acct = new Account(name.getText(), fName.getText(), lName.getText(), password.getText());
+    		Account acct = new Account(name.getText(), password.getText(), lName.getText(), fName.getText());
     		BufferedWriter writer = null;
 			try {
 				writer = new BufferedWriter(new FileWriter(file, true));
@@ -63,8 +63,13 @@ public class CreateAcct extends JPanel {
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}		
-		}    	
+			}	
+			name.setText("");
+			fName.setText("");
+			lName.setText("");
+			password.setText("");
+		panel.switchPanel("Login");
+    	}    	
     }
 }
 

@@ -20,33 +20,65 @@ public class InitialView extends JPanel{
 	private JButton btnYesDelete;
 	private JButton btnNoDelete;
 	private MainPanel panel;
-
+	private JButton btnMakeAcct;
+	private JButton btnLogOut;
+	private JLabel lblName;
+	private JLabel lblFName;
+	private JLabel lblLName;
 	public InitialView(MainPanel panel) {
 		
 		this.panel = panel;
 		btnDelete = new JButton("Delete Account");
 		lblDelete = new JLabel("Are you sure you want to delte your account?");
 		btnYesDelete = new JButton("Yes, delete account");
+		btnMakeAcct = new JButton("Make new Account");
 		btnNoDelete = new JButton("No");
+		btnLogOut = new JButton("Logout");
+		lblName = new JLabel("");
+		lblFName = new JLabel("");
+		lblLName = new JLabel("");
 		lblDelete.setVisible(false);
 		btnYesDelete.setVisible(false);
 		btnNoDelete.setVisible(false);
 		btnDelete.addActionListener(new ButtonListener());
 		btnNoDelete.addActionListener(new ButtonListener());
 		btnYesDelete.addActionListener(new ButtonListener());
+		btnMakeAcct.addActionListener(new ButtonListener());
+		btnLogOut.addActionListener(new ButtonListener());
+		add(lblName);
+		add(lblFName);
+		add(lblLName);
 		add(btnDelete);
 		add(lblDelete);
 		add(btnYesDelete);
 		add(btnNoDelete);
+		add(btnMakeAcct);
+		add(btnLogOut);
 	}
 
+	public void setAccount(){
+		
+		lblName.setText("User Name: " + panel.getAcct().getName());	
+		lblFName.setText("First Name: " + panel.getAcct().getfName());	
+		lblLName.setText("Last Name: " + panel.getAcct().getlName());	
+	}
 	private class ButtonListener implements ActionListener{
 
 		public void actionPerformed(ActionEvent evt) {
 
-			if (evt.getSource() == btnDelete) {
+			if (evt.getSource() == btnMakeAcct) {
+				panel.switchPanel("CreateAcct");
+			}
+			
+			else if (evt.getSource() == btnLogOut) {
+				panel.switchPanel("Login");
+				panel.setAcct(null);
+			}
+			else if (evt.getSource() == btnDelete) {
 				
 				btnDelete.setVisible(false);
+				btnLogOut.setVisible(false);
+				btnMakeAcct.setVisible(false);
 				btnNoDelete.setVisible(true);
 				btnYesDelete.setVisible(true);
 				lblDelete.setVisible(true);
@@ -54,6 +86,8 @@ public class InitialView extends JPanel{
 			else if (evt.getSource() == btnNoDelete) {
 			
 				btnNoDelete.setVisible(false);
+				btnLogOut.setVisible(true);
+				btnMakeAcct.setVisible(true);
 				btnYesDelete.setVisible(false);
 				lblDelete.setVisible(false);	
 				btnDelete.setVisible(true);
@@ -61,9 +95,11 @@ public class InitialView extends JPanel{
 			else if(evt.getSource() == btnYesDelete) {
 				
 				btnNoDelete.setVisible(false);
+				btnMakeAcct.setVisible(false);
 				btnYesDelete.setVisible(false);
 				lblDelete.setVisible(false);
 				btnDelete.setVisible(true);
+				btnLogOut.setVisible(true);
 				deleteAcct();
 			}
 		}	
