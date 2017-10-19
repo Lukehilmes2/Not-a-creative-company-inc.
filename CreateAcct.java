@@ -54,7 +54,7 @@ public class CreateAcct extends JPanel {
     		!lName.getText().matches(".*\\w.*") || !password.getText().matches(".*\\w.*")) {
     			return;
     		}
-    		Account acct = new Account(name.getText(), password.getText(), lName.getText(), fName.getText());
+    		Account acct = new Account(name.getText(), password.getText(), fName.getText(), lName.getText());
     		BufferedWriter writer = null;
 			try {
 				writer = new BufferedWriter(new FileWriter(file, true));
