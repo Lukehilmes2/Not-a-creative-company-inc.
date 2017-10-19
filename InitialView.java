@@ -29,7 +29,7 @@ public class InitialView extends JPanel{
 	private JLabel lblFName;
 	private JLabel lblLName;
 	public InitialView(MainPanel panel) {
-		
+
 		this.panel = panel;
 		btnDelete = new JButton("Delete Account");
 		lblDelete = new JLabel("Are you sure you want to delete your account?");
@@ -60,10 +60,10 @@ public class InitialView extends JPanel{
 	}
 
 	public void setAccount(){
-		
-		lblName.setText("User Name: " + panel.getAcct().getName());	
-		lblFName.setText("First Name: " + panel.getAcct().getfName());	
-		lblLName.setText("Last Name: " + panel.getAcct().getlName());	
+
+		lblName.setText("User Name: " + panel.getAcct().getName());
+		lblFName.setText("First Name: " + panel.getAcct().getfName());
+		lblLName.setText("Last Name: " + panel.getAcct().getlName());
 	}
 	private class ButtonListener implements ActionListener{
 
@@ -72,13 +72,13 @@ public class InitialView extends JPanel{
 			if (evt.getSource() == btnMakeAcct) {
 				panel.switchPanel("CreateAcct");
 			}
-			
+
 			else if (evt.getSource() == btnLogOut) {
 				panel.switchPanel("Login");
 				panel.setAcct(null);
 			}
 			else if (evt.getSource() == btnDelete) {
-				
+
 				lblName.setVisible(false);
 				lblFName.setVisible(false);
 				lblLName.setVisible(false);
@@ -90,7 +90,7 @@ public class InitialView extends JPanel{
 				lblDelete.setVisible(true);
 			}
 			else if (evt.getSource() == btnNoDelete) {
-			
+
 				btnNoDelete.setVisible(false);
 				lblName.setVisible(true);
 				lblFName.setVisible(true);
@@ -98,11 +98,11 @@ public class InitialView extends JPanel{
 				btnLogOut.setVisible(true);
 				btnMakeAcct.setVisible(true);
 				btnYesDelete.setVisible(false);
-				lblDelete.setVisible(false);	
+				lblDelete.setVisible(false);
 				btnDelete.setVisible(true);
 			}
 			else if(evt.getSource() == btnYesDelete) {
-				
+
 				btnNoDelete.setVisible(false);
 				lblName.setVisible(true);
 				lblFName.setVisible(true);
@@ -114,53 +114,115 @@ public class InitialView extends JPanel{
 				btnMakeAcct.setVisible(true);
 				deleteAcct();
 			}
-		}	
-	}
-	
-	private void deleteAcct() {
-		
-		File inputFile = new File("login.txt");
-		File tempFile = new File("myTempFile.txt");
-        BufferedReader reader = null;
-        try {
-            reader = new BufferedReader(new FileReader(inputFile));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        BufferedWriter writer = null;
-        try {
-            writer = new BufferedWriter(new FileWriter(tempFile));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        String lineToRemove = panel.getAcct().toString();
-        String currentLine;
-        try {
-            while((currentLine = reader.readLine()) != null)
-            {
-                if(currentLine.equals(lineToRemove)) {
-                    continue;	
-                }
-                try {
-                    writer.write(currentLine + "\n");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    	try {
-			writer.close();
-		} catch (IOException e) {
-			e.printStackTrace();
 		}
-    	try {
-    	    Files.move(tempFile.toPath(), inputFile.toPath(), java.nio.file.StandardCopyOption.REPLACE_EXISTING);
-    	} catch (IOException ex) {
-    		ex.printStackTrace();
-    	}
+	}
+
+	private void deleteAcct() {
+
+				File inputFile = new File("login.txt");
+				File tempFile = new File("myTempFile.txt");
+
+				BufferedReader reader = null;
+				try {
+					reader = new BufferedReader(new FileReader(inputFile));
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				BufferedWriter writer = null;
+				try {
+					writer = new BufferedWriter(new FileWriter(tempFile));
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+				String lineToRemove = panel.getAcct().toString();
+				String currentLine;
+
+				try {
+					while((currentLine = reader.readLine()) != null){
+						String trimmedLine = currentLine.trim();
+
+						if(trimmedLine.equals(lineToRemove)){
+							System.out.println(trimmedLine);
+							continue;
+						}
+						else{
+
+						writer.write(currentLine + System.getProperty("line.separator"));
+
+
+					}
+					}
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				try {
+					writer.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+				try {
+					reader.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+
+			//try{
+			// 	Files.copy(new File(tempFile).toPath(),new File(inputFile).toPath(),java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+			// }catch(IOException e){
+			// 	e.printStackTrace();
+			// }
+			BufferedWriter writer1 = null;
+			try {
+				writer1 = new BufferedWriter(new FileWriter(inputFile));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			BufferedReader reader1 = null;
+			try {
+				reader1 = new BufferedReader(new FileReader(tempFile));
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			String currentLine1 = null;
+			try {
+				while((currentLine1 = reader1.readLine()) != null){
+					String trimmedLine = currentLine1.trim();
+
+					writer1.write(currentLine1 + System.getProperty("line.separator"));
+
+
+				}
+			}catch(IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+				try {
+					writer1.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+				try {
+					reader1.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+
+
     	panel.switchPanel("Login");
-		
+
 	}
 }
