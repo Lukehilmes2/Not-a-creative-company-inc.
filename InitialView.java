@@ -7,6 +7,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -152,7 +155,11 @@ public class InitialView extends JPanel{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-    	boolean successful = tempFile.renameTo(inputFile);
+    	try {
+    	    Files.move(tempFile.toPath(), inputFile.toPath(), java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+    	} catch (IOException ex) {
+    		ex.printStackTrace();
+    	}
     	panel.switchPanel("Login");
 		
 	}
