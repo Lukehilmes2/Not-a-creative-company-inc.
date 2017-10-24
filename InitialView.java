@@ -1,10 +1,17 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 
 public class InitialView extends JPanel{
@@ -13,12 +20,10 @@ public class InitialView extends JPanel{
 	private MainPanel panel;
 	private JButton btnMakeAcct;
 	private JButton btnLogOut;
-	private JLabel lblName;
-	private JLabel lblFName;
-	private JLabel lblLName;
 	private JTable tblAccts;
-	private String[] columnNames = {"First name", "Last name", "Email", "Phone"};
-	private String[][] Accounts;
+	private String[] columnNames = {"Username", "First name", "Last name", "Email", "Phone"};
+	private String[][] accounts;
+	private TableModel model;
 	
 	public InitialView(MainPanel panel) {
 		
@@ -26,26 +31,44 @@ public class InitialView extends JPanel{
 		btnDelete = new JButton("Delete Account");
 		btnMakeAcct = new JButton("Make new Account");
 		btnLogOut = new JButton("Logout");
-		lblName = new JLabel("");
-		lblFName = new JLabel("");
-		lblLName = new JLabel("");
 		btnDelete.addActionListener(new ButtonListener());	
 		btnMakeAcct.addActionListener(new ButtonListener());
 		btnLogOut.addActionListener(new ButtonListener());
-		
-		add(lblName);
-		add(lblFName);
-		add(lblLName);
 		add(btnDelete);
 		add(btnMakeAcct);
-		add(btnLogOut);
+		add(btnLogOut);	
+		accounts = getAccounts();
+		model = new DefaultTableModel(accounts, columnNames)
+		{
+		    public boolean isCellEditable(int row, int column)
+		    {
+		      return false;//This causes all cells to be not editable
+		    }
+		};
+		tblAccts = new JTable(model);
+		add(new JScrollPane(tblAccts));
 	}
-
-	public void setAccount(){
+	private String[][] getAccounts() {
 		
-		lblName.setText("User Name: " + panel.getAcct().getName());	
-		lblFName.setText("First Name: " + panel.getAcct().getfName());	
-		lblLName.setText("Last Name: " + panel.getAcct().getlName());	
+		ArrayList<String[]> temp = new ArrayList<String[]>();
+		Scanner file = null;
+	      try {
+	        file = new Scanner(new FileReader("accounts.txt"));
+	      }
+	      catch (FileNotFoundException e) {
+	        e.printStackTrace();
+	      }
+	      while (file.hasNext()) {
+	        String nextLine = file.nextLine();
+	        String[] account = nextLine.split(",");
+	        temp.add(account);
+	      }
+	    String[][] accounts = new String[temp.size()][5];
+	    for (int i = 0; i < temp.size(); i++) {
+	    	accounts[i] = temp.get(i);
+	    }
+		return accounts;
+		
 	}
 	private class ButtonListener implements ActionListener{
 
@@ -57,7 +80,6 @@ public class InitialView extends JPanel{
 			
 			else if (evt.getSource() == btnLogOut) {
 				panel.switchPanel("Login");
-				panel.setAcct(null);
 			}
 			else if (evt.getSource() == btnDelete) {
 				panel.switchPanel("ConfirmDelete");

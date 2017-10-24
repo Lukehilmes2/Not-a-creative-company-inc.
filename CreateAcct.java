@@ -18,7 +18,7 @@ public class CreateAcct extends JPanel {
 	private JLabel lblName, lblFirstName, lblLastName, lblEmail, lblPhone;
     private JLabel acct;
     private JButton create;
-    private String file = "login.txt";
+    private String file = "accounts.txt";
     private int txtFieldLength = 10;
     private MainPanel panel;
     public CreateAcct(MainPanel panel) 
@@ -51,6 +51,7 @@ public class CreateAcct extends JPanel {
     	add(create);
     	create.addActionListener(new ButtonListener());
     }
+    
     private class ButtonListener implements ActionListener{ 
     	public void actionPerformed(ActionEvent arg0) {
     		if (!name.getText().matches(".*\\w.*") || !fName.getText().matches(".*\\w.*") || 

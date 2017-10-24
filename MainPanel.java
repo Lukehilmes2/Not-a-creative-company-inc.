@@ -40,10 +40,6 @@ public class MainPanel extends JPanel{
 	    super.paint(g);
 	    g.drawString(companyName, 10, 450);
 	}
-	public void setAcct(Account acct) {
-		this.acct = acct;
-		pnlInitialView.setAccount();
-	}
 	
 	public Account getAcct() {
 		return acct;
