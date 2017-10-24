@@ -14,8 +14,8 @@ public class CreateAcct extends JPanel {
 
 	
     private JTextField name;
-	private JTextField fName, lName, password;
-	private JLabel lblName, lblFirstName, lblLastName, lblPassword;
+	private JTextField fName, lName, email, phone;
+	private JLabel lblName, lblFirstName, lblLastName, lblEmail, lblPhone;
     private JLabel acct;
     private JButton create;
     private String file = "login.txt";
@@ -27,48 +27,53 @@ public class CreateAcct extends JPanel {
     	name = new JTextField(txtFieldLength);
     	fName = new JTextField(txtFieldLength);
     	lName = new JTextField(txtFieldLength);
-    	password = new JTextField(txtFieldLength);
+    	email = new JTextField(txtFieldLength);
+    	phone = new JTextField(txtFieldLength);
     	create  = new JButton("Create Account");
     	acct = new JLabel();
     	acct.setText("Create a new Account!");
     	lblName = new JLabel("Username: ");
     	lblFirstName = new JLabel("First name: ");
     	lblLastName = new JLabel("Last name: ");
-    	lblPassword = new JLabel("Password: ");
-    	
+    	lblEmail = new JLabel("Email: ");
+    	lblPhone = new JLabel("Phone: ");
     	add(acct);
     	add(lblName);
     	add(name);
-    	add(lblPassword);
-    	add(password);
     	add(lblFirstName);
     	add(fName);
     	add(lblLastName);
     	add(lName);
+    	add(lblEmail);
+    	add(email);
+    	add(lblPhone);
+    	add(phone);
     	add(create);
     	create.addActionListener(new ButtonListener());
     }
     private class ButtonListener implements ActionListener{ 
     	public void actionPerformed(ActionEvent arg0) {
     		if (!name.getText().matches(".*\\w.*") || !fName.getText().matches(".*\\w.*") || 
-    		!lName.getText().matches(".*\\w.*") || !password.getText().matches(".*\\w.*")) {
+    		!lName.getText().matches(".*\\w.*") || !email.getText().matches(".*\\w.*") ||
+    		!email.getText().matches(".*\\w.*")){
     			return;
     		}
-    		Account acct = new Account(name.getText(), password.getText(), fName.getText(), lName.getText());
+    		Account acct = new Account(name.getText(), fName.getText(), lName.getText(),
+    				email.getText(), phone.getText());
     		BufferedWriter writer = null;
 			try {
 				writer = new BufferedWriter(new FileWriter(file, true));
 				writer.append(acct.toString() + "\n");
 				writer.close();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}	
 			name.setText("");
 			fName.setText("");
 			lName.setText("");
-			password.setText("");
-		panel.switchPanel("Login");
+			email.setText("");
+			phone.setText("");
+			panel.switchPanel("InitialView");
     	}    	
     }
 }

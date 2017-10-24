@@ -35,8 +35,15 @@ class Login extends JPanel {
   private class ButtonListener implements ActionListener{
 
     public void actionPerformed(ActionEvent evt){
-
-      Scanner file = null;
+	
+	if (username.getText().equals("CSAdmin") && password.getText().equals("CSCI323")) {
+		panel.switchPanel("InitialView");
+    	lblBadLogin.setText("");
+    	username.setText("");
+    	password.setText("");
+		return;
+	}
+     /* Scanner file = null;
       try {
         file = new Scanner(new FileReader("login.txt"));
       }
@@ -55,7 +62,7 @@ class Login extends JPanel {
         	lblBadLogin.setText("");
         	return;
         }
-      }
+      }*/
       lblBadLogin.setText("bad password");
 	}
   }

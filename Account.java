@@ -5,16 +5,25 @@ class Account {
   private int balance;
   private String fName;
   private String lName;
-  private String password;
-  public Account(String name, String password, String fName, String lName) {
+  private String email;
+  private String phone;
+  
+  public Account(String name, String fName, String lName, String email, String phone) {
     this.name = name;
     this.balance = 0;
     this.fName = fName;
     this.lName = lName;
-    this.password = password;
-    this.balance = 0;
+    this.email = email;
+    this.phone = phone;
   }
 
+  public String getEmail() {	  
+	  return email;
+  }
+  
+  public String getPhone() {	  
+	  return phone;
+  }
   public String getName() {
 	  return name;
   }
@@ -28,6 +37,6 @@ class Account {
   }
   
   public String toString() {
-    return name + "," + password + "," + fName + "," + lName;
+    return name + "," + fName + "," + lName + "," + email + "," + phone;
   }
 }
