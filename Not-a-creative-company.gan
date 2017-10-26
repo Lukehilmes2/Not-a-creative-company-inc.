@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><project name="Not So Creative Incoprated" company="" webLink="http://" view-date="2017-10-13" view-index="0" gantt-divider-location="460" resource-divider-location="300" version="2.8.5" locale="en_US">
     <description/>
-    <view zooming-state="default:0" id="gantt-chart">
+    <view zooming-state="default:2" id="gantt-chart">
         <field id="tpd3" name="Name" width="159" order="0"/>
         <field id="tpd4" name="Begin date" width="94" order="1"/>
         <field id="tpd5" name="End date" width="95" order="2"/>
@@ -88,6 +88,12 @@ Cody: 3 hours]]></notes>
             </task>
             <task id="21" name="Delete Account" meeting="false" start="2017-10-13" duration="1" complete="0" expand="true">
                 <customproperty taskproperty-id="tpc1" value="Luke: 4 hours"/>
+            </task>
+        </task>
+        <task id="23" name="Sprint2" meeting="false" start="2017-10-13" duration="1" complete="0" expand="true">
+            <task id="24" name="individual account table made" color="#8cb6ce" meeting="false" start="2017-10-13" duration="1" complete="0" expand="true">
+                <notes><![CDATA[Max ~ 2 hours
+accounts now separated from user, can be deleted, updated, and both the text file and jtable are updated live]]></notes>
             </task>
         </task>
     </tasks>

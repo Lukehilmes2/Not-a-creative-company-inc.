@@ -50,9 +50,14 @@ public class MainPanel extends JPanel{
 		cards.show(this, panel);
 	}
 	
-	public void deleteAcct() {
+	
+	public void updateTable() {
 		
-		File inputFile = new File("login.txt");
+		pnlInitialView.updateTable();
+	}
+	public void deleteAcct(Account acct) {
+		
+		File inputFile = new File("accounts.txt");
 		File tempFile = new File("myTempFile.txt");
         BufferedReader reader = null;
         try {
@@ -92,6 +97,6 @@ public class MainPanel extends JPanel{
     	    Files.move(tempFile.toPath(), inputFile.toPath(), java.nio.file.StandardCopyOption.REPLACE_EXISTING);
     	} catch (IOException ex) {
     		ex.printStackTrace();
-    	}		
-	}	
+    	}
+	}
 }

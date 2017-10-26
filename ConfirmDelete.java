@@ -37,11 +37,8 @@ public class ConfirmDelete extends JPanel{
 			else if(evt.getSource() == btnYesDelete) {
 				
 				mainPanel.switchPanel("Login");
-				mainPanel.deleteAcct();
 			}
 			
-		}
-		
-		
+		}		
 	}
 }

@@ -74,6 +74,7 @@ public class CreateAcct extends JPanel {
 			lName.setText("");
 			email.setText("");
 			phone.setText("");
+			panel.updateTable();
 			panel.switchPanel("InitialView");
     	}    	
     }
