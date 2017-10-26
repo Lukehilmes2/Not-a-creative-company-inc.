@@ -27,11 +27,9 @@ public class MainPanel extends JPanel{
 		pnlLogin = new Login(this);
 		pnlInitialView = new InitialView(this);
 		pnlCreateAcct = new CreateAcct(this);
-		pnlConfirmDelete = new ConfirmDelete(this);
 		add(pnlLogin, "Login");
 		add(pnlInitialView, "InitialView");
 		add(pnlCreateAcct, "CreateAcct");
-		add(pnlConfirmDelete, "ConfirmDelete");
 		cards.show(this, "Login");
 	}
 	
