@@ -19,9 +19,9 @@ public class MainPanel extends JPanel{
 	private InitialView pnlInitialView;
 	private Account acct;
 	private final String companyName = "NACC inc.";
-	
+
 	public MainPanel() {
-		
+
 		cards = new CardLayout();
 		setLayout(cards);
 		pnlLogin = new Login(this);
@@ -32,29 +32,29 @@ public class MainPanel extends JPanel{
 		add(pnlCreateAcct, "CreateAcct");
 		cards.show(this, "Login");
 	}
-	
+
 	public void paint(Graphics g) {
 
 	    super.paint(g);
 	    g.drawString(companyName, 10, 450);
 	}
-	
+
 	public Account getAcct() {
 		return acct;
 	}
-	
+
 	public void switchPanel(String panel) {
-		
+
 		cards.show(this, panel);
 	}
-	
-	
+
+
 	public void updateTable() {
-		
+
 		pnlInitialView.updateTable();
 	}
 	public void deleteAcct(Account acct) {
-		
+
 		File inputFile = new File("accounts.txt");
 		File tempFile = new File("myTempFile.txt");
         BufferedReader reader = null;
@@ -75,7 +75,7 @@ public class MainPanel extends JPanel{
             while((currentLine = reader.readLine()) != null)
             {
                 if(currentLine.equals(lineToRemove)) {
-                    continue;	
+                    continue;
                 }
                 try {
                     writer.write(currentLine + "\n");
@@ -91,10 +91,45 @@ public class MainPanel extends JPanel{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-    	try {
-    	    Files.move(tempFile.toPath(), inputFile.toPath(), java.nio.file.StandardCopyOption.REPLACE_EXISTING);
-    	} catch (IOException ex) {
-    		ex.printStackTrace();
-    	}
+		BufferedWriter writer1 = null;
+		 			try {
+		 				writer1 = new BufferedWriter(new FileWriter(inputFile));
+		 			} catch (IOException e) {
+		 				// TODO Auto-generated catch block
+		 				e.printStackTrace();
+		 			}
+		 			BufferedReader reader1 = null;
+		 			try {
+		 				reader1 = new BufferedReader(new FileReader(tempFile));
+		 			} catch (FileNotFoundException e) {
+		 				// TODO Auto-generated catch block
+		 				e.printStackTrace();
+		 			}
+		 			String currentLine1 = null;
+		 			try {
+		 				while((currentLine1 = reader1.readLine()) != null){
+		 					String trimmedLine = currentLine1.trim();
+
+		 					writer1.write(currentLine1 + System.getProperty("line.separator"));
+
+
+		 				}
+		 			}catch(IOException e) {
+		 				// TODO Auto-generated catch block
+		 				e.printStackTrace();
+		 			}
+		 				try {
+		 					writer1.close();
+		 				} catch (IOException e) {
+		 					// TODO Auto-generated catch block
+		 					e.printStackTrace();
+		 				}
+
+		 				try {
+		 					reader1.close();
+		 				} catch (IOException e) {
+		 					// TODO Auto-generated catch block
+		 					e.printStackTrace();
+		 				}
 	}
 }
