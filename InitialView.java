@@ -59,8 +59,7 @@ public class InitialView extends JPanel{
 
 		add(butpan,BorderLayout.WEST);
 		accounts = getAccounts();
-		model = new DefaultTableModel(accounts, columnNames)
-		{
+		model = new DefaultTableModel(accounts, columnNames){
 		    public boolean isCellEditable(int row, int column)
 		    {
 		      return false;//This causes all cells to be not editable
@@ -73,8 +72,7 @@ public class InitialView extends JPanel{
 	public void updateTable() {
 
 		accounts = getAccounts();
-		model = new DefaultTableModel(accounts, columnNames)
-		{
+		model = new DefaultTableModel(accounts, columnNames){
 		    public boolean isCellEditable(int row, int column)
 		    {
 		      return false;//This causes all cells to be not editable
@@ -119,7 +117,8 @@ public class InitialView extends JPanel{
 			acctSelected = new Account(user, fName, lName, email, phone);
 		}
 
-		public void mouseEntered(MouseEvent arg0) {}
+
+		public void mouseEntered(MouseEvent evt) {
 
 			if (evt.getSource() == btnMakeAcct) {
 				panel.switchPanel("CreateAcct");
@@ -133,6 +132,7 @@ public class InitialView extends JPanel{
 			}
 		}
 	}
+
 		private class ButtonListener implements ActionListener{
 
 			public void actionPerformed(ActionEvent evt) {
@@ -166,4 +166,4 @@ public class InitialView extends JPanel{
 				}
 			}
 		}
-}
+	}
