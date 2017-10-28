@@ -31,7 +31,6 @@ class Login extends JPanel {
     cs.gridy = 0;
     cs.gridwidth = 1;
     panel1.add(lblUsername, cs);
-
     username = new JTextField(20);
     cs.gridx = 1;
     cs.gridy = 0;
@@ -43,7 +42,6 @@ class Login extends JPanel {
     cs.gridy = 1;
     cs.gridwidth = 1;
     panel1.add(lblPassword, cs);
-
     password = new JPasswordField(20);
     cs.gridx = 1;
     cs.gridy = 1;
@@ -74,26 +72,7 @@ class Login extends JPanel {
     	password.setText("");
 		return;
 	}
-     /* Scanner file = null;
-      try {
-        file = new Scanner(new FileReader("login.txt"));
-      }
-      catch (FileNotFoundException e) {
-        e.printStackTrace();
-      }
-      while (file.hasNext()) {
-        String nextLine = file.nextLine();
-        String[] login = nextLine.split(",");
-        if (login[0].equals(username.getText().trim()) && login[1].equals(password.getText().trim())) {
-        	Account acct = new Account(login[0], login[1], login[2], login[3]);
-        	username.setText("");
-        	password.setText("");
-        	panel.switchPanel("InitialView");
-        	panel.setAcct(acct);
-        	lblBadLogin.setText("");
-        	return;
-        }
-      }*/
+
       lblBadLogin.setText("<html>Bad Details!<br>Try Again</html>");
 	}
   }

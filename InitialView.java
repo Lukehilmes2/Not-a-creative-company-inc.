@@ -71,7 +71,7 @@ public class InitialView extends JPanel{
 		cdelete.add(btnNoDelete);
 
 		add(butpan,BorderLayout.WEST);
-		add(cdelete,BorderLayout.SOUTH);
+		add(cdelete,BorderLayout.NORTH);
 		accounts = getAccounts();
 		model = new DefaultTableModel(accounts, columnNames){
 		    public boolean isCellEditable(int row, int column)
