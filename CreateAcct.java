@@ -22,7 +22,7 @@ public class CreateAcct extends JPanel {
 	private JTextField fName, lName, email, phone;
 	private JLabel lblName, lblFirstName, lblLastName, lblEmail, lblPhone;
     private JLabel acct,badacct;
-    private JButton create;
+    private JButton create,back;
     private String file = "accounts.txt";
     private int txtFieldLength = 10;
     private MainPanel panel;
@@ -122,6 +122,8 @@ public class CreateAcct extends JPanel {
       cs.ipady = 20;
       panel1.add(badacct,cs);
 
+      back = new JButton("Back");
+
 
 
 
@@ -130,18 +132,21 @@ public class CreateAcct extends JPanel {
 
 
       add(panel1,BorderLayout.CENTER);
-
+      add(back,BorderLayout.NORTH);
+      back.addActionListener(new ButtonListener());
     	create.addActionListener(new ButtonListener());
     }
 
     private class ButtonListener implements ActionListener{
     	public void actionPerformed(ActionEvent arg0) {
+        if(arg0.getSource() == create){
     		if (!name.getText().matches(".*\\w.*") || !fName.getText().matches(".*\\w.*") ||
     		!lName.getText().matches(".*\\w.*") || !email.getText().matches(".*\\w.*") ||
     		!phone.getText().matches(".*\\w.*")){
           badacct.setText("Please fill out all the fields!");
     			return;
     		}
+
     		Account acct = new Account(name.getText(), fName.getText(), lName.getText(),
     				email.getText(), phone.getText());
     		BufferedWriter writer = null;
@@ -160,5 +165,14 @@ public class CreateAcct extends JPanel {
 			panel.updateTable();
 			panel.switchPanel("InitialView");
     	}
+      else if(arg0.getSource() == back){
+        name.setText("");
+        fName.setText("");
+        lName.setText("");
+        email.setText("");
+        phone.setText("");
+        panel.switchPanel("InitialView");
+      }
+    }
     }
 }
