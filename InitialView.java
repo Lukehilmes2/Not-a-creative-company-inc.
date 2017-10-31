@@ -31,11 +31,10 @@ public class InitialView extends JPanel{
 	private String[][] accounts;
 	private TableModel model;
 	private Account acctSelected;
-	private JButton btnNoDelete, btnYesDelete;
+	private JButton btnNoDelete, btnYesDelete, btnViewAcct;
 	private JLabel lblDelete;
 
 	public InitialView(MainPanel panel) {
-
 
 		this.panel = panel;
 		BorderLayout border= new BorderLayout();
@@ -43,6 +42,8 @@ public class InitialView extends JPanel{
 		btnDelete = new JButton("Delete Account");
 		btnMakeAcct = new JButton("Make new Account");
 		btnLogOut = new JButton("Logout");
+		btnViewAcct = new JButton("View Account");
+		btnViewAcct.addActionListener(new ButtonListener());
 		btnDelete.addActionListener(new ButtonListener());
 		btnMakeAcct.addActionListener(new ButtonListener());
 		btnLogOut.addActionListener(new ButtonListener());
@@ -53,8 +54,6 @@ public class InitialView extends JPanel{
  		btnNoDelete.addActionListener(new ButtonListener());
  		btnYesDelete.addActionListener(new ButtonListener());
 
-
-
 		JPanel butpan = new JPanel();
 		butpan.setLayout(new BoxLayout(butpan,BoxLayout.Y_AXIS));
 		butpan.add(Box.createVerticalStrut(50));
@@ -63,6 +62,8 @@ public class InitialView extends JPanel{
 		butpan.add(btnMakeAcct);
 		butpan.add(Box.createVerticalStrut(20));
 		butpan.add(btnLogOut);
+		butpan.add(Box.createVerticalStrut(20));
+		butpan.add(btnViewAcct);
 
 		JPanel cdelete = new JPanel();
 		cdelete.setLayout(new BoxLayout(cdelete,BoxLayout.Y_AXIS));
@@ -119,7 +120,6 @@ public class InitialView extends JPanel{
 	    	accounts[i] = temp.get(i);
 	    }
 		return accounts;
-
 	}
 
 	private class TableListener implements MouseListener {
@@ -134,46 +134,47 @@ public class InitialView extends JPanel{
 			String phone = (String)tblAccts.getValueAt(row, 4);
 			acctSelected = new Account(user, fName, lName, email, phone);
 		}
-
-
 		public void mouseEntered(MouseEvent arg0 ){}
-			public void mouseExited(MouseEvent arg0) {}
+		public void mouseExited(MouseEvent arg0) {}
+ 		public void mousePressed(MouseEvent arg0) {}
+ 		public void mouseReleased(MouseEvent arg0) {}
+  	}
+	
+	private class ButtonListener implements ActionListener{
 
-		 		public void mousePressed(MouseEvent arg0) {}
-
-		 		public void mouseReleased(MouseEvent arg0) {}
-		  	}
-		 		private class ButtonListener implements ActionListener{
-
-		 			public void actionPerformed(ActionEvent evt) {
-
-		 				if (evt.getSource() == btnMakeAcct) {
-		 					panel.switchPanel("CreateAcct");
-		 				}
-
-		 				else if (evt.getSource() == btnLogOut) {
-		 					panel.switchPanel("Login");
-		 				}
-		 				else if (evt.getSource() == btnDelete) {
-		 					if(acctSelected != null) {
-		 						lblDelete.setVisible(true);
-		 						btnYesDelete.setVisible(true);
-		 						btnNoDelete.setVisible(true);
-		 					}
-		 				}
-		 				else if (evt.getSource() == btnNoDelete) {
-		 					lblDelete.setVisible(false);
-		 					btnYesDelete.setVisible(false);
-		 					btnNoDelete.setVisible(false);
-		 				}
-
-		 				else if (evt.getSource() == btnYesDelete) {
-		 					lblDelete.setVisible(false);
-		 					btnYesDelete.setVisible(false);
-		 					btnNoDelete.setVisible(false);
-		 					panel.deleteAcct(acctSelected);
-		 					updateTable();
-		 				}
-		 			}
-		 		}
-		  }
+		public void actionPerformed(ActionEvent evt) {
+			if (evt.getSource() == btnMakeAcct) {
+				panel.setAccount(acctSelected);
+				panel.switchPanel("CreateAcct");
+			}
+			else if(evt.getSource() == btnViewAcct) {
+			
+				panel.setAccount(acctSelected);
+				panel.switchPanel("ViewAcct");
+			}
+			else if (evt.getSource() == btnLogOut) {
+				panel.switchPanel("Login");
+			}
+			else if (evt.getSource() == btnDelete) {
+				if(acctSelected != null) {
+					lblDelete.setVisible(true);
+					btnYesDelete.setVisible(true);
+					btnNoDelete.setVisible(true);
+				}
+			}
+				else if (evt.getSource() == btnNoDelete) {
+				lblDelete.setVisible(false);
+				btnYesDelete.setVisible(false);
+				btnNoDelete.setVisible(false);
+			}
+	
+				else if (evt.getSource() == btnYesDelete) {
+				lblDelete.setVisible(false);
+				btnYesDelete.setVisible(false);
+				btnNoDelete.setVisible(false);
+				panel.deleteLine("accounts.txt", acctSelected.toString());
+				updateTable();
+			}
+		}
+	}
+}

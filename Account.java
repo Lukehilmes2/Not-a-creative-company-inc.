@@ -1,4 +1,4 @@
-import java.util.*;
+import java.util.ArrayList;
 class Account {
 
   private String name;
@@ -7,6 +7,7 @@ class Account {
   private String lName;
   private String email;
   private String phone;
+  private ArrayList<Transaction> Transactions;
   
   public Account(String name, String fName, String lName, String email, String phone) {
     this.name = name;
@@ -15,8 +16,18 @@ class Account {
     this.lName = lName;
     this.email = email;
     this.phone = phone;
+    Transactions = new ArrayList<Transaction>();
   }
 
+  public void addTransaction(Transaction transaction) {
+	  
+	  Transactions.add(transaction);
+  }
+  
+  public ArrayList<Transaction> getTransactions() {
+	  
+	  return Transactions;
+  }
   public String getEmail() {	  
 	  return email;
   }

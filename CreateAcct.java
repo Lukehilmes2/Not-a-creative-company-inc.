@@ -1,15 +1,13 @@
+import java.awt.BorderLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.PrintWriter;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
-import java.util.*;
-import java.io.*;
-import javax.swing.border.*;
+import java.io.UnsupportedEncodingException;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -29,13 +27,11 @@ public class CreateAcct extends JPanel {
     public CreateAcct(MainPanel panel)
     {
     	this.panel = panel;
-			setLayout(new BorderLayout());
-			JPanel panel1 = new JPanel(new GridBagLayout());
-			GridBagConstraints cs = new GridBagConstraints();
-
-			cs.fill = GridBagConstraints.HORIZONTAL;
-
-    	acct = new JLabel();
+		setLayout(new BorderLayout());
+		JPanel panel1 = new JPanel(new GridBagLayout());
+		GridBagConstraints cs = new GridBagConstraints();
+		cs.fill = GridBagConstraints.HORIZONTAL;
+		acct = new JLabel();
     	acct.setText("Create a new Account!");
       cs.gridx = 1;
       cs.gridy = 0;
@@ -124,17 +120,10 @@ public class CreateAcct extends JPanel {
 
       back = new JButton("Back");
 
-
-
-
-
-
-
-
       add(panel1,BorderLayout.CENTER);
       add(back,BorderLayout.NORTH);
       back.addActionListener(new ButtonListener());
-    	create.addActionListener(new ButtonListener());
+	create.addActionListener(new ButtonListener());
     }
 
     private class ButtonListener implements ActionListener{
@@ -143,27 +132,30 @@ public class CreateAcct extends JPanel {
     		if (!name.getText().matches(".*\\w.*") || !fName.getText().matches(".*\\w.*") ||
     		!lName.getText().matches(".*\\w.*") || !email.getText().matches(".*\\w.*") ||
     		!phone.getText().matches(".*\\w.*")){
-          badacct.setText("Please fill out all the fields!");
+    			badacct.setText("Please fill out all the fields!");
     			return;
     		}
-
+    		
     		Account acct = new Account(name.getText(), fName.getText(), lName.getText(),
     				email.getText(), phone.getText());
-    		BufferedWriter writer = null;
+    		panel.addLine("accounts.txt", acct.toString());
+    		name.setText("");
+    		fName.setText("");
+    		lName.setText("");
+    		email.setText("");
+    		phone.setText("");
+			File newFile = new File("transactions/" + acct.getName() + ".txt");
+			newFile.getParentFile().mkdirs();
 			try {
-				writer = new BufferedWriter(new FileWriter(file, true));
-				writer.append(acct.toString() + "\n");
-				writer.close();
+				
+				newFile.createNewFile();
 			} catch (IOException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			name.setText("");
-			fName.setText("");
-			lName.setText("");
-			email.setText("");
-			phone.setText("");
-			panel.updateTable();
-			panel.switchPanel("InitialView");
+    		panel.updateTable();
+    		panel.switchPanel("InitialView");
+    		
     	}
       else if(arg0.getSource() == back){
         name.setText("");
