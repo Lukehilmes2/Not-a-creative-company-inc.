@@ -1,21 +1,15 @@
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
 import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
+import java.text.DecimalFormat;
+
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 public class AddTrans extends JPanel {
@@ -25,6 +19,13 @@ public class AddTrans extends JPanel {
 	private JButton btnAddTrans, btnBack;
 	private int txtFieldLength = 20;
 	private MainPanel panel;
+	private JRadioButton btnCCard;
+	private JRadioButton btnCheck;
+	private JRadioButton btnExpense;
+	private ButtonGroup radioBtns;
+	private double ccRate = 1.00;
+	private double uniFee = .92;
+	private int expenseRate = 1;
 	public AddTrans(MainPanel panel) {
 
 		this.panel = panel;
@@ -85,6 +86,20 @@ public class AddTrans extends JPanel {
 		add(panel1,BorderLayout.CENTER);
 		add(panel2,BorderLayout.NORTH);
 
+		btnCCard = new JRadioButton("Credit Card");
+		btnCheck = new JRadioButton("Check");
+		btnExpense = new JRadioButton("Expense");
+		radioBtns = new ButtonGroup();
+	
+		radioBtns.add(btnCCard);
+		radioBtns.add(btnCheck);
+		radioBtns.add(btnExpense);
+		btnCCard.addActionListener(new ButtonListener());
+		btnCheck.addActionListener(new ButtonListener());
+		btnExpense.addActionListener(new ButtonListener());
+		panel1.add(btnCCard);
+		panel1.add(btnCheck);
+		panel1.add(btnExpense);
 	}
 
 	private class ButtonListener implements ActionListener{
@@ -96,14 +111,31 @@ public class AddTrans extends JPanel {
 			}
 			else if (e.getSource() == btnAddTrans) {
 				addTrans();
+				txtAmount.setText("");
+				txtDescription.setText("");
 				panel.switchPanel("ViewAcct");
+			}
+			else if (e.getSource() == btnCCard) {
+				ccRate = .96;
+				expenseRate = 1;
+				uniFee = .92;
+			}
+			else if (e.getSource() == btnCheck) {
+				ccRate = 1.00;
+				expenseRate = 1;
+				uniFee = .92;
+			}
+			else if(e.getSource() == btnExpense) {
+				expenseRate = -1;
+				uniFee = 1.00;
+				ccRate = 1.00;
 			}
 		}
 	}
-
 	private void addTrans() {
-
-		panel.addLine("transactions/" + panel.getAcct().getName() + ".txt", Double.parseDouble(txtAmount.getText()) + "," + txtDescription.getText());
+		
+		double amount = Double.parseDouble(txtAmount.getText())*ccRate*expenseRate*uniFee;
+		panel.addLine("transactions/" + panel.getAcct().getName() + ".txt", amount + "," + txtDescription.getText());
 		panel.updateTrans();
 	}
 }

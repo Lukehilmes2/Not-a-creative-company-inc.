@@ -5,8 +5,11 @@ import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.text.DecimalFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.text.NumberFormat;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -27,13 +30,20 @@ public class ViewAcct extends JPanel {
 	private Transaction transSelected;
 	private JButton btnDelTrans, btnAddTrans, btnBack;
 	private MainPanel panel;
+	private DecimalFormat fmt = new DecimalFormat("$#0.00");
+	NumberFormat $fmt = NumberFormat.getCurrencyInstance();
+	private JLabel lblTotalBalance;
+	
 	public ViewAcct(MainPanel panel) {
 			
 		this.panel = panel;
 		btnDelTrans = new JButton("Delete transaction");
 		btnAddTrans = new JButton("Add transaction");
 		btnBack = new JButton("Back");
+		lblTotalBalance = new JLabel("");
+		add(lblTotalBalance);
 		transactions = new JTable(model);
+		add(lblTotalBalance);
 		updateTable();
 		add(transactions);
 		add(btnDelTrans);
@@ -44,6 +54,17 @@ public class ViewAcct extends JPanel {
 		btnDelTrans.addActionListener(new ButtonListener());
 		btnAddTrans.addActionListener(new ButtonListener());
 		btnBack.addActionListener(new ButtonListener());
+	}
+	
+	private double getTotalBalance() {
+		
+		double total = 0;
+		for (int i = 0; i < transactions.getRowCount(); i++) {
+			
+			total += panel.getDoubleFrom$((String)transactions.getValueAt(i, 0));
+
+		}
+		return total;
 	}
 	
 	private class ButtonListener implements ActionListener {
@@ -69,10 +90,10 @@ public class ViewAcct extends JPanel {
 
 		public void mouseClicked(java.awt.event.MouseEvent evt) {
 
-			int row = transactions.rowAtPoint(evt.getPoint());
-			double amount = Double.parseDouble((String)transactions.getValueAt(row, 0));
-			String description = (String)transactions.getValueAt(row, 1);
-			transSelected = new Transaction(amount, description);
+			int row = transactions.rowAtPoint(evt.getPoint());			
+			double dblAmount = panel.getDoubleFrom$((String)transactions.getValueAt(row, 0));
+			String description = (String)transactions.getValueAt(row,  1);
+			transSelected = new Transaction(dblAmount, description);
 		}
 		public void mouseEntered(MouseEvent arg0 ){}
 		public void mouseExited(MouseEvent arg0) {}
@@ -89,7 +110,6 @@ public class ViewAcct extends JPanel {
 			return new String[0][0];
 		}
 	      try {
-	    	  File folder = new File("transactions");
 	    	  file = new Scanner(new FileReader("transactions/" + account.getName() + ".txt"));
 	      }
 	      catch (FileNotFoundException e) {
@@ -99,6 +119,7 @@ public class ViewAcct extends JPanel {
 	      while (file.hasNext()) {
 	        String nextLine = file.nextLine();
 	        String[] transaction = nextLine.split(",");
+	        transaction[0] = fmt.format(Double.parseDouble(transaction[0]));
 	        temp.add(transaction);
 	      }
 	      String[][] transactions = new String[temp.size()][2];
@@ -118,6 +139,13 @@ public class ViewAcct extends JPanel {
 		    }
 		};
 		transactions.setModel(model);
+		if (account != null) {
+			panel.deleteLine("accounts.txt", account.toString());
+			account.setBalance(getTotalBalance());
+			lblTotalBalance.setText("total balance: " + fmt.format(account.getBalance()));
+			panel.addLine("accounts.txt", account.toString());
+			panel.updateTable();
+		}
 	}
 	
 	public void setAcct(Account account) {
