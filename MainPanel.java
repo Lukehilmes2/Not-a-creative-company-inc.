@@ -21,7 +21,7 @@ public class MainPanel extends JPanel{
 	private ViewAcct pnlViewAcct;
 	private InitialView pnlInitialView;
 	private Account acct;
-	private final String companyName = "NACC inc.";
+	private final String companyName = "Developed by NACC inc.";
 
 	public MainPanel() {
 
@@ -63,13 +63,13 @@ public class MainPanel extends JPanel{
 
 		pnlInitialView.updateTable();
 	}
-	
+
 	public void updateTrans() {
-		
+
 		pnlViewAcct.updateTable();
 	}
 	public void addLine(String filename, String lineToWrite) {
-		
+
 		BufferedWriter writer = null;
 		try {
 			writer = new BufferedWriter(new FileWriter(filename, true));

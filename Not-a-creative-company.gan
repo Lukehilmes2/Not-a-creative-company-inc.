@@ -94,6 +94,10 @@ Cody: 3 hours]]></notes>
             <task id="24" name="individual account table made" color="#8cb6ce" meeting="false" start="2017-10-13" duration="1" complete="0" expand="true">
                 <notes><![CDATA[Max ~ 2 hours
 accounts now separated from user, can be deleted, updated, and both the text file and jtable are updated live]]></notes>
+                <customproperty taskproperty-id="tpc1" value="Max: 2 hours"/>
+            </task>
+            <task id="26" name="Made panels look prettier" meeting="false" start="2017-10-13" duration="1" complete="0" expand="true">
+                <customproperty taskproperty-id="tpc1" value="Luke: 4 hours"/>
             </task>
         </task>
     </tasks>
