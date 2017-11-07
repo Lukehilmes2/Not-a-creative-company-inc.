@@ -17,8 +17,8 @@ public class CreateAcct extends JPanel {
 
 
     private JTextField name;
-	private JTextField fName, lName, email, phone;
-	private JLabel lblName, lblFirstName, lblLastName, lblEmail, lblPhone;
+	  private JTextField fName, lName, email, phone,balance;
+	  private JLabel lblName, lblFirstName, lblLastName, lblEmail, lblPhone,lblBalance;
     private JLabel acct,badacct;
     private JButton create,back;
     private String file = "accounts.txt";
@@ -91,6 +91,19 @@ public class CreateAcct extends JPanel {
       cs.ipady = 20;
       panel1.add(email, cs);
 
+      lblBalance = new JLabel("Starting Balance: ");
+      cs.gridx = 0;
+      cs.gridy = 9;
+      cs.gridwidth = 1;
+      cs.ipady = 20;
+      panel1.add(lblBalance, cs);
+      balance = new JTextField(txtFieldLength);
+      cs.gridx = 1;
+      cs.gridy = 9;
+      cs.gridwidth = 2;
+      cs.ipady = 20;
+      panel1.add(balance, cs);
+
       lblPhone = new JLabel("Phone: ");
       cs.gridx = 0;
       cs.gridy = 10;
@@ -135,7 +148,7 @@ public class CreateAcct extends JPanel {
     			badacct.setText("Please fill out all the fields!");
     			return;
     		}
-    		
+
     		Account acct = new Account(name.getText(), fName.getText(), lName.getText(),
     				email.getText(), phone.getText());
     		panel.addLine("accounts.txt", acct.toString());
@@ -147,7 +160,7 @@ public class CreateAcct extends JPanel {
 			File newFile = new File("transactions/" + acct.getName() + ".txt");
 			newFile.getParentFile().mkdirs();
 			try {
-				
+
 				newFile.createNewFile();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -155,7 +168,7 @@ public class CreateAcct extends JPanel {
 			}
     		panel.updateTable();
     		panel.switchPanel("InitialView");
-    		
+
     	}
       else if(arg0.getSource() == back){
         name.setText("");

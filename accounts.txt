@@ -1,1 +1,6 @@
 maxwell,max,thibeau,k@k.k,555
+<<<<<<< HEAD
+=======
+vlaccaflacca,cody,vlacca,j@j.j,666
+lukeh,luke,hilmes,lkdfjglsjd@sdlkfjgldsk,5423135
+>>>>>>> 682f27b67b342f81fad740061ed94f42896bc3e1
