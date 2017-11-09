@@ -1,1 +1,2 @@
-maxwell,max,thibeau,thibeaumax@gmail.com,4062141680,5.0
+maxwell,max,thibeau,thibeaumax@gmail.com,4062141680,181.64
+lukeh,luke,hilmes,sladkfja@alsdkfj,43985739,660.0

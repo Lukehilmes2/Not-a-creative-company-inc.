@@ -4,7 +4,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -13,6 +13,7 @@ import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 class Login extends JPanel {
 
+  private ImageIcon logo;
   private JTextField username;
   private JPasswordField password;
   private JLabel lblUsername;
@@ -21,7 +22,7 @@ class Login extends JPanel {
   private JButton login;
   private int txtFieldLength = 20;
   private MainPanel panel;
-  private JLabel lblBadLogin;
+  private JLabel lblBadLogin,lblLogo;
 
 
   public Login (MainPanel panel) {
@@ -29,10 +30,18 @@ class Login extends JPanel {
 	  this.panel = panel;
 	  setLayout(new BorderLayout());
 	  JPanel panel1 = new JPanel(new GridBagLayout());
+    JPanel panel2 = new JPanel(new GridBagLayout());
 	  GridBagConstraints cs = new GridBagConstraints();
 
 	  cs.fill = GridBagConstraints.HORIZONTAL;
+  logo = new ImageIcon("logo.jpg");
 
+  lblLogo = new JLabel();
+  lblLogo.setIcon(logo);
+  cs.gridx = 0;
+  cs.gridy = 1;
+  cs.gridwidth = 2;
+  panel2.add(lblLogo, cs);
 	lblUsername = new JLabel("Username: ");
 	cs.gridx = 0;
 	cs.gridy = 0;
@@ -43,7 +52,7 @@ class Login extends JPanel {
 	cs.gridy = 0;
 	cs.gridwidth = 2;
 	panel1.add(username, cs);
-	
+
 	lblPassword = new JLabel("Password: ");
 	cs.gridx = 0;
 	cs.gridy = 1;
@@ -55,13 +64,15 @@ class Login extends JPanel {
 	cs.gridwidth = 2;
 	panel1.add(password, cs);
 	panel1.setBorder(new LineBorder(Color.GRAY));
-	
+
 	login = new JButton("Login");
 	lblBadLogin = new JLabel("");
 	login.addActionListener(new ButtonListener());
 	JPanel bp = new JPanel();
+
 	bp.add(login);
 	bp.add(lblBadLogin);
+  add(panel2,BorderLayout.NORTH);
 	add(panel1, BorderLayout.CENTER);
 	add(bp, BorderLayout.PAGE_END);
 
