@@ -34,14 +34,14 @@ public class AddTrans extends JPanel {
 		setLayout(new BorderLayout());
 		GridBagConstraints cs = new GridBagConstraints();
 		cs.fill = GridBagConstraints.HORIZONTAL;
-		lblAdd = new JLabel("Add transaction: ");
+		lblAdd = new JLabel("Add Transaction: ");
 		cs.gridx = 0;
 		cs.gridy = 1;
 		cs.gridwidth = 1;
 		cs.ipady = 20;
 		panel1.add(lblAdd, cs);
 
-		lblAmount = new JLabel("amount: ");
+		lblAmount = new JLabel("Amount: ");
 		cs.gridx = 0;
 		cs.gridy = 2;
 		cs.gridwidth = 1;
@@ -54,7 +54,7 @@ public class AddTrans extends JPanel {
 		cs.ipady = 20;
 		panel1.add(txtAmount, cs);
 
-		lblDescription = new JLabel("description: ");
+		lblDescription = new JLabel("Description: ");
 		cs.gridx = 0;
 		cs.gridy = 3;
 		cs.gridwidth = 1;
@@ -67,7 +67,7 @@ public class AddTrans extends JPanel {
 		cs.ipady = 20;
 		panel1.add(txtDescription, cs);
 
-		btnAddTrans = new JButton("Add transaction");
+		btnAddTrans = new JButton("Add Transaction");
 		cs.gridx = 1;
 		cs.gridy = 4;
 		cs.gridwidth = 1;
