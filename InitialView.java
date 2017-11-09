@@ -51,8 +51,8 @@ public class InitialView extends JPanel{
 		btnLogOut.addActionListener(new ButtonListener());
 
 		lblTotalBalance = new JLabel("");
-		add(lblTotalBalance);
-		
+
+
 		btnNoDelete = new JButton("No");
  		lblDelete = new JLabel("Are you sure you want to delete your account?");
  		btnYesDelete = new JButton("Yes, delete account");
@@ -69,6 +69,8 @@ public class InitialView extends JPanel{
 		butpan.add(btnLogOut);
 		butpan.add(Box.createVerticalStrut(20));
 		butpan.add(btnViewAcct);
+		butpan.add(Box.createVerticalStrut(20));
+		butpan.add(lblTotalBalance);
 
 		JPanel cdelete = new JPanel();
 		cdelete.setLayout(new BoxLayout(cdelete,BoxLayout.Y_AXIS));
@@ -100,8 +102,8 @@ public class InitialView extends JPanel{
 		double total = 0;
 		for (int i = 0; i < tblAccts.getRowCount(); i++) {
 			total += panel.getDoubleFrom$((String)tblAccts.getValueAt(i, 5));
-		}		
-		lblTotalBalance.setText("total balance: " + fmt.format(total));
+		}
+		lblTotalBalance.setText("Total Balance: " + fmt.format(total));
 	}
 	private String[][] getAccounts() {
 
@@ -145,7 +147,7 @@ public class InitialView extends JPanel{
  		public void mousePressed(MouseEvent arg0) {}
  		public void mouseReleased(MouseEvent arg0) {}
   	}
-	
+
 	private class ButtonListener implements ActionListener{
 
 		public void actionPerformed(ActionEvent evt) {
@@ -154,7 +156,7 @@ public class InitialView extends JPanel{
 				panel.switchPanel("CreateAcct");
 			}
 			else if(evt.getSource() == btnViewAcct) {
-			
+
 				panel.setAccount(acctSelected);
 				panel.switchPanel("ViewAcct");
 			}
@@ -173,7 +175,7 @@ public class InitialView extends JPanel{
 				btnYesDelete.setVisible(false);
 				btnNoDelete.setVisible(false);
 			}
-	
+
 				else if (evt.getSource() == btnYesDelete) {
 				lblDelete.setVisible(false);
 				btnYesDelete.setVisible(false);
