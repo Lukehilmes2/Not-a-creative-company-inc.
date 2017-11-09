@@ -1,12 +1,17 @@
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -14,11 +19,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
-import java.util.*;
-import java.io.*;
 
 public class InitialView extends JPanel{
 
@@ -27,12 +27,14 @@ public class InitialView extends JPanel{
 	private JButton btnMakeAcct;
 	private JButton btnLogOut;
 	private JTable tblAccts;
-	private String[] columnNames = {"Username", "First name", "Last name", "Email", "Phone"};
+	private String[] columnNames = {"Username", "First name", "Last name", "Email", "Phone", "Balance"};
 	private String[][] accounts;
 	private TableModel model;
 	private Account acctSelected;
 	private JButton btnNoDelete, btnYesDelete, btnViewAcct;
 	private JLabel lblDelete;
+	private JLabel lblTotalBalance;
+	private DecimalFormat fmt = new DecimalFormat("$#.00");
 
 	public InitialView(MainPanel panel) {
 
@@ -48,6 +50,9 @@ public class InitialView extends JPanel{
 		btnMakeAcct.addActionListener(new ButtonListener());
 		btnLogOut.addActionListener(new ButtonListener());
 
+		lblTotalBalance = new JLabel("");
+		add(lblTotalBalance);
+		
 		btnNoDelete = new JButton("No");
  		lblDelete = new JLabel("Are you sure you want to delete your account?");
  		btnYesDelete = new JButton("Yes, delete account");
@@ -73,14 +78,8 @@ public class InitialView extends JPanel{
 
 		add(butpan,BorderLayout.WEST);
 		add(cdelete,BorderLayout.NORTH);
-		accounts = getAccounts();
-		model = new DefaultTableModel(accounts, columnNames){
-		    public boolean isCellEditable(int row, int column)
-		    {
-		      return false;//This causes all cells to be not editable
-		    }
-		};
 		tblAccts = new JTable(model);
+		updateTable();
 		add(new JScrollPane(tblAccts),BorderLayout.EAST);
 		lblDelete.setVisible(false);
  		btnYesDelete.setVisible(false);
@@ -98,8 +97,12 @@ public class InitialView extends JPanel{
 		    }
 		};
 		tblAccts.setModel(model);
+		double total = 0;
+		for (int i = 0; i < tblAccts.getRowCount(); i++) {
+			total += panel.getDoubleFrom$((String)tblAccts.getValueAt(i, 5));
+		}		
+		lblTotalBalance.setText("total balance: " + fmt.format(total));
 	}
-
 	private String[][] getAccounts() {
 
 		ArrayList<String[]> temp = new ArrayList<String[]>();
@@ -113,6 +116,8 @@ public class InitialView extends JPanel{
 	      while (file.hasNext()) {
 	        String nextLine = file.nextLine();
 	        String[] account = nextLine.split(",");
+	        String strBalance = account[5];
+	        account[5] = fmt.format(Double.parseDouble(strBalance));
 	        temp.add(account);
 	      }
 	    String[][] accounts = new String[temp.size()][5];
@@ -132,7 +137,8 @@ public class InitialView extends JPanel{
 			String lName = (String)tblAccts.getValueAt(row, 2);
 			String email = (String)tblAccts.getValueAt(row, 3);
 			String phone = (String)tblAccts.getValueAt(row, 4);
-			acctSelected = new Account(user, fName, lName, email, phone);
+			double balance = panel.getDoubleFrom$((String)tblAccts.getValueAt(row, 5));
+			acctSelected = new Account(user, fName, lName, email, phone, balance);
 		}
 		public void mouseEntered(MouseEvent arg0 ){}
 		public void mouseExited(MouseEvent arg0) {}
@@ -172,6 +178,8 @@ public class InitialView extends JPanel{
 				lblDelete.setVisible(false);
 				btnYesDelete.setVisible(false);
 				btnNoDelete.setVisible(false);
+				File transactionFile = new File("transactions/" + acctSelected.getName() + ".txt");
+				transactionFile.delete();
 				panel.deleteLine("accounts.txt", acctSelected.toString());
 				updateTable();
 			}

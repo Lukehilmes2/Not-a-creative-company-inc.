@@ -1,9 +1,8 @@
-
 public class Transaction {
 
 	private double amount;
 	private String description;
-	
+
 	public Transaction(double amount, String description) {
 		
 		this.amount = amount;

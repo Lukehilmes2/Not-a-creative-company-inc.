@@ -7,9 +7,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
-import java.nio.file.Files;
 
 import javax.swing.JPanel;
 
@@ -67,6 +64,20 @@ public class MainPanel extends JPanel{
 	public void updateTrans() {
 
 		pnlViewAcct.updateTable();
+	}
+	
+	public double getDoubleFrom$(String str) {
+		int isNegative = 1;
+		if (str.substring(0, 1).equals("-")) {
+			isNegative = -1;
+			String temp = str.substring(2, str.length());
+			str = temp;
+		}
+		else {
+			String temp = str.substring(1, str.length());
+			str = temp;
+		}
+		return Double.parseDouble(str)*isNegative;
 	}
 	public void addLine(String filename, String lineToWrite) {
 

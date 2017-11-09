@@ -2,31 +2,20 @@ import java.util.ArrayList;
 class Account {
 
   private String name;
-  private int balance;
+  private double balance = 0;
   private String fName;
   private String lName;
   private String email;
   private String phone;
-  private ArrayList<Transaction> Transactions;
   
-  public Account(String name, String fName, String lName, String email, String phone) {
+  public Account(String name, String fName, String lName, String email, String phone, double balance) {
     this.name = name;
     this.balance = 0;
     this.fName = fName;
     this.lName = lName;
     this.email = email;
     this.phone = phone;
-    Transactions = new ArrayList<Transaction>();
-  }
-
-  public void addTransaction(Transaction transaction) {
-	  
-	  Transactions.add(transaction);
-  }
-  
-  public ArrayList<Transaction> getTransactions() {
-	  
-	  return Transactions;
+    this.balance = balance;
   }
   public String getEmail() {	  
 	  return email;
@@ -46,8 +35,14 @@ class Account {
   public String getlName() {
 	  return lName;
   }
+  public double getBalance() {
+	  return balance;
+  }
+  public void setBalance(double balance) {
+	  this.balance = balance;
+  }
   
   public String toString() {
-    return name + "," + fName + "," + lName + "," + email + "," + phone;
+    return name + "," + fName + "," + lName + "," + email + "," + phone + "," + balance;
   }
 }

@@ -4,9 +4,7 @@ import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -17,8 +15,8 @@ public class CreateAcct extends JPanel {
 
 
     private JTextField name;
-	  private JTextField fName, lName, email, phone,balance;
-	  private JLabel lblName, lblFirstName, lblLastName, lblEmail, lblPhone,lblBalance;
+	private JTextField fName, lName, email, phone,balance;
+	private JLabel lblName, lblFirstName, lblLastName, lblEmail, lblPhone,lblBalance;
     private JLabel acct,badacct;
     private JButton create,back;
     private String file = "accounts.txt";
@@ -148,24 +146,21 @@ public class CreateAcct extends JPanel {
     			badacct.setText("Please fill out all the fields!");
     			return;
     		}
-
     		Account acct = new Account(name.getText(), fName.getText(), lName.getText(),
-    				email.getText(), phone.getText());
+    				email.getText(), phone.getText(), Double.parseDouble(balance.getText()));
     		panel.addLine("accounts.txt", acct.toString());
+    		if (acct.getBalance() != 0) {
+        		panel.addLine("transactions/" + acct.getName() + ".txt", acct.getBalance() + ",starting balance");	
+    		}
+    		else {
+        		panel.addLine("transactions/" + acct.getName() + ".txt", "");	
+    		}
     		name.setText("");
     		fName.setText("");
     		lName.setText("");
     		email.setText("");
     		phone.setText("");
-			File newFile = new File("transactions/" + acct.getName() + ".txt");
-			newFile.getParentFile().mkdirs();
-			try {
-
-				newFile.createNewFile();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+    		balance.setText("");
     		panel.updateTable();
     		panel.switchPanel("InitialView");
 
