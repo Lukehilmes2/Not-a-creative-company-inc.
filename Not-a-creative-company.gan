@@ -84,7 +84,7 @@ Cody: 3 hours]]></notes>
 accounts now separated from user, can be deleted, updated, and both the text file and jtable are updated live]]></notes>
             </task>
         </task>
-        <task id="25" name="Sprint3" meeting="false" start="2017-10-13" duration="17" complete="0" expand="true">
+        <task id="25" name="Sprint3" meeting="false" start="2017-10-13" duration="23" complete="0" expand="true">
             <task id="27" name="transaction types, account totals" color="#8cb6ce" meeting="false" start="2017-11-06" duration="1" complete="0" expand="true">
                 <customproperty taskproperty-id="tpc1" value="Max: 2.5 hours"/>
             </task>
@@ -96,13 +96,21 @@ accounts now separated from user, can be deleted, updated, and both the text fil
                 <task id="30" name="Design" meeting="false" start="2017-10-13" duration="1" complete="0" expand="true">
                     <customproperty taskproperty-id="tpc1" value="Luke: 1 Hour"/>
                 </task>
+                <task id="35" name="Add to powerpoint" color="#8cb6ce" meeting="false" start="2017-10-13" duration="1" complete="0" expand="true">
+                    <customproperty taskproperty-id="tpc1" value="Cody 1 Hour"/>
+                </task>
             </task>
             <task id="31" name="Bug fixing" color="#8cb6ce" meeting="false" start="2017-10-13" duration="1" complete="0" expand="true">
                 <notes><![CDATA[Luke: 1.5 Hours
 Cody: 1.5 Hours]]></notes>
                 <customproperty taskproperty-id="tpc1" value="All"/>
             </task>
-            <task id="33" name="GUI processing" meeting="false" start="2017-10-13" duration="1" complete="0" expand="true">
+            <task id="39" name="Updated powerpoint for sprint 3" color="#8cb6ce" meeting="false" start="2017-10-13" duration="23" complete="0" expand="true">
+                <customproperty taskproperty-id="tpc1" value="Cody 1 Hour"/>
+            </task>
+            <task id="33" name="GUI processing" color="#8cb6ce" meeting="false" start="2017-10-13" duration="23" complete="0" expand="true">
+                <notes><![CDATA[Cody 1 hour
+]]></notes>
                 <customproperty taskproperty-id="tpc1" value="Luke: 1 Hour"/>
             </task>
         </task>
