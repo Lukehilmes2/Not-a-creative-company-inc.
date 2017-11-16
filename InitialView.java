@@ -31,11 +31,10 @@ public class InitialView extends JPanel{
 	private String[][] accounts;
 	private TableModel model;
 	private Account acctSelected;
-	private JButton btnNoDelete, btnYesDelete, btnViewAcct;
+	private JButton btnNoDelete, btnYesDelete, btnViewAcct, btnBenefits;
 	private JLabel lblDelete;
 	private JLabel lblTotalBalance;
 	private DecimalFormat fmt = new DecimalFormat("$#.00");
-
 	public InitialView(MainPanel panel) {
 
 		this.panel = panel;
@@ -45,14 +44,15 @@ public class InitialView extends JPanel{
 		btnMakeAcct = new JButton("Make new Account");
 		btnLogOut = new JButton("Logout");
 		btnViewAcct = new JButton("View Account");
+		btnBenefits = new JButton("Benefits");
+		btnBenefits.addActionListener(new ButtonListener());
 		btnViewAcct.addActionListener(new ButtonListener());
 		btnDelete.addActionListener(new ButtonListener());
 		btnMakeAcct.addActionListener(new ButtonListener());
 		btnLogOut.addActionListener(new ButtonListener());
 
 		lblTotalBalance = new JLabel("");
-
-
+		
 		btnNoDelete = new JButton("No");
  		lblDelete = new JLabel("Are you sure you want to delete your account?");
  		btnYesDelete = new JButton("Yes, delete account");
@@ -69,6 +69,8 @@ public class InitialView extends JPanel{
 		butpan.add(btnLogOut);
 		butpan.add(Box.createVerticalStrut(20));
 		butpan.add(btnViewAcct);
+		butpan.add(Box.createVerticalStrut(20));
+		butpan.add(btnBenefits);
 		butpan.add(Box.createVerticalStrut(20));
 		butpan.add(lblTotalBalance);
 
@@ -162,6 +164,9 @@ public class InitialView extends JPanel{
 			}
 			else if (evt.getSource() == btnLogOut) {
 				panel.switchPanel("Login");
+			}
+			else if (evt.getSource() == btnBenefits) {
+				panel.switchPanel("Benefits");
 			}
 			else if (evt.getSource() == btnDelete) {
 				if(acctSelected != null) {
