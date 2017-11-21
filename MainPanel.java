@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 public class MainPanel extends JPanel{
 
 	private CardLayout cards;
-	private JPanel pnlLogin, pnlCreateAcct, pnlConfirmDelete, pnlAddTrans;
+	private JPanel pnlLogin, pnlCreateAcct, pnlConfirmDelete, pnlAddTrans, pnlBenefits;
 	private ViewAcct pnlViewAcct;
 	private InitialView pnlInitialView;
 	private Account acct;
@@ -29,11 +29,13 @@ public class MainPanel extends JPanel{
 		pnlCreateAcct = new CreateAcct(this);
 		pnlViewAcct = new ViewAcct(this);
 		pnlAddTrans = new AddTrans(this);
+		pnlBenefits = new Benefits(this);
 		add(pnlLogin, "Login");
 		add(pnlInitialView, "InitialView");
 		add(pnlCreateAcct, "CreateAcct");
 		add(pnlViewAcct, "ViewAcct");
 		add(pnlAddTrans, "AddTrans");
+		add(pnlBenefits, "Benefits");
 		cards.show(this, "Login");
 	}
 
