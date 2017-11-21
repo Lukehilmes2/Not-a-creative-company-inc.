@@ -39,6 +39,9 @@ public class MainPanel extends JPanel{
 		cards.show(this, "Login");
 	}
 
+	public String[][] getAccounts() {
+		return pnlInitialView.getAccounts();
+	}
 	public void setAccount(Account acct) {
 		this.acct = acct;
 		pnlViewAcct.setAcct(acct);

@@ -134,7 +134,7 @@ public class CreateAcct extends JPanel {
       add(panel1,BorderLayout.CENTER);
       add(back,BorderLayout.NORTH);
       back.addActionListener(new ButtonListener());
-	create.addActionListener(new ButtonListener());
+      create.addActionListener(new ButtonListener());
     }
 
     private class ButtonListener implements ActionListener{
@@ -145,6 +145,14 @@ public class CreateAcct extends JPanel {
     		!phone.getText().matches(".*\\w.*")){
     			badacct.setText("Please fill out all the fields!");
     			return;
+    		}
+    		String[][] accounts = panel.getAccounts();
+    		for (int i = 0; i < accounts.length; i++) {
+    			String userName = accounts[i][0];
+    			if (name.getText().equals(userName)) {			
+    				badacct.setText("another account already exists with that name");
+    				return;
+    			}
     		}
     		Account acct = new Account(name.getText(), fName.getText(), lName.getText(),
     				email.getText(), phone.getText(), Double.parseDouble(balance.getText()));
@@ -171,6 +179,7 @@ public class CreateAcct extends JPanel {
         lName.setText("");
         email.setText("");
         phone.setText("");
+        badacct.setText("");
         panel.switchPanel("InitialView");
       }
     }

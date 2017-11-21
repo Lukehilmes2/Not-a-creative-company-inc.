@@ -37,6 +37,7 @@ public class InitialView extends JPanel{
 	private JLabel lblEmptyAccount;
 	private final String strEmptyAccount = "This account can't be deleted because it has transactions";
 	private DecimalFormat fmt = new DecimalFormat("$#.00");
+	private String[][] transactions;
 	public InitialView(MainPanel panel) {
 
 		this.panel = panel;
@@ -93,10 +94,15 @@ public class InitialView extends JPanel{
  		btnNoDelete.setVisible(false);
 		tblAccts.addMouseListener(new TableListener());
 	}
+	
+	public String[][] getAccounts() {
+		
+		return accounts;
+	}
 
 	public void updateTable() {
 
-		accounts = getAccounts();
+		accounts = getAccountsFromText();
 		model = new DefaultTableModel(accounts, columnNames){
 		    public boolean isCellEditable(int row, int column)
 		    {
@@ -110,7 +116,8 @@ public class InitialView extends JPanel{
 		}
 		lblTotalBalance.setText("Total Balance: " + fmt.format(total));
 	}
-	private String[][] getAccounts() {
+	
+	private String[][] getAccountsFromText() {
 
 		ArrayList<String[]> temp = new ArrayList<String[]>();
 		Scanner file = null;

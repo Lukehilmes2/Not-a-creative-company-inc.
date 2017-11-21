@@ -93,7 +93,7 @@ public class ViewAcct extends JPanel {
 			int row = transactions.rowAtPoint(evt.getPoint());			
 			double dblAmount = panel.getDoubleFrom$((String)transactions.getValueAt(row, 0));
 			String description = (String)transactions.getValueAt(row,  1);
-			transSelected = new Transaction(dblAmount, description);
+			transSelected = new Transaction(dblAmount, description, 0);
 		}
 		public void mouseEntered(MouseEvent arg0 ){}
 		public void mouseExited(MouseEvent arg0) {}
