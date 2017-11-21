@@ -100,7 +100,7 @@ public class AddTrans extends JPanel implements ActionListener {
 		panel1.add(Codes, cs);
 		Codes.addActionListener(this);
 	}
-	public void actionPerformed(ActionEvent e) {
+public void actionPerformed(ActionEvent e) {
 				String curCode = Codes.getSelectedItem().toString();
 				Character g = curCode.charAt(0);
 
@@ -118,7 +118,7 @@ public class AddTrans extends JPanel implements ActionListener {
 					uniFee = .92;
 				}
 				else if (g =='6' ){
-					
+
 					expenseRate = -1;
 					uniFee = 1.00;
 					ccRate = 1.00;
