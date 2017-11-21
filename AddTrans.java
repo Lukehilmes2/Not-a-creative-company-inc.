@@ -4,7 +4,7 @@ import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
-
+import javax.swing.*;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
-public class AddTrans extends JPanel {
+public class AddTrans extends JPanel implements ActionListener {
 
 	private JLabel lblAmount, lblDescription, lblAdd;
 	private JTextField txtAmount, txtDescription;
@@ -26,6 +26,8 @@ public class AddTrans extends JPanel {
 	private double ccRate = 1.00;
 	private double uniFee = .92;
 	private int expenseRate = 1;
+	private String[] codesList= {"50109 Other Income","50287 Credit Card Sales","61123 Contract Faculty","61225 Student","62210 Minor Equipment","62241 Office Supplies","62245 Computer Equipment <$5000","62249 Minor Software < $100,000","62255 Promotional Aids","62280 Program Expense","62282 Ink","62315 Advertising-Newspaper Non Re","62817 Meeting & Conference Cost","62852 Bank Service Charges"};
+	private JComboBox Codes;
 	public AddTrans(MainPanel panel) {
 
 		this.panel = panel;
@@ -90,21 +92,50 @@ public class AddTrans extends JPanel {
 		btnCheck = new JRadioButton("Check");
 		btnExpense = new JRadioButton("Expense");
 		radioBtns = new ButtonGroup();
-	
-		radioBtns.add(btnCCard);
-		radioBtns.add(btnCheck);
-		radioBtns.add(btnExpense);
-		btnCCard.addActionListener(new ButtonListener());
-		btnCheck.addActionListener(new ButtonListener());
-		btnExpense.addActionListener(new ButtonListener());
-		panel1.add(btnCCard);
-		panel1.add(btnCheck);
-		panel1.add(btnExpense);
+	  Codes = new JComboBox(codesList);
+		cs.gridx = 1;
+		cs.gridy = 0;
+		cs.gridwidth = 1;
+		cs.ipady = 20;
+		panel1.add(Codes, cs);
+		Codes.addActionListener(this);
 	}
+	public void actionPerformed(ActionEvent e) {
+				String curCode = Codes.getSelectedItem().toString();
+				Character g = curCode.charAt(0);
+
+				if (curCode.contains("Credit")) {
+
+					ccRate = .96;
+					expenseRate = 1;
+					uniFee = .92;
+
+				}
+				else if (curCode.contains("50109")) {
+
+					ccRate = 1.00;
+					expenseRate = 1;
+					uniFee = .92;
+				}
+				else if (g =='6' ){
+					
+					expenseRate = -1;
+					uniFee = 1.00;
+					ccRate = 1.00;
+				}
+}
+
+
+
+
+
 
 	private class ButtonListener implements ActionListener{
 
 		public void actionPerformed(ActionEvent e) {
+			String curCode = Codes.getSelectedItem().toString();
+			Character g = curCode.charAt(0);
+			System.out.println(g);
 
 			if (e.getSource() == btnBack) {
 				panel.switchPanel("ViewAcct");
@@ -115,25 +146,11 @@ public class AddTrans extends JPanel {
 				txtDescription.setText("");
 				panel.switchPanel("ViewAcct");
 			}
-			else if (e.getSource() == btnCCard) {
-				ccRate = .96;
-				expenseRate = 1;
-				uniFee = .92;
-			}
-			else if (e.getSource() == btnCheck) {
-				ccRate = 1.00;
-				expenseRate = 1;
-				uniFee = .92;
-			}
-			else if(e.getSource() == btnExpense) {
-				expenseRate = -1;
-				uniFee = 1.00;
-				ccRate = 1.00;
-			}
+
 		}
 	}
 	private void addTrans() {
-		
+
 		double amount = Double.parseDouble(txtAmount.getText())*ccRate*expenseRate*uniFee;
 		panel.addLine("transactions/" + panel.getAcct().getName() + ".txt", amount + "," + txtDescription.getText());
 		panel.updateTrans();
