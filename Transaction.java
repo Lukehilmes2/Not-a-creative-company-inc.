@@ -7,23 +7,26 @@ public class Transaction {
 	private Date date;
 	private int code;
 	private double fines = 0;
+	private String account;
 	
-	public Transaction(double amount, String description, int code) {
+	public Transaction(String account, double amount, String description, int code) {
 		
+		this.account = account;
 		date = new Date();
 		this.amount = amount;
 		this.description = description;
 		this.code = code;
 	}
 	
-	public Transaction(Date date, double amount, int code, String description) {
+	public Transaction(String account, Date date, double amount, int code, String description) {
 		
+		this.account = account;
 		this.date = date;
 		this.amount = amount;
 		this.description = description;
 		this.code = code;
 	}
-	
+
 	public void setFines (double fines) {
 		this.fines = fines;
 	}
@@ -43,6 +46,6 @@ public class Transaction {
 	
 	public String toString() {
 		
-		return amount + "," + description;
+		return account + "," + date.toString() + "," + amount + "," + code + "," + description;
 	}
 }

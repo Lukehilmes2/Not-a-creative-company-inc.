@@ -3,16 +3,14 @@ class Account {
 
   private String name;
   private double balance = 0;
-  private String fName;
-  private String lName;
+  private String description;
   private String email;
   private String phone;
   
-  public Account(String name, String fName, String lName, String email, String phone, double balance) {
+  public Account(String name, String description, String email, String phone, double balance) {
     this.name = name;
     this.balance = 0;
-    this.fName = fName;
-    this.lName = lName;
+    this.description = description;
     this.email = email;
     this.phone = phone;
     this.balance = balance;
@@ -28,12 +26,8 @@ class Account {
 	  return name;
   }
   
-  public String getfName() {
-	  return fName;
-  }
-  
-  public String getlName() {
-	  return lName;
+  public String getDescription() {
+	  return description;
   }
   public double getBalance() {
 	  return balance;
@@ -43,6 +37,6 @@ class Account {
   }
   
   public String toString() {
-    return name + "," + fName + "," + lName + "," + email + "," + phone + "," + balance;
+    return name + "," + description + "," + email + "," + phone + "," + balance;
   }
 }

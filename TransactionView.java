@@ -6,11 +6,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.text.DecimalFormat;
-import java.text.ParseException;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
-import java.text.NumberFormat;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -21,30 +20,30 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 
-public class ViewAcct extends JPanel {
+public class TransactionView extends JPanel {
 
-	private Account account;
+	private String acctName;
 	private JTable transactions;
-	private String[] columnNames = {"date", "amount", "code", "description"};
+	private String[] columnNames = {"account", "date", "amount", "code", "description"};
 	private String[][] transData;
 	private TableModel model;
 	private Transaction transSelected;
-	private JButton btnDelTrans, btnAddTrans, btnYesDelete, btnNoDelete, btnBack;
+	private JButton btnDelTrans, btnYesDelete, btnNoDelete, btnAddTrans, btnBack;
 	private MainPanel panel;
 	private JLabel lblDelete;
 	private DecimalFormat fmt = new DecimalFormat("$#0.00");
 	NumberFormat $fmt = NumberFormat.getCurrencyInstance();
 	private JLabel lblTotalBalance;
 	
-	public ViewAcct(MainPanel panel) {
+	public TransactionView(MainPanel panel) {
 			
 		this.panel = panel;
 		btnDelTrans = new JButton("Delete transaction");
-		lblDelete = new JLabel("Are you sure you want to delete this transaction?");
-		btnYesDelete = new JButton("Yes, delete account");
+		btnYesDelete = new JButton("Yes, delete transaction");
 		btnNoDelete = new JButton("No, don't delete");
 		btnAddTrans = new JButton("Add transaction");
 		btnBack = new JButton("Back");
+		lblDelete = new JLabel("Are you sure you want to delete this account?");
 		lblTotalBalance = new JLabel("");
 		add(lblTotalBalance);
 		transactions = new JTable(model);
@@ -57,9 +56,9 @@ public class ViewAcct extends JPanel {
 		add(lblDelete);
 		add(btnYesDelete);
 		add(btnNoDelete);
-		lblDelete.setVisible(false);
 		btnYesDelete.setVisible(false);
 		btnNoDelete.setVisible(false);
+		lblDelete.setVisible(false);
 		add(new JScrollPane(transactions));
 		transactions.addMouseListener(new TableListener());
 		btnDelTrans.addActionListener(new ButtonListener());
@@ -72,9 +71,8 @@ public class ViewAcct extends JPanel {
 	private double getTotalBalance() {
 		
 		double total = 0;
-		for (int i = 0; i < transactions.getRowCount(); i++) {
-			
-			total += panel.getDoubleFrom$((String)transactions.getValueAt(i, 1));
+		for (int i = 0; i < transactions.getRowCount(); i++) {			
+			total += panel.getDoubleFrom$((String)transactions.getValueAt(i, 2));
 		}
 		return total;
 	}
@@ -84,26 +82,22 @@ public class ViewAcct extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 			
 			if (e.getSource() == btnBack) {
-				setAcct(null);
 				panel.switchPanel("InitialView");
-			}
-			else if (e.getSource() == btnDelTrans) {
-				
-				lblDelete.setVisible(true);
-				btnYesDelete.setVisible(true);
-				btnNoDelete.setVisible(true);
 			}
 			else if (e.getSource() == btnYesDelete) {
 				lblDelete.setVisible(false);
 				btnYesDelete.setVisible(false);
 				btnNoDelete.setVisible(false);
-				panel.deleteLine("transactions/" + account.getName() + ".txt", transSelected.toString());
+				panel.deleteLine("transactions/" + acctName + ".txt", transSelected.toString());
 				panel.updateTrans();
 			}
 			else if (e.getSource() == btnNoDelete) {
 				lblDelete.setVisible(false);
 				btnYesDelete.setVisible(false);
 				btnNoDelete.setVisible(false);
+			}
+			else if (e.getSource() == btnAddTrans) {
+				panel.switchPanel("AddTrans");
 			}
 			else if (e.getSource() == btnAddTrans) {
 				panel.switchPanel("AddTrans");
@@ -116,11 +110,12 @@ public class ViewAcct extends JPanel {
 		public void mouseClicked(java.awt.event.MouseEvent evt) {
 
 			int row = transactions.rowAtPoint(evt.getPoint());		
-			String date = (String)transactions.getValueAt(row, 0);
-			double dblAmount = panel.getDoubleFrom$((String)transactions.getValueAt(row, 1));
-			int code = Integer.parseInt((String)transactions.getValueAt(row, 2));
-			String description = (String)transactions.getValueAt(row,  3);
-			transSelected = new Transaction(account.getName(), new Date(date), dblAmount, code, description);
+			acctName = (String)transactions.getValueAt(row, 0);
+			String date = (String)transactions.getValueAt(row, 1);
+			double dblAmount = panel.getDoubleFrom$((String)transactions.getValueAt(row, 2));
+			int code = Integer.parseInt((String)transactions.getValueAt(row, 3));
+			String description = (String)transactions.getValueAt(row,  4);
+			transSelected = new Transaction(acctName, new Date(date), dblAmount, code, description);
 		}
 		public void mouseEntered(MouseEvent arg0 ){}
 		public void mouseExited(MouseEvent arg0) {}
@@ -132,32 +127,31 @@ public class ViewAcct extends JPanel {
 
 		
 		ArrayList<String[]> temp = new ArrayList<String[]>();
-		Scanner file = null;
-		if(account == null) {
-			return new String[0][0];
+		File[] folder = null;
+		folder = new File("transactions/").listFiles();
+		for(File file: folder) {  
+			Scanner s = null;
+			try {
+				s = new Scanner(new FileReader(file));
+			}
+			catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+			while (s.hasNext()) {
+				Scanner nextLine = new Scanner(s.nextLine());
+				nextLine.useDelimiter(",");
+				while (nextLine.hasNext()) {
+					String account = nextLine.next();
+					String date = nextLine.next();
+					String amount = fmt.format(Double.parseDouble(nextLine.next()));
+					String description = nextLine.next();
+					String code = nextLine.next();
+					String[] row = {account, date, amount, description, code};
+					temp.add(row);
+				}
+    	  	}
 		}
-	      try {
-	    	  file = new Scanner(new FileReader("transactions/" + account.getName() + ".txt"));
-	      }
-	      catch (FileNotFoundException e) {
-	        e.printStackTrace();
-	        return null;
-	      }
-	      while (file.hasNext()) {
-	        Scanner nextLine = new Scanner(file.nextLine());
-	        nextLine.useDelimiter(",");
-	        while (nextLine.hasNext()) {
-	        	String account = nextLine.next();
-				String date = nextLine.next();
-				String amount = fmt.format(Double.parseDouble(nextLine.next()));
-				String description = nextLine.next();
-				String code = nextLine.next();
-				String[] row = {date, amount, description, code};
-				temp.add(row);
-	        }
-
-	      }
-	      String[][] transactions = new String[temp.size()][2];
+	      String[][] transactions = new String[temp.size()][5];
 	      for (int i = 0; i < transactions.length; i++) {
 	    	  transactions[i] = temp.get(i);
 	      }
@@ -174,18 +168,5 @@ public class ViewAcct extends JPanel {
 		    }
 		};
 		transactions.setModel(model);
-		if (account != null) {
-			panel.deleteLine("accounts.txt", account.toString());
-			account.setBalance(getTotalBalance());
-			lblTotalBalance.setText("total balance: " + fmt.format(account.getBalance()));
-			panel.addLine("accounts.txt", account.toString());
-			panel.updateTable();
-		}
-	}
-	
-	public void setAcct(Account account) {
-		
-		this.account = account;
-		updateTable();
 	}
 }

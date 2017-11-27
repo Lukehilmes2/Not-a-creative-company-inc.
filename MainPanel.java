@@ -17,6 +17,7 @@ public class MainPanel extends JPanel{
 	private JPanel pnlLogin, pnlCreateAcct, pnlConfirmDelete, pnlAddTrans, pnlBenefits;
 	private ViewAcct pnlViewAcct;
 	private InitialView pnlInitialView;
+	private TransactionView pnlTransactionView;
 	private Account acct;
 	private final String companyName = "Developed by NACC inc.";
 
@@ -30,12 +31,14 @@ public class MainPanel extends JPanel{
 		pnlViewAcct = new ViewAcct(this);
 		pnlAddTrans = new AddTrans(this);
 		pnlBenefits = new Benefits(this);
+		pnlTransactionView = new TransactionView(this);
 		add(pnlLogin, "Login");
 		add(pnlInitialView, "InitialView");
 		add(pnlCreateAcct, "CreateAcct");
 		add(pnlViewAcct, "ViewAcct");
 		add(pnlAddTrans, "AddTrans");
 		add(pnlBenefits, "Benefits");
+		add(pnlTransactionView, "TransactionView");
 		cards.show(this, "Login");
 	}
 
@@ -69,6 +72,7 @@ public class MainPanel extends JPanel{
 	public void updateTrans() {
 
 		pnlViewAcct.updateTable();
+		pnlTransactionView.updateTable();
 	}
 	
 	public double getDoubleFrom$(String str) {

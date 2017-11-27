@@ -13,6 +13,7 @@ import java.util.Scanner;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -27,11 +28,11 @@ public class InitialView extends JPanel{
 	private JButton btnMakeAcct;
 	private JButton btnLogOut;
 	private JTable tblAccts;
-	private String[] columnNames = {"Username", "First name", "Last name", "Email", "Phone", "Balance"};
+	private String[] columnNames = {"Username", "Description", "Email", "Phone", "Balance"};
 	private String[][] accounts;
 	private TableModel model;
 	private Account acctSelected;
-	private JButton btnNoDelete, btnYesDelete, btnViewAcct, btnBenefits;
+	private JButton btnNoDelete, btnYesDelete, btnViewAcct, btnBenefits , btnTransactions;
 	private JLabel lblDelete;
 	private JLabel lblTotalBalance;
 	private JLabel lblEmptyAccount;
@@ -48,12 +49,13 @@ public class InitialView extends JPanel{
 		btnLogOut = new JButton("Logout");
 		btnViewAcct = new JButton("View Account");
 		btnBenefits = new JButton("Benefits");
+		btnTransactions = new JButton("Transactions");
 		btnBenefits.addActionListener(new ButtonListener());
 		btnViewAcct.addActionListener(new ButtonListener());
 		btnDelete.addActionListener(new ButtonListener());
 		btnMakeAcct.addActionListener(new ButtonListener());
 		btnLogOut.addActionListener(new ButtonListener());
-
+		btnTransactions.addActionListener(new ButtonListener());
 		lblTotalBalance = new JLabel("");
 		
 		btnNoDelete = new JButton("No");
@@ -77,7 +79,8 @@ public class InitialView extends JPanel{
 		butpan.add(btnBenefits);
 		butpan.add(Box.createVerticalStrut(20));
 		butpan.add(lblTotalBalance);
-
+		butpan.add(Box.createVerticalStrut(20));
+		butpan.add(btnTransactions);
 		JPanel cdelete = new JPanel();
 		cdelete.setLayout(new BoxLayout(cdelete,BoxLayout.Y_AXIS));
 		cdelete.add(lblDelete);
@@ -112,7 +115,7 @@ public class InitialView extends JPanel{
 		tblAccts.setModel(model);
 		double total = 0;
 		for (int i = 0; i < tblAccts.getRowCount(); i++) {
-			total += panel.getDoubleFrom$((String)tblAccts.getValueAt(i, 5));
+			total += panel.getDoubleFrom$((String)tblAccts.getValueAt(i, 4));
 		}
 		lblTotalBalance.setText("Total Balance: " + fmt.format(total));
 	}
@@ -130,8 +133,8 @@ public class InitialView extends JPanel{
 	      while (file.hasNext()) {
 	        String nextLine = file.nextLine();
 	        String[] account = nextLine.split(",");
-	        String strBalance = account[5];
-	        account[5] = fmt.format(Double.parseDouble(strBalance));
+	        String strBalance = account[4];
+	        account[4] = fmt.format(Double.parseDouble(strBalance));
 	        temp.add(account);
 	      }
 	    String[][] accounts = new String[temp.size()][5];
@@ -147,12 +150,11 @@ public class InitialView extends JPanel{
 
 			int row = tblAccts.rowAtPoint(evt.getPoint());
 			String user = (String)tblAccts.getValueAt(row, 0);
-			String fName = (String)tblAccts.getValueAt(row, 1);
-			String lName = (String)tblAccts.getValueAt(row, 2);
-			String email = (String)tblAccts.getValueAt(row, 3);
-			String phone = (String)tblAccts.getValueAt(row, 4);
-			double balance = panel.getDoubleFrom$((String)tblAccts.getValueAt(row, 5));
-			acctSelected = new Account(user, fName, lName, email, phone, balance);
+			String description = (String)tblAccts.getValueAt(row, 1);
+			String email = (String)tblAccts.getValueAt(row, 2);
+			String phone = (String)tblAccts.getValueAt(row, 3);
+			double balance = panel.getDoubleFrom$((String)tblAccts.getValueAt(row, 4));
+			acctSelected = new Account(user, description, email, phone, balance);
 		}
 		public void mouseEntered(MouseEvent arg0 ){}
 		public void mouseExited(MouseEvent arg0) {}
@@ -177,6 +179,9 @@ public class InitialView extends JPanel{
 			}
 			else if (evt.getSource() == btnBenefits) {
 				panel.switchPanel("Benefits");
+			}
+			else if (evt.getSource() == btnTransactions) {
+				panel.switchPanel("TransactionView");
 			}
 			else if (evt.getSource() == btnDelete) {
 				if(acctSelected != null) {

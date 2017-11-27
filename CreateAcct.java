@@ -15,8 +15,8 @@ public class CreateAcct extends JPanel {
 
 
     private JTextField name;
-	private JTextField fName, lName, email, phone,balance;
-	private JLabel lblName, lblFirstName, lblLastName, lblEmail, lblPhone,lblBalance;
+	private JTextField description, email, phone,balance;
+	private JLabel lblName, lblDescription, lblEmail, lblPhone,lblBalance;
     private JLabel acct,badacct;
     private JButton create,back;
     private String file = "accounts.txt";
@@ -50,31 +50,18 @@ public class CreateAcct extends JPanel {
       cs.ipady = 20;
       panel1.add(name, cs);
 
-      lblFirstName = new JLabel("First name: ");
+      lblDescription = new JLabel("Description: ");
       cs.gridx = 0;
       cs.gridy = 4;
       cs.gridwidth = 1;
       cs.ipady = 20;
-      panel1.add(lblFirstName, cs);
-    	fName = new JTextField(txtFieldLength);
+      panel1.add(lblDescription, cs);
+    	description = new JTextField(txtFieldLength);
       cs.gridx = 1;
       cs.gridy = 4;
       cs.gridwidth = 2;
       cs.ipady = 20;
-      panel1.add(fName, cs);
-
-      lblLastName = new JLabel("Last name: ");
-      cs.gridx = 0;
-      cs.gridy = 6;
-      cs.gridwidth = 1;
-      cs.ipady = 20;
-      panel1.add(lblLastName, cs);
-    	lName = new JTextField(txtFieldLength);
-      cs.gridx = 1;
-      cs.gridy = 6;
-      cs.gridwidth = 2;
-      cs.ipady = 20;
-      panel1.add(lName, cs);
+      panel1.add(description, cs);
 
       lblEmail = new JLabel("Email: ");
       cs.gridx = 0;
@@ -140,9 +127,8 @@ public class CreateAcct extends JPanel {
     private class ButtonListener implements ActionListener{
     	public void actionPerformed(ActionEvent arg0) {
         if(arg0.getSource() == create){
-    		if (!name.getText().matches(".*\\w.*") || !fName.getText().matches(".*\\w.*") ||
-    		!lName.getText().matches(".*\\w.*") || !email.getText().matches(".*\\w.*") ||
-    		!phone.getText().matches(".*\\w.*")){
+    		if (!name.getText().matches(".*\\w.*") || !description.getText().matches(".*\\w.*")
+				|| !email.getText().matches(".*\\w.*") || !phone.getText().matches(".*\\w.*")){
     			badacct.setText("Please fill out all the fields!");
     			return;
     		}
@@ -154,18 +140,18 @@ public class CreateAcct extends JPanel {
     				return;
     			}
     		}
-    		Account acct = new Account(name.getText(), fName.getText(), lName.getText(),
+    		Account acct = new Account(name.getText(), description.getText(),
     				email.getText(), phone.getText(), Double.parseDouble(balance.getText()));
     		panel.addLine("accounts.txt", acct.toString());
+    		Transaction t = new Transaction(acct.getName(), acct.getBalance(), "starting balance", 50109);
     		if (acct.getBalance() != 0) {
-        		panel.addLine("transactions/" + acct.getName() + ".txt", acct.getBalance() + ",starting balance");	
+        		panel.addLine("transactions/" + acct.getName() + ".txt", t.toString());	
     		}
     		else {
         		panel.addLine("transactions/" + acct.getName() + ".txt", "");	
     		}
     		name.setText("");
-    		fName.setText("");
-    		lName.setText("");
+    		description.setText("");
     		email.setText("");
     		phone.setText("");
     		balance.setText("");
@@ -175,11 +161,11 @@ public class CreateAcct extends JPanel {
     	}
       else if(arg0.getSource() == back){
         name.setText("");
-        fName.setText("");
-        lName.setText("");
+        description.setText("");
         email.setText("");
         phone.setText("");
         badacct.setText("");
+        panel.updateTrans();
         panel.switchPanel("InitialView");
       }
     }
