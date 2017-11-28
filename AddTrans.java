@@ -14,7 +14,7 @@ import javax.swing.JTextField;
 
 public class AddTrans extends JPanel implements ActionListener {
 
-	private JLabel lblDate, lblAmount, lblDescription, lblAdd;
+	private JLabel lblDate, lblAmount, lblDescription, lblAdd,lblError;
 	private JTextField txtDate, txtAmount, txtDescription;
 	private JButton btnAddTrans, btnBack;
 	private int txtFieldLength = 20;
@@ -98,8 +98,11 @@ public class AddTrans extends JPanel implements ActionListener {
 		panel2.add(btnBack, cs);
 		btnAddTrans.addActionListener(new ButtonListener());
 		btnBack.addActionListener(new ButtonListener());
+
+		lblError = new JLabel();
 		add(panel1,BorderLayout.CENTER);
 		add(panel2,BorderLayout.NORTH);
+		add(lblError,BorderLayout.SOUTH);
 
 		Codes = new JComboBox(codesList);
 		cs.gridx = 1;
@@ -144,10 +147,18 @@ public class AddTrans extends JPanel implements ActionListener {
 				panel.switchPanel("ViewAcct");
 			}
 			else if (e.getSource() == btnAddTrans) {
+				if(txtAmount.getText() != null && txtAmount.getText().matches("[-+]?\\d*\\.?\\d+")==false){
+					lblError.setText("Please Enter a Valid number for the amount!");
+				}
+				else if(txtDate.getText().matches("([0-9]{2})-([0-9]{2})-([0-9]{4})") == false){
+					lblError.setText("Please Enter a Correctly Formatted Date! (dd-mm-yyy)");
+				}
+				else{
 				addTrans();
 				txtAmount.setText("");
 				txtDescription.setText("");
 				panel.switchPanel("ViewAcct");
+			}
 			}
 		}
 	}

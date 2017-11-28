@@ -13,7 +13,7 @@ import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 class Login extends JPanel {
 
-  private ImageIcon logo;
+  private ImageIcon logo,logo1;
   private JTextField username;
   private JPasswordField password;
   private JLabel lblUsername;
@@ -22,7 +22,7 @@ class Login extends JPanel {
   private JButton login;
   private int txtFieldLength = 20;
   private MainPanel panel;
-  private JLabel lblBadLogin,lblLogo;
+  private JLabel lblBadLogin,lblLogo,lblLogo1;
 
 
   public Login (MainPanel panel) {
@@ -35,13 +35,20 @@ class Login extends JPanel {
 
 	  cs.fill = GridBagConstraints.HORIZONTAL;
   logo = new ImageIcon("logo.jpg");
+  logo1 = new ImageIcon("MT2000.jpg");
 
-  lblLogo = new JLabel();
-  lblLogo.setIcon(logo);
-  cs.gridx = 0;
+  // lblLogo = new JLabel();
+  // lblLogo.setIcon(logo);
+  // cs.gridx = 0;
+  // cs.gridy = 1;
+  // cs.gridwidth = 2;
+  // panel2.add(lblLogo, cs);
+  lblLogo1 = new JLabel();
+  lblLogo1.setIcon(logo1);
+  cs.gridx = 1;
   cs.gridy = 1;
   cs.gridwidth = 2;
-  panel2.add(lblLogo, cs);
+  panel2.add(lblLogo1, cs);
 	lblUsername = new JLabel("Username: ");
 	cs.gridx = 0;
 	cs.gridy = 0;
