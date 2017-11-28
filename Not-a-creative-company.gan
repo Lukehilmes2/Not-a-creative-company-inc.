@@ -114,15 +114,27 @@ Cody: 1.5 Hours]]></notes>
                 <customproperty taskproperty-id="tpc1" value="All"/>
             </task>
         </task>
-        <task id="40" name="Sprint4" meeting="false" start="2017-11-21" duration="3" complete="0" expand="true">
+        <task id="40" name="Sprint4" meeting="false" start="2017-11-13" duration="8" complete="0" expand="true">
             <task id="41" name="All Transactions Viewable" meeting="false" start="2017-11-21" duration="1" complete="0" expand="true">
                 <customproperty taskproperty-id="tpc1" value="Max: 3 Hours"/>
             </task>
-            <task id="44" name="Benefits Calculator" meeting="false" start="2017-11-23" duration="1" complete="0" expand="true">
+            <task id="44" name="Benefits Calculator" meeting="false" start="2017-11-13" duration="1" complete="0" expand="true">
                 <customproperty taskproperty-id="tpc1" value="Max: 1 Hour"/>
+                <task id="51" name="Refactoring" meeting="false" start="2017-11-13" duration="1" complete="0" expand="true">
+                    <customproperty taskproperty-id="tpc1" value="Luke: 1 Hour"/>
+                </task>
             </task>
             <task id="46" name="date and code in transactions" meeting="false" start="2017-11-22" duration="1" complete="0" expand="true">
                 <customproperty taskproperty-id="tpc1" value="Max: 1.5 Hours"/>
+            </task>
+            <task id="47" name="GUI refactoring" meeting="false" start="2017-11-13" duration="1" complete="0" expand="true">
+                <customproperty taskproperty-id="tpc1" value="Luke: 3 Hours"/>
+            </task>
+            <task id="48" name="New logo design" meeting="false" start="2017-11-13" duration="1" complete="0" expand="true">
+                <customproperty taskproperty-id="tpc1" value="Luke: .5 hours"/>
+            </task>
+            <task id="49" name="Error checking (Edge cases)" color="#8cb6ce" meeting="false" start="2017-11-13" duration="1" complete="0" expand="true">
+                <customproperty taskproperty-id="tpc1" value="Luke: 1.5 hour"/>
             </task>
         </task>
     </tasks>

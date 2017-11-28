@@ -14,7 +14,7 @@ import javax.swing.JTextField;
 
 public class AddTrans extends JPanel implements ActionListener {
 
-	private JLabel lblDate, lblAmount, lblDescription, lblAdd;
+	private JLabel lblDate, lblAmount, lblDescription, lblAdd,lblError;
 	private JTextField txtDate, txtAmount, txtDescription;
 	private JButton btnAddTrans, btnBack;
 	private int txtFieldLength = 20;
@@ -26,7 +26,7 @@ public class AddTrans extends JPanel implements ActionListener {
 	private String[] codesList= {"50109 Other Income","50287 Credit Card Sales","61123 Contract Faculty","61225 Student","62210 Minor Equipment","62241 Office Supplies","62245 Computer Equipment <$5000","62249 Minor Software < $100,000","62255 Promotional Aids","62280 Program Expense","62282 Ink","62315 Advertising-Newspaper Non Re","62817 Meeting & Conference Cost","62852 Bank Service Charges"};
 	private JComboBox Codes;
 	SimpleDateFormat dateFormat;
-	
+
 	public AddTrans(MainPanel panel) {
 
 		this.panel = panel;
@@ -38,17 +38,25 @@ public class AddTrans extends JPanel implements ActionListener {
 		cs.fill = GridBagConstraints.HORIZONTAL;
 		lblAdd = new JLabel("Add Transaction: ");
 		cs.gridx = 0;
-		cs.gridy = 1;
+		cs.gridy = 0;
 		cs.gridwidth = 1;
 		cs.ipady = 20;
 		panel1.add(lblAdd, cs);
 
-		
+
 		lblDate = new JLabel("Date: (dd-mm-yyyy)");
-		panel1.add(lblDate);
+		cs.gridx = 0;
+		cs.gridy = 1;
+		cs.gridwidth = 1;
+		cs.ipady = 20;
+		panel1.add(lblDate,cs);
 		txtDate = new JTextField(txtFieldLength);
-		panel1.add(txtDate);
-		
+		cs.gridx = 1;
+		cs.gridy = 1;
+		cs.gridwidth = 1;
+		cs.ipady = 20;
+		panel1.add(txtDate,cs);
+
 		lblAmount = new JLabel("Amount: ");
 		cs.gridx = 0;
 		cs.gridy = 2;
@@ -61,7 +69,7 @@ public class AddTrans extends JPanel implements ActionListener {
 		cs.gridwidth = 1;
 		cs.ipady = 20;
 		panel1.add(txtAmount, cs);
-		
+
 		lblDescription = new JLabel("Description: ");
 		cs.gridx = 0;
 		cs.gridy = 3;
@@ -90,8 +98,11 @@ public class AddTrans extends JPanel implements ActionListener {
 		panel2.add(btnBack, cs);
 		btnAddTrans.addActionListener(new ButtonListener());
 		btnBack.addActionListener(new ButtonListener());
+
+		lblError = new JLabel();
 		add(panel1,BorderLayout.CENTER);
 		add(panel2,BorderLayout.NORTH);
+		add(lblError,BorderLayout.SOUTH);
 
 		Codes = new JComboBox(codesList);
 		cs.gridx = 1;
@@ -102,7 +113,7 @@ public class AddTrans extends JPanel implements ActionListener {
 		Codes.addActionListener(this);
 	}
 	public void actionPerformed(ActionEvent e) {
-		
+
 		curCode = Codes.getSelectedItem().toString();
 		Character g = curCode.charAt(0);
 
@@ -110,16 +121,16 @@ public class AddTrans extends JPanel implements ActionListener {
 			ccRate = .96;
 			expenseRate = 1;
 				uniFee = .92;
-	
+
 			}
 			else if (curCode.contains("50109")) {
-	
+
 				ccRate = 1.00;
 				expenseRate = 1;
 				uniFee = .92;
 			}
 			else if (g =='6' ){
-	
+
 			expenseRate = -1;
 			uniFee = 1.00;
 			ccRate = 1.00;
@@ -130,16 +141,24 @@ public class AddTrans extends JPanel implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			String curCode = Codes.getSelectedItem().toString();
 			Character g = curCode.charAt(0);
-			System.out.println(g);
+
 
 			if (e.getSource() == btnBack) {
 				panel.switchPanel("ViewAcct");
 			}
 			else if (e.getSource() == btnAddTrans) {
+				if(txtAmount.getText() != null && txtAmount.getText().matches("[-+]?\\d*\\.?\\d+")==false){
+					lblError.setText("Please Enter a Valid number for the amount!");
+				}
+				else if(txtDate.getText().matches("([0-9]{2})-([0-9]{2})-([0-9]{4})") == false){
+					lblError.setText("Please Enter a Correctly Formatted Date! (dd-mm-yyy)");
+				}
+				else{
 				addTrans();
 				txtAmount.setText("");
 				txtDescription.setText("");
 				panel.switchPanel("ViewAcct");
+			}
 			}
 		}
 	}
@@ -147,7 +166,7 @@ public class AddTrans extends JPanel implements ActionListener {
 
 		String date = txtDate.getText();
 		int code = Integer.parseInt(curCode.substring(0, 5));
-		String description = txtDescription.getText();		
+		String description = txtDescription.getText();
 		double amount = Double.parseDouble(txtAmount.getText())*ccRate*expenseRate*uniFee;
 		Transaction t = new Transaction(panel.getAcct().getName(), date, amount, code, description);
 		panel.addLine("transactions/" + panel.getAcct().getName() + ".txt", t.toString());

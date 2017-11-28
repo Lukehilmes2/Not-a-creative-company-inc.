@@ -34,9 +34,9 @@ public class TransactionView extends JPanel {
 	private DecimalFormat fmt = new DecimalFormat("$#0.00");
 	NumberFormat $fmt = NumberFormat.getCurrencyInstance();
 	private JLabel lblTotalBalance;
-	
+
 	public TransactionView(MainPanel panel) {
-			
+
 		this.panel = panel;
 		btnDelTrans = new JButton("Delete transaction");
 		btnYesDelete = new JButton("Yes, delete transaction");
@@ -67,20 +67,20 @@ public class TransactionView extends JPanel {
 		btnYesDelete.addActionListener(new ButtonListener());
 		btnNoDelete.addActionListener(new ButtonListener());
 	}
-	
+
 	private double getTotalBalance() {
-		
+
 		double total = 0;
-		for (int i = 0; i < transactions.getRowCount(); i++) {			
+		for (int i = 0; i < transactions.getRowCount(); i++) {
 			total += panel.getDoubleFrom$((String)transactions.getValueAt(i, 2));
 		}
 		return total;
 	}
-	
+
 	private class ButtonListener implements ActionListener {
-		
+
 		public void actionPerformed(ActionEvent e) {
-			
+
 			if (e.getSource() == btnBack) {
 				panel.switchPanel("InitialView");
 			}
@@ -99,17 +99,15 @@ public class TransactionView extends JPanel {
 			else if (e.getSource() == btnAddTrans) {
 				panel.switchPanel("AddTrans");
 			}
-			else if (e.getSource() == btnAddTrans) {
-				panel.switchPanel("AddTrans");
-			}
+
 		}
 	}
-	
+
 	private class TableListener implements MouseListener {
 
 		public void mouseClicked(java.awt.event.MouseEvent evt) {
 
-			int row = transactions.rowAtPoint(evt.getPoint());		
+			int row = transactions.rowAtPoint(evt.getPoint());
 			acctName = (String)transactions.getValueAt(row, 0);
 			String date = (String)transactions.getValueAt(row, 1);
 			double dblAmount = panel.getDoubleFrom$((String)transactions.getValueAt(row, 2));
@@ -122,14 +120,14 @@ public class TransactionView extends JPanel {
  		public void mousePressed(MouseEvent arg0) {}
  		public void mouseReleased(MouseEvent arg0) {}
   	}
-	
+
 	private String[][] getTransactions() {
 
-		
+
 		ArrayList<String[]> temp = new ArrayList<String[]>();
 		File[] folder = null;
 		folder = new File("transactions/").listFiles();
-		for(File file: folder) {  
+		for(File file: folder) {
 			Scanner s = null;
 			try {
 				s = new Scanner(new FileReader(file));
@@ -159,7 +157,7 @@ public class TransactionView extends JPanel {
 	}
 
 	public void updateTable() {
-		
+
 		transData = getTransactions();
 		model = new DefaultTableModel(transData, columnNames){
 		    public boolean isCellEditable(int row, int column)
