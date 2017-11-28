@@ -1,1 +1,3 @@
-a,b,c,thibeaumax@gmail.com,45,55.0
+Rob Smith,Teacher,smith.rob@yahoo.com,(406)358-4590,5100.0
+Mike Cassens,Teacher,Mike.Cassens@Umontana.edu,(406)851-3651,6249.96
+Trish Duce,Teacher,ducepa@umontana.edu,(406)456-8394,4490.0

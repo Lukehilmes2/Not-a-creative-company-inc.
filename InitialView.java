@@ -9,7 +9,7 @@ import java.io.FileReader;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Scanner;
-
+import javax.swing.JOptionPane;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -57,7 +57,7 @@ public class InitialView extends JPanel{
 		btnLogOut.addActionListener(new ButtonListener());
 		btnTransactions.addActionListener(new ButtonListener());
 		lblTotalBalance = new JLabel("");
-		
+
 		btnNoDelete = new JButton("No");
  		lblDelete = new JLabel("Are you sure you want to delete your account?");
  		btnYesDelete = new JButton("Yes, delete account");
@@ -67,20 +67,21 @@ public class InitialView extends JPanel{
 
 		JPanel butpan = new JPanel();
 		butpan.setLayout(new BoxLayout(butpan,BoxLayout.Y_AXIS));
-		butpan.add(Box.createVerticalStrut(50));
-		butpan.add(btnDelete);
-		butpan.add(Box.createVerticalStrut(20));
+
+
+		butpan.add(btnLogOut);
+		butpan.add(Box.createVerticalStrut(100));
 		butpan.add(btnMakeAcct);
 		butpan.add(Box.createVerticalStrut(20));
-		butpan.add(btnLogOut);
+		butpan.add(btnDelete);
 		butpan.add(Box.createVerticalStrut(20));
 		butpan.add(btnViewAcct);
 		butpan.add(Box.createVerticalStrut(20));
 		butpan.add(btnBenefits);
 		butpan.add(Box.createVerticalStrut(20));
-		butpan.add(lblTotalBalance);
-		butpan.add(Box.createVerticalStrut(20));
 		butpan.add(btnTransactions);
+		butpan.add(Box.createVerticalStrut(50));
+		butpan.add(lblTotalBalance);
 		JPanel cdelete = new JPanel();
 		cdelete.setLayout(new BoxLayout(cdelete,BoxLayout.Y_AXIS));
 		cdelete.add(lblDelete);
@@ -97,9 +98,9 @@ public class InitialView extends JPanel{
  		btnNoDelete.setVisible(false);
 		tblAccts.addMouseListener(new TableListener());
 	}
-	
+
 	public String[][] getAccounts() {
-		
+
 		return accounts;
 	}
 
@@ -119,7 +120,7 @@ public class InitialView extends JPanel{
 		}
 		lblTotalBalance.setText("Total Balance: " + fmt.format(total));
 	}
-	
+
 	private String[][] getAccountsFromText() {
 
 		ArrayList<String[]> temp = new ArrayList<String[]>();
@@ -197,7 +198,7 @@ public class InitialView extends JPanel{
 			}
 			else if (evt.getSource() == btnYesDelete) {
 				if (acctSelected.getBalance() != 0) {
-				
+
 					lblEmptyAccount.setText(strEmptyAccount);
 					return;
 				}
