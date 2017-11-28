@@ -41,7 +41,7 @@ public class ViewAcct extends JPanel {
 		this.panel = panel;
 		btnDelTrans = new JButton("Delete transaction");
 		lblDelete = new JLabel("Are you sure you want to delete this transaction?");
-		btnYesDelete = new JButton("Yes, delete account");
+		btnYesDelete = new JButton("Yes, delete transaction");
 		btnNoDelete = new JButton("No, don't delete");
 		btnAddTrans = new JButton("Add transaction");
 		btnBack = new JButton("Back");
@@ -120,7 +120,7 @@ public class ViewAcct extends JPanel {
 			double dblAmount = panel.getDoubleFrom$((String)transactions.getValueAt(row, 1));
 			int code = Integer.parseInt((String)transactions.getValueAt(row, 2));
 			String description = (String)transactions.getValueAt(row,  3);
-			transSelected = new Transaction(account.getName(), new Date(date), dblAmount, code, description);
+			transSelected = new Transaction(account.getName(), date, dblAmount, code, description);
 		}
 		public void mouseEntered(MouseEvent arg0 ){}
 		public void mouseExited(MouseEvent arg0) {}

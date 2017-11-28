@@ -4,6 +4,7 @@ import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -148,7 +149,7 @@ public class AddTrans extends JPanel implements ActionListener {
 		int code = Integer.parseInt(curCode.substring(0, 5));
 		String description = txtDescription.getText();		
 		double amount = Double.parseDouble(txtAmount.getText())*ccRate*expenseRate*uniFee;
-		Transaction t = new Transaction(date, amount, description, code);
+		Transaction t = new Transaction(panel.getAcct().getName(), date, amount, code, description);
 		panel.addLine("transactions/" + panel.getAcct().getName() + ".txt", t.toString());
 		panel.updateTrans();
 	}

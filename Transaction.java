@@ -4,7 +4,7 @@ public class Transaction {
 
 	private double amount;
 	private String description;
-	private Date date;
+	private String date;
 	private int code;
 	private double fines = 0;
 	private String account;
@@ -12,13 +12,13 @@ public class Transaction {
 	public Transaction(String account, double amount, String description, int code) {
 		
 		this.account = account;
-		date = new Date();
+		date = new Date().toString();
 		this.amount = amount;
 		this.description = description;
 		this.code = code;
 	}
 	
-	public Transaction(String account, Date date, double amount, int code, String description) {
+	public Transaction(String account, String date, double amount, int code, String description) {
 		
 		this.account = account;
 		this.date = date;
@@ -46,6 +46,6 @@ public class Transaction {
 	
 	public String toString() {
 		
-		return account + "," + date.toString() + "," + amount + "," + code + "," + description;
+		return account + "," + date + "," + amount + "," + code + "," + description;
 	}
 }

@@ -115,7 +115,7 @@ public class TransactionView extends JPanel {
 			double dblAmount = panel.getDoubleFrom$((String)transactions.getValueAt(row, 2));
 			int code = Integer.parseInt((String)transactions.getValueAt(row, 3));
 			String description = (String)transactions.getValueAt(row,  4);
-			transSelected = new Transaction(acctName, new Date(date), dblAmount, code, description);
+			transSelected = new Transaction(acctName, date, dblAmount, code, description);
 		}
 		public void mouseEntered(MouseEvent arg0 ){}
 		public void mouseExited(MouseEvent arg0) {}
