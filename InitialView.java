@@ -180,6 +180,7 @@ public class InitialView extends JPanel{
 			}
 			else if(evt.getSource() == btnModAcct){
 				panel.setAccount(acctSelected);
+				
 				panel.switchPanel("ModifyAcct");
 			}
 			else if (evt.getSource() == btnLogOut) {
