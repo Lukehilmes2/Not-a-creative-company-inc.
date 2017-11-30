@@ -25,7 +25,7 @@ public class InitialView extends JPanel{
 
 	private JButton btnDelete;
 	private MainPanel panel;
-	private JButton btnMakeAcct;
+	private JButton btnMakeAcct,btnModAcct;
 	private JButton btnLogOut;
 	private JTable tblAccts;
 	private String[] columnNames = {"Username", "Description", "Email", "Phone", "Balance"};
@@ -39,6 +39,8 @@ public class InitialView extends JPanel{
 	private final String strEmptyAccount = "This account can't be deleted because it has transactions";
 	private DecimalFormat fmt = new DecimalFormat("$#.00");
 	private String[][] transactions;
+
+
 	public InitialView(MainPanel panel) {
 
 		this.panel = panel;
@@ -50,14 +52,15 @@ public class InitialView extends JPanel{
 		btnViewAcct = new JButton("View Account");
 		btnBenefits = new JButton("Benefits");
 		btnTransactions = new JButton("Transactions");
+		btnModAcct = new JButton("Modify Account");
 		btnBenefits.addActionListener(new ButtonListener());
 		btnViewAcct.addActionListener(new ButtonListener());
+		btnModAcct.addActionListener(new ButtonListener());
 		btnDelete.addActionListener(new ButtonListener());
 		btnMakeAcct.addActionListener(new ButtonListener());
 		btnLogOut.addActionListener(new ButtonListener());
 		btnTransactions.addActionListener(new ButtonListener());
 		lblTotalBalance = new JLabel("");
-
 		btnNoDelete = new JButton("No");
  		lblDelete = new JLabel("Are you sure you want to delete your account?");
  		btnYesDelete = new JButton("Yes, delete account");
@@ -67,8 +70,6 @@ public class InitialView extends JPanel{
 
 		JPanel butpan = new JPanel();
 		butpan.setLayout(new BoxLayout(butpan,BoxLayout.Y_AXIS));
-
-
 		butpan.add(btnLogOut);
 		butpan.add(Box.createVerticalStrut(100));
 		butpan.add(btnMakeAcct);
@@ -76,6 +77,8 @@ public class InitialView extends JPanel{
 		butpan.add(btnDelete);
 		butpan.add(Box.createVerticalStrut(20));
 		butpan.add(btnViewAcct);
+		butpan.add(Box.createVerticalStrut(20));
+		butpan.add(btnModAcct);
 		butpan.add(Box.createVerticalStrut(20));
 		butpan.add(btnBenefits);
 		butpan.add(Box.createVerticalStrut(20));
@@ -174,6 +177,10 @@ public class InitialView extends JPanel{
 
 				panel.setAccount(acctSelected);
 				panel.switchPanel("ViewAcct");
+			}
+			else if(evt.getSource() == btnModAcct){
+				panel.setAccount(acctSelected);
+				panel.switchPanel("ModifyAcct");
 			}
 			else if (evt.getSource() == btnLogOut) {
 				panel.switchPanel("Login");

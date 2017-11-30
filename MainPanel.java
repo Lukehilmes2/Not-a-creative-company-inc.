@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 public class MainPanel extends JPanel{
 
 	private CardLayout cards;
-	private JPanel pnlLogin, pnlCreateAcct, pnlConfirmDelete, pnlAddTrans, pnlBenefits;
+	private JPanel pnlLogin, pnlCreateAcct, pnlConfirmDelete, pnlAddTrans, pnlBenefits,pnlModifyAcct;
 	private ViewAcct pnlViewAcct;
 	private InitialView pnlInitialView;
 	private TransactionView pnlTransactionView;
@@ -32,10 +32,12 @@ public class MainPanel extends JPanel{
 		pnlAddTrans = new AddTrans(this);
 		pnlBenefits = new Benefits(this);
 		pnlTransactionView = new TransactionView(this);
+		pnlModifyAcct = new ModifyAcct(this);
 		add(pnlLogin, "Login");
 		add(pnlInitialView, "InitialView");
 		add(pnlCreateAcct, "CreateAcct");
 		add(pnlViewAcct, "ViewAcct");
+		add(pnlModifyAcct, "ModifyAcct");
 		add(pnlAddTrans, "AddTrans");
 		add(pnlBenefits, "Benefits");
 		add(pnlTransactionView, "TransactionView");
@@ -74,7 +76,7 @@ public class MainPanel extends JPanel{
 		pnlViewAcct.updateTable();
 		pnlTransactionView.updateTable();
 	}
-	
+
 	public double getDoubleFrom$(String str) {
 		int isNegative = 1;
 		if (str.substring(0, 1).equals("-")) {
