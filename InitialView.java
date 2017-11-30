@@ -32,18 +32,23 @@ public class InitialView extends JPanel{
 	private String[][] accounts;
 	private TableModel model;
 	private Account acctSelected;
-	private JButton btnNoDelete, btnYesDelete, btnViewAcct, btnBenefits , btnTransactions;
+	private JButton btnNoDelete, btnYesDelete, btnViewAcct, btnBenefits , btnTransactions, btnSave;
 	private JLabel lblDelete;
 	private JLabel lblTotalBalance;
 	private JLabel lblEmptyAccount;
+	private JLabel lblUniFee;
+	private JLabel lblCreditCardFee;
+	private double uniFee;
+	private double creditCardFee;
 	private final String strEmptyAccount = "This account can't be deleted because it has transactions";
-	private DecimalFormat fmt = new DecimalFormat("$#.00");
-	private String[][] transactions;
+	private DecimalFormat fmt = new DecimalFormat("$0.00");
+	
 	public InitialView(MainPanel panel) {
 
 		this.panel = panel;
 		BorderLayout border= new BorderLayout();
 		setLayout(border);
+		
 		btnDelete = new JButton("Delete Account");
 		btnMakeAcct = new JButton("Make new Account");
 		btnLogOut = new JButton("Logout");
@@ -56,15 +61,26 @@ public class InitialView extends JPanel{
 		btnMakeAcct.addActionListener(new ButtonListener());
 		btnLogOut.addActionListener(new ButtonListener());
 		btnTransactions.addActionListener(new ButtonListener());
+		
 		lblTotalBalance = new JLabel("");
-
+		lblUniFee = new JLabel("");
+		lblCreditCardFee = new JLabel("");
+		uniFee = getFees(.08);
+		creditCardFee = getFees(.04);
+		lblUniFee.setText("University fee: " + fmt.format(uniFee));
+		lblCreditCardFee.setText("Creedit Card Fee: " + fmt.format(creditCardFee));
+		
 		btnNoDelete = new JButton("No");
  		lblDelete = new JLabel("Are you sure you want to delete your account?");
  		btnYesDelete = new JButton("Yes, delete account");
  		lblEmptyAccount = new JLabel("");
  		btnNoDelete.addActionListener(new ButtonListener());
  		btnYesDelete.addActionListener(new ButtonListener());
-
+ 		
+ 		btnSave = new JButton("Save changes to accounts");
+ 		btnSave.addActionListener(new ButtonListener());
+ 		btnSave.setVisible(false);
+ 		
 		JPanel butpan = new JPanel();
 		butpan.setLayout(new BoxLayout(butpan,BoxLayout.Y_AXIS));
 
@@ -82,6 +98,12 @@ public class InitialView extends JPanel{
 		butpan.add(btnTransactions);
 		butpan.add(Box.createVerticalStrut(50));
 		butpan.add(lblTotalBalance);
+		butpan.add(Box.createVerticalStrut(50));
+		butpan.add(lblUniFee);
+		butpan.add(Box.createVerticalStrut(50));
+		butpan.add(lblCreditCardFee);
+		butpan.add(Box.createVerticalStrut(50));
+		butpan.add(btnSave);
 		JPanel cdelete = new JPanel();
 		cdelete.setLayout(new BoxLayout(cdelete,BoxLayout.Y_AXIS));
 		cdelete.add(lblDelete);
@@ -99,6 +121,41 @@ public class InitialView extends JPanel{
 		tblAccts.addMouseListener(new TableListener());
 	}
 
+	
+	private double getFees(double percent) {
+		
+		double fees = 0.0;
+		ArrayList<String[]> temp = new ArrayList<String[]>();
+		File[] folder = null;
+		folder = new File("transactions/").listFiles();
+		for(File file: folder) {
+			Scanner s = null;
+			try {
+				s = new Scanner(new FileReader(file));
+			}
+			catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+			while (s.hasNext()) {
+				Scanner nextLine = new Scanner(s.nextLine());
+				nextLine.useDelimiter(",");
+				while (nextLine.hasNext()) {
+					String account = nextLine.next();
+					String date = nextLine.next();
+					double amount = Double.parseDouble(nextLine.next());
+					String code = nextLine.next();
+					String description = nextLine.next();
+					if (code.equals("50109") && percent == .08) {
+						fees += amount/.92*.08;
+					}
+					else if(percent == .04 && code.equals("50287")) {
+						fees += amount/.92/.96*.04;
+					}
+				}
+    	  	}
+		}
+		return fees;
+	}
 	public String[][] getAccounts() {
 
 		return accounts;
@@ -119,6 +176,10 @@ public class InitialView extends JPanel{
 			total += panel.getDoubleFrom$((String)tblAccts.getValueAt(i, 4));
 		}
 		lblTotalBalance.setText("Total Balance: " + fmt.format(total));
+		uniFee = getFees(.08);
+		creditCardFee = getFees(.04);
+		lblUniFee.setText("University fee: " + fmt.format(uniFee));
+		lblCreditCardFee.setText("Creedit Card Fee: " + fmt.format(creditCardFee));
 	}
 
 	private String[][] getAccountsFromText() {
@@ -162,6 +223,10 @@ public class InitialView extends JPanel{
  		public void mousePressed(MouseEvent arg0) {}
  		public void mouseReleased(MouseEvent arg0) {}
   	}
+	
+	private void updateFilesFromTable() {
+		
+	}
 
 	private class ButtonListener implements ActionListener{
 
@@ -209,6 +274,9 @@ public class InitialView extends JPanel{
 				transactionFile.delete();
 				panel.deleteLine("accounts.txt", acctSelected.toString());
 				updateTable();
+			}
+			else if (evt.getSource() == btnSave) {
+				updateFilesFromTable();
 			}
 			lblEmptyAccount.setText("");
 		}
