@@ -25,56 +25,66 @@ public class InitialView extends JPanel{
 
 	private JButton btnDelete;
 	private MainPanel panel;
-	private JButton btnMakeAcct,btnModAcct;
+	private JButton btnMakeAcct;
 	private JButton btnLogOut;
 	private JTable tblAccts;
 	private String[] columnNames = {"Username", "Description", "Email", "Phone", "Balance"};
 	private String[][] accounts;
 	private TableModel model;
 	private Account acctSelected;
-	private JButton btnNoDelete, btnYesDelete, btnViewAcct, btnBenefits , btnTransactions;
+	private JButton btnNoDelete, btnYesDelete, btnViewAcct, btnBenefits , btnTransactions, btnSave;
 	private JLabel lblDelete;
 	private JLabel lblTotalBalance;
 	private JLabel lblEmptyAccount;
+	private JLabel lblUniFee;
+	private JLabel lblCreditCardFee;
+	private double uniFee;
+	private double creditCardFee;
 	private final String strEmptyAccount = "This account can't be deleted because it has transactions";
-	private DecimalFormat fmt = new DecimalFormat("$#.00");
-	private String[][] transactions;
-
-
+	private DecimalFormat fmt = new DecimalFormat("$0.00");
+	
 	public InitialView(MainPanel panel) {
 
 		this.panel = panel;
 		BorderLayout border= new BorderLayout();
 		setLayout(border);
+		
 		btnDelete = new JButton("Delete Account");
 		btnMakeAcct = new JButton("Make new Account");
 		btnLogOut = new JButton("Logout");
 		btnViewAcct = new JButton("View Account");
 		btnBenefits = new JButton("Benefits");
 		btnTransactions = new JButton("Transactions");
-		btnModAcct = new JButton("Modify Account");
 		btnBenefits.addActionListener(new ButtonListener());
 		btnViewAcct.addActionListener(new ButtonListener());
-		btnModAcct.addActionListener(new ButtonListener());
 		btnDelete.addActionListener(new ButtonListener());
 		btnMakeAcct.addActionListener(new ButtonListener());
 		btnLogOut.addActionListener(new ButtonListener());
 		btnTransactions.addActionListener(new ButtonListener());
+		
 		lblTotalBalance = new JLabel("");
+		lblUniFee = new JLabel("");
+		lblCreditCardFee = new JLabel("");
+		uniFee = getFees(.08);
+		creditCardFee = getFees(.04);
+		lblUniFee.setText("University fee: " + fmt.format(uniFee));
+		lblCreditCardFee.setText("Creedit Card Fee: " + fmt.format(creditCardFee));
+		
 		btnNoDelete = new JButton("No");
  		lblDelete = new JLabel("Are you sure you want to delete your account?");
  		btnYesDelete = new JButton("Yes, delete account");
  		lblEmptyAccount = new JLabel("");
  		btnNoDelete.addActionListener(new ButtonListener());
  		btnYesDelete.addActionListener(new ButtonListener());
-<<<<<<< HEAD
  		
+ 		btnSave = new JButton("Save changes to accounts");
+ 		btnSave.addActionListener(new ButtonListener());
+ 		btnSave.setVisible(false);
  		
-=======
-
->>>>>>> 93117ecd55f0076053588bb7f86cd6fa98b19b3f
 		JPanel butpan = new JPanel();
 		butpan.setLayout(new BoxLayout(butpan,BoxLayout.Y_AXIS));
+
+
 		butpan.add(btnLogOut);
 		butpan.add(Box.createVerticalStrut(100));
 		butpan.add(btnMakeAcct);
@@ -83,20 +93,17 @@ public class InitialView extends JPanel{
 		butpan.add(Box.createVerticalStrut(20));
 		butpan.add(btnViewAcct);
 		butpan.add(Box.createVerticalStrut(20));
-		butpan.add(btnModAcct);
-		butpan.add(Box.createVerticalStrut(20));
 		butpan.add(btnBenefits);
 		butpan.add(Box.createVerticalStrut(20));
 		butpan.add(btnTransactions);
 		butpan.add(Box.createVerticalStrut(50));
 		butpan.add(lblTotalBalance);
-<<<<<<< HEAD
 		butpan.add(Box.createVerticalStrut(50));
 		butpan.add(lblUniFee);
 		butpan.add(Box.createVerticalStrut(50));
 		butpan.add(lblCreditCardFee);
-=======
->>>>>>> 93117ecd55f0076053588bb7f86cd6fa98b19b3f
+		butpan.add(Box.createVerticalStrut(50));
+		butpan.add(btnSave);
 		JPanel cdelete = new JPanel();
 		cdelete.setLayout(new BoxLayout(cdelete,BoxLayout.Y_AXIS));
 		cdelete.add(lblDelete);
@@ -114,6 +121,42 @@ public class InitialView extends JPanel{
 		tblAccts.addMouseListener(new TableListener());
 	}
 
+	
+	private double getFees(double percent) {
+		
+		double fees = 0.0;
+		ArrayList<String[]> temp = new ArrayList<String[]>();
+		File[] folder = null;
+		folder = new File("transactions/").listFiles();
+		for(File file: folder) {
+			Scanner s = null;
+			try {
+				s = new Scanner(new FileReader(file));
+			}
+			catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+			while (s.hasNext()) {
+				Scanner nextLine = new Scanner(s.nextLine());
+				nextLine.useDelimiter(",");
+				while (nextLine.hasNext()) {
+					String account = nextLine.next();
+					String date = nextLine.next();
+					double amount = Double.parseDouble(nextLine.next());
+					String code = nextLine.next();
+					String description = nextLine.next();
+					if (code.equals("50109") && percent == .08) {
+						fees += amount/.92*.08;
+					}
+					else if(percent == .04 && code.equals("50287")) {
+						fees += amount/.92/.96*.04;
+						System.out.println(amount + " " + fees);
+					}
+				}
+    	  	}
+		}
+		return fees;
+	}
 	public String[][] getAccounts() {
 
 		return accounts;
@@ -134,13 +177,10 @@ public class InitialView extends JPanel{
 			total += panel.getDoubleFrom$((String)tblAccts.getValueAt(i, 4));
 		}
 		lblTotalBalance.setText("Total Balance: " + fmt.format(total));
-<<<<<<< HEAD
 		uniFee = getFees(.08);
 		creditCardFee = getFees(.04);
-		lblUniFee.setText("University Fee: " + fmt.format(uniFee));
+		lblUniFee.setText("University fee: " + fmt.format(uniFee));
 		lblCreditCardFee.setText("Creedit Card Fee: " + fmt.format(creditCardFee));
-=======
->>>>>>> 93117ecd55f0076053588bb7f86cd6fa98b19b3f
 	}
 
 	private String[][] getAccountsFromText() {
@@ -184,11 +224,11 @@ public class InitialView extends JPanel{
  		public void mousePressed(MouseEvent arg0) {}
  		public void mouseReleased(MouseEvent arg0) {}
   	}
-<<<<<<< HEAD
 	
-=======
+	private void updateFilesFromTable() {
+		
+	}
 
->>>>>>> 93117ecd55f0076053588bb7f86cd6fa98b19b3f
 	private class ButtonListener implements ActionListener{
 
 		public void actionPerformed(ActionEvent evt) {
@@ -200,11 +240,6 @@ public class InitialView extends JPanel{
 
 				panel.setAccount(acctSelected);
 				panel.switchPanel("ViewAcct");
-			}
-			else if(evt.getSource() == btnModAcct){
-				panel.setAccount(acctSelected);
-				
-				panel.switchPanel("ModifyAcct");
 			}
 			else if (evt.getSource() == btnLogOut) {
 				panel.switchPanel("Login");
@@ -240,6 +275,9 @@ public class InitialView extends JPanel{
 				transactionFile.delete();
 				panel.deleteLine("accounts.txt", acctSelected.toString());
 				updateTable();
+			}
+			else if (evt.getSource() == btnSave) {
+				updateFilesFromTable();
 			}
 			lblEmptyAccount.setText("");
 		}
