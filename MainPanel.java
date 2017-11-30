@@ -36,7 +36,6 @@ public class MainPanel extends JPanel{
 		add(pnlInitialView, "InitialView");
 		add(pnlCreateAcct, "CreateAcct");
 		add(pnlViewAcct, "ViewAcct");
-		add(pnlModifyAcct, "ModifyAcct");
 		add(pnlAddTrans, "AddTrans");
 		add(pnlBenefits, "Benefits");
 		add(pnlTransactionView, "TransactionView");
