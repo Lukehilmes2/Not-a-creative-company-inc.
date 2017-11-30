@@ -29,6 +29,7 @@ public class MainPanel extends JPanel{
 		pnlInitialView = new InitialView(this);
 		pnlCreateAcct = new CreateAcct(this);
 		pnlViewAcct = new ViewAcct(this);
+		pnlModifyAcct = new ModifyAcct(this);
 		pnlAddTrans = new AddTrans(this);
 		pnlBenefits = new Benefits(this);
 		pnlTransactionView = new TransactionView(this);
