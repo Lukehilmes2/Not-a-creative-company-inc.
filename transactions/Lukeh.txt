@@ -1,0 +1,2 @@
+Lukeh,Mon Dec 04 13:22:28 MST 2017,600.0,50109,starting balance
+Lukeh,04-12-2017,-300.0,62210,fdasfa

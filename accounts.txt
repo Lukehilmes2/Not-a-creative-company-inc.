@@ -1,3 +1,4 @@
-Mike Cassens,Teacher,Mike.Cassens@Umontana.edu,(406)851-3651,6249.96
-Rob Smith,Teacher,smith.rob@yahoo.com,(406)358-4590,8195.11
-Trish Duce,Teacher,ducepa@umontana.edu,(406)456-8394,4828.0
+Rob Smith,Teacher,smith.rob@yahoo.com,(406)358-4590,0.0
+Lukeh,Student,luke.hilmes@umontana.edu,509-999-9013,300.0
+Mike Cassens,Teacher,Mike.Cassens@Umontana.edu,(406)851-3651,460.0
+Trish Duce,Teacher,ducepa@umontana.edu,(406)456-8394,529.92

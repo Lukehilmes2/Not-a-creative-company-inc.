@@ -80,6 +80,7 @@ public class MainPanel extends JPanel {
 	}
 
 	public Account getAcct() {
+
 		return acct;
 	}
 

@@ -11,7 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class ModifyAcct extends JPanel {
+public class ModifyAcct extends JPanel  {
 
 	private JTextField name;
 	private JTextField description, email, phone, balance;
@@ -21,9 +21,13 @@ public class ModifyAcct extends JPanel {
 	private String file = "accounts.txt";
 	private int txtFieldLength = 10;
 	private MainPanel panel;
+	private InitialView init;
 
-	public ModifyAcct(MainPanel panel) {
+	public ModifyAcct(MainPanel panel){
 		this.panel = panel;
+
+		Account A = panel.getAcct();
+
 		setLayout(new BorderLayout());
 		JPanel panel1 = new JPanel(new GridBagLayout());
 		GridBagConstraints cs = new GridBagConstraints();
@@ -43,6 +47,7 @@ public class ModifyAcct extends JPanel {
 		cs.ipady = 20;
 		panel1.add(lblName, cs);
 		name = new JTextField(txtFieldLength);
+
 		cs.gridx = 1;
 		cs.gridy = 2;
 		cs.gridwidth = 2;
@@ -74,19 +79,6 @@ public class ModifyAcct extends JPanel {
 		cs.gridwidth = 2;
 		cs.ipady = 20;
 		panel1.add(email, cs);
-
-		lblBalance = new JLabel("Starting Balance: ");
-		cs.gridx = 0;
-		cs.gridy = 9;
-		cs.gridwidth = 1;
-		cs.ipady = 20;
-		panel1.add(lblBalance, cs);
-		balance = new JTextField(txtFieldLength);
-		cs.gridx = 1;
-		cs.gridy = 9;
-		cs.gridwidth = 2;
-		cs.ipady = 20;
-		panel1.add(balance, cs);
 
 		lblPhone = new JLabel("Phone: ");
 		cs.gridx = 0;
