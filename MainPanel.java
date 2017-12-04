@@ -1,5 +1,9 @@
 import java.awt.CardLayout;
 import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -9,18 +13,22 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
 
 public class MainPanel extends JPanel{
 
 	private CardLayout cards;
-	private JPanel pnlLogin, pnlCreateAcct, pnlConfirmDelete, pnlAddTrans, pnlBenefits,pnlModifyAcct;
+	private JPanel pnlCreateAcct, pnlConfirmDelete, pnlAddTrans, pnlBenefits,pnlModifyAcct;
+	private Login pnlLogin;
 	private ViewAcct pnlViewAcct;
 	private InitialView pnlInitialView;
 	private TransactionView pnlTransactionView;
 	private Account acct;
 	private final String companyName = "Developed by NACC inc.";
-
+	private final int minutesAutoLogOut = 10;
+	private Timer timer;
+	
 	public MainPanel() {
 
 		cards = new CardLayout();
@@ -42,8 +50,19 @@ public class MainPanel extends JPanel{
 		add(pnlBenefits, "Benefits");
 		add(pnlTransactionView, "TransactionView");
 		cards.show(this, "Login");
-	}
+		
+		timer = new Timer(1000*60*minutesAutoLogOut new ActionListener() {
 
+			public void actionPerformed(ActionEvent e) {
+				
+				switchPanel("Login");
+				pnlLogin.autoLogOut();
+            }
+        });
+		timer.start();
+		addMouseMotionListener(new IdleListener());
+	}
+	
 	public String[][] getAccounts() {
 		return pnlInitialView.getAccounts();
 	}
@@ -176,4 +195,14 @@ public class MainPanel extends JPanel{
 			e.printStackTrace();
 		}
 	}
+	
+	private class IdleListener implements MouseMotionListener {
+
+		public void mouseDragged(MouseEvent arg0) {}
+
+		public void mouseMoved(MouseEvent arg0) {
+
+			timer.restart();
+		}
+	}	
 }
