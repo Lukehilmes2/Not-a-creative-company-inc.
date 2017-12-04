@@ -24,7 +24,7 @@ class Login extends JPanel {
 	private int txtFieldLength = 20;
 	private MainPanel panel;
 	private JLabel lblBadLogin, lblLogo, lblLogo1, lblAutoLogOut;
-
+	private Color background = new Color(117, 130, 178);
 	public Login(MainPanel panel) {
 
 		this.panel = panel;
@@ -82,6 +82,9 @@ class Login extends JPanel {
 		add(panel1, BorderLayout.CENTER);
 		add(bp, BorderLayout.PAGE_END);
 
+		panel2.setBackground(Color.WHITE);
+		panel1.setBackground(background);
+		bp.setBackground(Color.WHITE);
 	}
 
 	public void autoLogOut() {
