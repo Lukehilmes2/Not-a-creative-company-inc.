@@ -9,17 +9,16 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-
 public class HelpPage extends JFrame {
-	
+
 	private JPanel pnlTxt;
 	private StringBuilder sb;
 	private JLabel lblTxt;
 	private final int x = 650;
 	private final int y = 600;
-	
+
 	public HelpPage(String name) {
-		
+
 		super(name);
 		setPreferredSize(new Dimension(x, y));
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -31,8 +30,8 @@ public class HelpPage extends JFrame {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		while(s.hasNext()) {
-			
+		while (s.hasNext()) {
+
 			String nextLine = s.nextLine();
 			sb.append(nextLine + "<br>");
 		}

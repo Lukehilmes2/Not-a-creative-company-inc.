@@ -15,20 +15,20 @@ import java.io.IOException;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-
-public class MainPanel extends JPanel{
+public class MainPanel extends JPanel {
 
 	private CardLayout cards;
-	private JPanel pnlCreateAcct, pnlConfirmDelete, pnlAddTrans, pnlBenefits,pnlModifyAcct;
+	private JPanel pnlCreateAcct, pnlConfirmDelete, pnlAddTrans, pnlBenefits,
+			pnlModifyAcct;
 	private Login pnlLogin;
 	private ViewAcct pnlViewAcct;
 	private InitialView pnlInitialView;
 	private TransactionView pnlTransactionView;
 	private Account acct;
 	private final String companyName = "Developed by NACC inc.";
-	private final int minutesAutoLogOut = 10;
+	private final double minutesAutoLogOut = 10;
 	private Timer timer;
-	
+
 	public MainPanel() {
 
 		cards = new CardLayout();
@@ -45,35 +45,38 @@ public class MainPanel extends JPanel{
 		add(pnlInitialView, "InitialView");
 		add(pnlCreateAcct, "CreateAcct");
 		add(pnlViewAcct, "ViewAcct");
-		add(pnlModifyAcct,"ModifyAcct");
+		add(pnlModifyAcct, "ModifyAcct");
 		add(pnlAddTrans, "AddTrans");
 		add(pnlBenefits, "Benefits");
 		add(pnlTransactionView, "TransactionView");
 		cards.show(this, "Login");
-		
-		timer = new Timer(1000*60*minutesAutoLogOut new ActionListener() {
 
-			public void actionPerformed(ActionEvent e) {
-				
-				switchPanel("Login");
-				pnlLogin.autoLogOut();
-            }
-        });
+		timer = new Timer(((int) (1000 * 60 * minutesAutoLogOut)),
+				new ActionListener() {
+
+					public void actionPerformed(ActionEvent e) {
+
+						switchPanel("Login");
+						pnlLogin.autoLogOut();
+					}
+				});
 		timer.start();
 		addMouseMotionListener(new IdleListener());
 	}
-	
+
 	public String[][] getAccounts() {
 		return pnlInitialView.getAccounts();
 	}
+
 	public void setAccount(Account acct) {
 		this.acct = acct;
 		pnlViewAcct.setAcct(acct);
 	}
+
 	public void paint(Graphics g) {
 
-	    super.paint(g);
-	    g.drawString(companyName, 10, 450);
+		super.paint(g);
+		g.drawString(companyName, 10, 450);
 	}
 
 	public Account getAcct() {
@@ -102,13 +105,13 @@ public class MainPanel extends JPanel{
 			isNegative = -1;
 			String temp = str.substring(2, str.length());
 			str = temp;
-		}
-		else {
+		} else {
 			String temp = str.substring(1, str.length());
 			str = temp;
 		}
-		return Double.parseDouble(str)*isNegative;
+		return Double.parseDouble(str) * isNegative;
 	}
+
 	public void addLine(String filename, String lineToWrite) {
 
 		BufferedWriter writer = null;
@@ -120,39 +123,39 @@ public class MainPanel extends JPanel{
 			e.printStackTrace();
 		}
 	}
+
 	public void deleteLine(String filename, String lineToRemove) {
 
 		File inputFile = new File(filename);
 		File tempFile = new File("myTempFile.txt");
-        BufferedReader reader = null;
-        try {
-            reader = new BufferedReader(new FileReader(inputFile));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        BufferedWriter writer = null;
-        try {
-            writer = new BufferedWriter(new FileWriter(tempFile));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        String currentLine;
-        try {
-            while((currentLine = reader.readLine()) != null)
-            {
-                if(currentLine.equals(lineToRemove)) {
-                    continue;
-                }
-                try {
-                    writer.write(currentLine + "\n");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    	try {
+		BufferedReader reader = null;
+		try {
+			reader = new BufferedReader(new FileReader(inputFile));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		BufferedWriter writer = null;
+		try {
+			writer = new BufferedWriter(new FileWriter(tempFile));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		String currentLine;
+		try {
+			while ((currentLine = reader.readLine()) != null) {
+				if (currentLine.equals(lineToRemove)) {
+					continue;
+				}
+				try {
+					writer.write(currentLine + "\n");
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		try {
 			writer.close();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -173,11 +176,12 @@ public class MainPanel extends JPanel{
 		}
 		String currentLine1 = null;
 		try {
-			while((currentLine1 = reader1.readLine()) != null){
+			while ((currentLine1 = reader1.readLine()) != null) {
 				String trimmedLine = currentLine1.trim();
-				writer1.write(currentLine1 + System.getProperty("line.separator"));
+				writer1.write(currentLine1
+						+ System.getProperty("line.separator"));
 			}
-		}catch(IOException e) {
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -195,14 +199,15 @@ public class MainPanel extends JPanel{
 			e.printStackTrace();
 		}
 	}
-	
+
 	private class IdleListener implements MouseMotionListener {
 
-		public void mouseDragged(MouseEvent arg0) {}
+		public void mouseDragged(MouseEvent arg0) {
+		}
 
 		public void mouseMoved(MouseEvent arg0) {
 
 			timer.restart();
 		}
-	}	
+	}
 }

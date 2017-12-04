@@ -75,7 +75,7 @@ class Login extends JPanel {
 		lblBadLogin = new JLabel("");
 		login.addActionListener(new ButtonListener());
 		JPanel bp = new JPanel();
-		
+
 		bp.add(login);
 		bp.add(lblBadLogin);
 		add(panel2, BorderLayout.NORTH);
@@ -85,11 +85,13 @@ class Login extends JPanel {
 	}
 
 	public void autoLogOut() {
-		
-		lblAutoLogOut.setText("<html>You were inactive for 10 minutes.<br>" +
-				"We logged you out automatically for security reasons.</html>");
+
+		lblAutoLogOut
+				.setText("<html>You were inactive for 10 minutes.<br>"
+						+ "We logged you out automatically for security reasons.</html>");
 		panel.switchPanel("Login");
 	}
+
 	private class ButtonListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent evt) {
