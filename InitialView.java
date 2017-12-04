@@ -26,18 +26,16 @@ import javax.swing.table.TableModel;
 
 public class InitialView extends JPanel {
 
-	private JButton btnDelete;
+
 	private MainPanel panel;
-	private JButton btnMakeAcct;
-	private JButton btnLogOut;
+
 	private JTable tblAccts;
 	private String[] columnNames = { "Username", "Description", "Email",
 			"Phone", "Balance" };
 	private String[][] accounts;
 	private TableModel model;
 	private Account acctSelected;
-	private JButton btnNoDelete, btnYesDelete, btnViewAcct, btnBenefits,
-			btnTransactions, btnHelp, btnModAcct;
+	private JButton btnNoDelete, btnYesDelete;
 	private JLabel lblDelete;
 	private JLabel lblTotalBalance;
 	private JLabel lblEmptyAccount;
@@ -46,7 +44,7 @@ public class InitialView extends JPanel {
 	private JMenuBar mb;
 	private JMenu Logout, Benefits, Transactions, Accounts, Help;
 	private JMenuItem help, logout, makeAct, deleteAct, viewAct,
-			viewtransactions, benefits;
+			viewtransactions, benefits,modAct;
 	private double uniFee;
 	private double creditCardFee;
 	private final String strEmptyAccount = "This account can't be deleted because it has transactions";
@@ -59,7 +57,6 @@ public class InitialView extends JPanel {
 		setLayout(border);
 
 		mb = new JMenuBar();
-		Logout = new JMenu("Logout");
 		Help = new JMenu("Help");
 		Accounts = new JMenu("Accounts");
 		Benefits = new JMenu("Benefits");
@@ -71,33 +68,31 @@ public class InitialView extends JPanel {
 		deleteAct = new JMenuItem("Delete Account");
 		viewAct = new JMenuItem("View Account");
 		viewtransactions = new JMenuItem("View Transactions");
-		Logout.add(logout);
+		modAct = new JMenuItem("Modify Account");
+
+		Help.add(logout);
 		Help.add(help);
 		Transactions.add(viewtransactions);
 		Accounts.add(makeAct);
 		Accounts.add(deleteAct);
 		Accounts.add(viewAct);
+		Accounts.add(modAct);
 		Benefits.add(benefits);
 		mb.add(Accounts);
 		mb.add(Transactions);
-		mb.add(Logout);
-		mb.add(Help);
 		mb.add(Benefits);
+		mb.add(Help);
 
-		btnDelete = new JButton("Delete Account");
-		btnMakeAcct = new JButton("Make new Account");
-		btnLogOut = new JButton("Logout");
-		btnViewAcct = new JButton("View Account");
-		btnModAcct = new JButton("Modify Account");
-		btnBenefits = new JButton("Benefits");
-		btnTransactions = new JButton("Transactions");
-		btnBenefits.addActionListener(new ButtonListener());
-		btnViewAcct.addActionListener(new ButtonListener());
-		btnModAcct.addActionListener(new ButtonListener());
-		btnDelete.addActionListener(new ButtonListener());
-		btnMakeAcct.addActionListener(new ButtonListener());
-		btnLogOut.addActionListener(new ButtonListener());
-		btnTransactions.addActionListener(new ButtonListener());
+
+		benefits.addActionListener(new ButtonListener());
+		viewAct.addActionListener(new ButtonListener());
+		modAct.addActionListener(new ButtonListener());
+		deleteAct.addActionListener(new ButtonListener());
+		makeAct.addActionListener(new ButtonListener());
+		logout.addActionListener(new ButtonListener());
+		viewtransactions.addActionListener(new ButtonListener());
+		help.addActionListener(new ButtonListener());
+		modAct.addActionListener(new ButtonListener());
 
 		lblTotalBalance = new JLabel("");
 		lblUniFee = new JLabel("");
@@ -115,34 +110,18 @@ public class InitialView extends JPanel {
 		btnNoDelete.addActionListener(new ButtonListener());
 		btnYesDelete.addActionListener(new ButtonListener());
 
-		btnHelp = new JButton("Help");
-		btnHelp.addActionListener(new ButtonListener());
-		btnHelp.setVisible(true);
+
 
 		JPanel butpan = new JPanel();
 		butpan.setLayout(new BoxLayout(butpan, BoxLayout.Y_AXIS));
 
-		butpan.add(btnLogOut);
-		butpan.add(Box.createVerticalStrut(20));
-		butpan.add(btnMakeAcct);
-		butpan.add(Box.createVerticalStrut(20));
-		butpan.add(btnDelete);
-		butpan.add(Box.createVerticalStrut(20));
-		butpan.add(btnViewAcct);
-		butpan.add(Box.createVerticalStrut(20));
-		butpan.add(btnModAcct);
-		butpan.add(Box.createVerticalStrut(20));
-		butpan.add(btnBenefits);
-		butpan.add(Box.createVerticalStrut(20));
-		butpan.add(btnTransactions);
-		butpan.add(Box.createVerticalStrut(20));
+
 		butpan.add(lblTotalBalance);
 		butpan.add(Box.createVerticalStrut(20));
 		butpan.add(lblUniFee);
 		butpan.add(Box.createVerticalStrut(20));
 		butpan.add(lblCreditCardFee);
-		butpan.add(Box.createVerticalStrut(20));
-		butpan.add(btnHelp);
+
 		JPanel cdelete = new JPanel();
 		cdelete.setLayout(new BoxLayout(cdelete, BoxLayout.Y_AXIS));
 		cdelete.add(lblDelete);
@@ -150,13 +129,13 @@ public class InitialView extends JPanel {
 		cdelete.add(btnNoDelete);
 		cdelete.add(lblEmptyAccount);
 		add(butpan, BorderLayout.WEST);
-		add(cdelete, BorderLayout.NORTH);
+		add(cdelete, BorderLayout.SOUTH);
 		JPanel MenuBar = new JPanel();
 		add(MenuBar, BorderLayout.NORTH);
 		MenuBar.add(mb);
 		tblAccts = new JTable(model);
 		updateTable();
-		add(new JScrollPane(tblAccts), BorderLayout.EAST);
+		add(new JScrollPane(tblAccts), BorderLayout.CENTER);
 		lblDelete.setVisible(false);
 		btnYesDelete.setVisible(false);
 		btnNoDelete.setVisible(false);
@@ -190,7 +169,7 @@ public class InitialView extends JPanel {
 						fees += amount / .92 * .08;
 					} else if (percent == .04 && code.equals("50287")) {
 						fees += amount / .92 / .96 * .04;
-						System.out.println(amount + " " + fees);
+
 					}
 				}
 			}
@@ -277,24 +256,24 @@ public class InitialView extends JPanel {
 	private class ButtonListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent evt) {
-			if (evt.getSource() == btnMakeAcct) {
+			if (evt.getSource() == makeAct) {
 				panel.setAccount(acctSelected);
 				panel.switchPanel("CreateAcct");
-			} else if (evt.getSource() == btnViewAcct) {
+			} else if (evt.getSource() == viewAct) {
 
 				panel.setAccount(acctSelected);
 				panel.switchPanel("ViewAcct");
-			} else if (evt.getSource() == btnModAcct) {
+			} else if (evt.getSource() == modAct) {
 
 				panel.setAccount(acctSelected);
 				panel.switchPanel("ModifyAcct");
-			} else if (evt.getSource() == btnLogOut) {
+			} else if (evt.getSource() == logout) {
 				panel.switchPanel("Login");
-			} else if (evt.getSource() == btnBenefits) {
+			} else if (evt.getSource() == benefits) {
 				panel.switchPanel("Benefits");
-			} else if (evt.getSource() == btnTransactions) {
+			} else if (evt.getSource() == viewtransactions) {
 				panel.switchPanel("TransactionView");
-			} else if (evt.getSource() == btnDelete) {
+			} else if (evt.getSource() == deleteAct) {
 				if (acctSelected != null) {
 					lblDelete.setVisible(true);
 					btnYesDelete.setVisible(true);
@@ -318,12 +297,15 @@ public class InitialView extends JPanel {
 				transactionFile.delete();
 				panel.deleteLine("accounts.txt", acctSelected.toString());
 				updateTable();
-			} else if (evt.getSource() == btnHelp) {
+			} else if (evt.getSource() == help) {
 
 				HelpPage frameHelp = new HelpPage("Help");
 				frameHelp.setVisible(true);
 			}
 			lblEmptyAccount.setText("");
 		}
+	}
+	public Account getAccount(){
+		return acctSelected;
 	}
 }
