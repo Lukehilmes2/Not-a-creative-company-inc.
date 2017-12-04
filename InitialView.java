@@ -100,7 +100,7 @@ public class InitialView extends JPanel {
 		uniFee = getFees(.08);
 		creditCardFee = getFees(.04);
 		lblUniFee.setText("University fee: " + fmt.format(uniFee));
-		lblCreditCardFee.setText("Creedit Card Fee: "
+		lblCreditCardFee.setText("Credit Card Fee: "
 				+ fmt.format(creditCardFee));
 
 		btnNoDelete = new JButton("No");
