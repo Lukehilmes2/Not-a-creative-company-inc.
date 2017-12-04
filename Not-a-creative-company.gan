@@ -137,6 +137,14 @@ Cody: 1.5 Hours]]></notes>
                 <customproperty taskproperty-id="tpc1" value="Luke: 1.5 hour"/>
             </task>
         </task>
+        <task id="52" name="Sprint5" meeting="false" start="2017-11-28" duration="5" complete="0" expand="true">
+            <task id="53" name="Fee totals displayed" color="#8cb6ce" meeting="false" start="2017-11-28" duration="1" complete="0" expand="true">
+                <customproperty taskproperty-id="tpc1" value="Max: 1.5 Hours"/>
+            </task>
+            <task id="56" name="Wrote and added help page" color="#8cb6ce" meeting="false" start="2017-12-04" duration="1" complete="0" expand="true">
+                <customproperty taskproperty-id="tpc1" value="Max: 1.5 Hours"/>
+            </task>
+        </task>
     </tasks>
     <resources/>
     <allocations/>

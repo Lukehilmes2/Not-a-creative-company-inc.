@@ -9,11 +9,11 @@ import java.io.FileReader;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Scanner;
-import javax.swing.JOptionPane;
+
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -35,7 +35,7 @@ public class InitialView extends JPanel{
 	private String[][] accounts;
 	private TableModel model;
 	private Account acctSelected;
-	private JButton btnNoDelete, btnYesDelete, btnViewAcct, btnBenefits , btnTransactions, btnSave,btnModAcct;
+	private JButton btnNoDelete, btnYesDelete, btnViewAcct, btnBenefits , btnTransactions, btnHelp,btnModAcct;
 	private JLabel lblDelete;
 	private JLabel lblTotalBalance;
 	private JLabel lblEmptyAccount;
@@ -111,16 +111,16 @@ public class InitialView extends JPanel{
  		btnNoDelete.addActionListener(new ButtonListener());
  		btnYesDelete.addActionListener(new ButtonListener());
 
- 		btnSave = new JButton("Save changes to accounts");
- 		btnSave.addActionListener(new ButtonListener());
- 		btnSave.setVisible(false);
+ 		btnHelp = new JButton("Help");
+ 		btnHelp.addActionListener(new ButtonListener());
+ 		btnHelp.setVisible(true);
 
 		JPanel butpan = new JPanel();
 		butpan.setLayout(new BoxLayout(butpan,BoxLayout.Y_AXIS));
 
 
 		butpan.add(btnLogOut);
-		butpan.add(Box.createVerticalStrut(100));
+		butpan.add(Box.createVerticalStrut(20));
 		butpan.add(btnMakeAcct);
 		butpan.add(Box.createVerticalStrut(20));
 		butpan.add(btnDelete);
@@ -132,14 +132,14 @@ public class InitialView extends JPanel{
 		butpan.add(btnBenefits);
 		butpan.add(Box.createVerticalStrut(20));
 		butpan.add(btnTransactions);
-		butpan.add(Box.createVerticalStrut(50));
+		butpan.add(Box.createVerticalStrut(20));
 		butpan.add(lblTotalBalance);
-		butpan.add(Box.createVerticalStrut(50));
+		butpan.add(Box.createVerticalStrut(20));
 		butpan.add(lblUniFee);
-		butpan.add(Box.createVerticalStrut(50));
+		butpan.add(Box.createVerticalStrut(20));
 		butpan.add(lblCreditCardFee);
-		butpan.add(Box.createVerticalStrut(50));
-		butpan.add(btnSave);
+		butpan.add(Box.createVerticalStrut(20));
+		butpan.add(btnHelp);
 		JPanel cdelete = new JPanel();
 		cdelete.setLayout(new BoxLayout(cdelete,BoxLayout.Y_AXIS));
 		cdelete.add(lblDelete);
@@ -158,6 +158,7 @@ public class InitialView extends JPanel{
  		btnYesDelete.setVisible(false);
  		btnNoDelete.setVisible(false);
 		tblAccts.addMouseListener(new TableListener());
+		
 	}
 
 
@@ -264,10 +265,6 @@ public class InitialView extends JPanel{
  		public void mouseReleased(MouseEvent arg0) {}
   	}
 
-	private void updateFilesFromTable() {
-
-	}
-
 	private class ButtonListener implements ActionListener{
 
 		public void actionPerformed(ActionEvent evt) {
@@ -320,8 +317,10 @@ public class InitialView extends JPanel{
 				panel.deleteLine("accounts.txt", acctSelected.toString());
 				updateTable();
 			}
-			else if (evt.getSource() == btnSave) {
-				updateFilesFromTable();
+			else if (evt.getSource() == btnHelp) {
+				
+				HelpPage frameHelp = new HelpPage("Help");
+				frameHelp.setVisible(true);
 			}
 			lblEmptyAccount.setText("");
 		}

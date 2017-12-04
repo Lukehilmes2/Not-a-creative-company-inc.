@@ -1,0 +1,37 @@
+Welcome to the fabulous MoneyTracker2000 CS Department Finance Tracker! Here is all of
+the different parts of the program that can be used to do accounting for the department:
+
+Main Window:
+	The Main window is the window that greets someone when they log into the program.
+	The table shows all of the accounts, including their description, email, phone, and balance. 
+	The menu bar on top of the program lets the user navigate through all of the views
+	in the rest of the program described below.
+	Accounts can only be deleted if they have no transactions on the system(i.e. balance = 0).
+	
+Benefits Calculator:
+	This view lets the user calculate benefits for workers, whether it be staff or faculty.
+	The staff benefit is 25%, and student benefit is 12.5%.
+	
+View Account:
+	This window shows all of the transactions that the account has under their name.
+	On this panel, the user can add transactions, remove transactions, and go back
+	using the buttons on top. If the user tries and deletes transactions, a window will
+	pop up to confirm whether or not the account should be deleted.
+	
+Create Account:
+	This window lets the user create a new account if they fill out all of the fields.
+	An account will not be created if any of the fields are false, or an invalid number
+	was put into starting balance. If the user doesn't want to create a new transaction,
+
+Transactions:
+	This view shows all individual transactions on a large table, and has the account
+	associated with that transaction as the first column in each transaction row. Just
+	like the view account panel, the user can add and remove transactions. If the user
+	decides to remove transactions, they will be asked to confirm to delete the transaction.
+
+Add Transaction:
+	This window lets the user create a new transaction, either from the view account, or
+	gives them a drop down menu to select the specific account they want to add a transaction to. 
+	There is an 8 percent fee taken out for all income transactions for the university,
+	and an additional 4 percent taken out of credit card income transactions for a processing
+	fees. On the transaction and main view the amount taken out will be displayed.
