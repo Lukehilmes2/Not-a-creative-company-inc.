@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?><project name="Not So Creative Incoprated" company="" webLink="http://" view-date="2017-11-27" view-index="0" gantt-divider-location="555" resource-divider-location="300" version="2.8.5" locale="en_US">
+<?xml version="1.0" encoding="UTF-8"?><project name="Not So Creative Incoprated" company="" webLink="http://" view-date="2017-11-27" view-index="0" gantt-divider-location="685" resource-divider-location="300" version="2.8.5" locale="en_US">
     <description/>
     <view zooming-state="default:0" id="gantt-chart">
-        <field id="tpd3" name="Name" width="219" order="0"/>
-        <field id="tpd4" name="Begin date" width="97" order="1"/>
-        <field id="tpd5" name="End date" width="98" order="2"/>
-        <field id="tpc1" name="Group Member" width="122" order="3"/>
+        <field id="tpd3" name="Name" width="262" order="0"/>
+        <field id="tpd4" name="Begin date" width="119" order="1"/>
+        <field id="tpd5" name="End date" width="131" order="2"/>
+        <field id="tpc1" name="Group Member" width="154" order="3"/>
     </view>
     <view id="resource-table">
         <field id="0" name="Name" width="210" order="0"/>
@@ -151,7 +151,7 @@ Cody: 1.5 Hours]]></notes>
                 <customproperty taskproperty-id="tpc1" value="Luke: 3 Hours"/>
             </task>
             <task id="59" name="removed buttons and got tabs to work" meeting="false" start="2017-11-27" duration="1" complete="0" expand="true">
-                <customproperty taskproperty-id="tpc1" value="Luke: .5 Hours"/>
+                <customproperty taskproperty-id="tpc1" value="Luke: .5 Hours Cody: 2 Hours"/>
             </task>
             <task id="61" name="User tests" meeting="false" start="2017-11-27" duration="1" complete="0" expand="true"/>
         </task>
