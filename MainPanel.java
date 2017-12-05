@@ -11,7 +11,29 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+<<<<<<< HEAD
 
+=======
+import java.awt.BorderLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
+import javax.swing.JComboBox;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import java.util.*;
+import java.util.Scanner;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.text.DecimalFormat;
+import java.io.File;
+import java.nio.file.Files;
+>>>>>>> 955e4e34aed125e008b3b824e6681a7bbb7ddc1b
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -28,7 +50,8 @@ public class MainPanel extends JPanel {
 	private final String companyName = "Developed by NACC inc.";
 	private final double minutesAutoLogOut = 10;
 	private Timer timer;
-	
+	private DecimalFormat fmt = new DecimalFormat("$0.00");
+
 	public MainPanel() {
 
 		cards = new CardLayout();
@@ -100,6 +123,30 @@ public class MainPanel extends JPanel {
 		pnlTransactionView.updateTable();
 	}
 
+	public String[][] getTransFromText(String filename) {
+	ArrayList<String[]> temp = new ArrayList<String[]>();
+	Scanner file = null;
+	try {
+		file = new Scanner(new FileReader(filename));
+	} catch (FileNotFoundException e) {
+		System.out.println("Cant find file");
+		e.printStackTrace();
+	}
+	while (file.hasNext()) {
+		String nextLine = file.nextLine();
+		if (!nextLine.equals("")){
+		String[] transaction = nextLine.split(",");
+		String strBalance = transaction[2];
+		transaction[2] = fmt.format(Double.parseDouble(strBalance));
+		temp.add(transaction);
+	}
+	}
+	String[][] transactions = new String[temp.size()][4];
+	for (int i = 0; i < temp.size(); i++) {
+		transactions[i] = temp.get(i);
+	}
+	return transactions;
+}
 	public double getDoubleFrom$(String str) {
 		int isNegative = 1;
 		if (str.substring(0, 1).equals("-")) {

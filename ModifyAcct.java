@@ -5,13 +5,20 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
-
+import javax.swing.JComboBox;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
-public class ModifyAcct extends JPanel  {
+import java.util.*;
+import java.util.Scanner;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.text.DecimalFormat;
+import java.io.File;
+import java.nio.file.Files;
+import java.io.PrintWriter;
+public class ModifyAcct extends JPanel implements ActionListener {
 
 	private JTextField name;
 	private JTextField description, email, phone, balance;
@@ -22,23 +29,40 @@ public class ModifyAcct extends JPanel  {
 	private int txtFieldLength = 10;
 	private MainPanel panel;
 	private InitialView init;
+	private JComboBox<String> users;
+	private String[] userlist;
+	private String[][] accounts,transactions;
+	private Account acctSelected,updateAcct;
+	private DecimalFormat fmt = new DecimalFormat("$0.00");
+	private String nam,des,ema, pho;
+	private double bal;
 
 	public ModifyAcct(MainPanel panel){
 		this.panel = panel;
+		panel.updateTable();
 
-		Account A = panel.getAcct();
+		accounts = panel.getAccounts();
+
+		userlist = new String[accounts.length];
+		for (int i = 0; i < accounts.length; i++) {
+
+			userlist[i] = (accounts[i][0]);
+		}
+
 
 		setLayout(new BorderLayout());
 		JPanel panel1 = new JPanel(new GridBagLayout());
 		GridBagConstraints cs = new GridBagConstraints();
 		cs.fill = GridBagConstraints.HORIZONTAL;
+
 		acct = new JLabel();
-		acct.setText("Modify Account!");
-		cs.gridx = 1;
+		acct.setText("Modify Which Account?");
+		cs.gridx = 0;
 		cs.gridy = 0;
 		cs.gridwidth = 1;
 		cs.ipady = 20;
 		panel1.add(acct, cs);
+
 
 		lblName = new JLabel("Username: ");
 		cs.gridx = 0;
@@ -46,8 +70,8 @@ public class ModifyAcct extends JPanel  {
 		cs.gridwidth = 1;
 		cs.ipady = 20;
 		panel1.add(lblName, cs);
-		name = new JTextField(txtFieldLength);
 
+		name = new JTextField(txtFieldLength);
 		cs.gridx = 1;
 		cs.gridy = 2;
 		cs.gridwidth = 2;
@@ -60,6 +84,7 @@ public class ModifyAcct extends JPanel  {
 		cs.gridwidth = 1;
 		cs.ipady = 20;
 		panel1.add(lblDescription, cs);
+
 		description = new JTextField(txtFieldLength);
 		cs.gridx = 1;
 		cs.gridy = 4;
@@ -73,7 +98,8 @@ public class ModifyAcct extends JPanel  {
 		cs.gridwidth = 1;
 		cs.ipady = 20;
 		panel1.add(lblEmail, cs);
-		email = new JTextField(txtFieldLength);
+
+		email = new JTextField(50);
 		cs.gridx = 1;
 		cs.gridy = 8;
 		cs.gridwidth = 2;
@@ -86,6 +112,7 @@ public class ModifyAcct extends JPanel  {
 		cs.gridwidth = 1;
 		cs.ipady = 20;
 		panel1.add(lblPhone, cs);
+
 		phone = new JTextField(txtFieldLength);
 		cs.gridx = 1;
 		cs.gridy = 10;
@@ -93,7 +120,7 @@ public class ModifyAcct extends JPanel  {
 		cs.ipady = 20;
 		panel1.add(phone, cs);
 
-		create = new JButton("Create Account");
+		create = new JButton("Change Account");
 		cs.gridx = 1;
 		cs.gridy = 12;
 		cs.gridwidth = 2;
@@ -109,12 +136,40 @@ public class ModifyAcct extends JPanel  {
 
 		back = new JButton("Back");
 
+		users = new JComboBox<>(userlist);
+		cs.gridx = 1;
+		cs.gridy = 0;
+		cs.gridwidth = 1;
+		cs.ipady = 20;
+		panel1.add(users, cs);
 		add(panel1, BorderLayout.CENTER);
 		add(back, BorderLayout.NORTH);
 		back.addActionListener(new ButtonListener());
 		create.addActionListener(new ButtonListener());
+		users.addActionListener(this);
 	}
+	public void actionPerformed(ActionEvent e) {
 
+		String curUserName = users.getSelectedItem().toString();
+		for (int i = 0; i < accounts.length; i++) {
+		if (accounts[i][0].equals(curUserName)){
+			name.setText(accounts[i][0]);
+			description.setText(accounts[i][1]);
+			email.setText(accounts[i][2]);
+			phone.setText(accounts[i][3]);
+			nam = accounts[i][0];
+			des= accounts[i][1];
+			ema = accounts[i][2];
+			pho= accounts[i][3];
+			String bala = (accounts[i][4]);
+			bala = bala.replace("$","");
+			bal = Double.parseDouble(bala);
+		}
+
+		}
+
+
+	}
 	private class ButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {
 			if (arg0.getSource() == create) {
@@ -125,31 +180,45 @@ public class ModifyAcct extends JPanel  {
 					badacct.setText("Please fill out all the fields!");
 					return;
 				}
-				String[][] accounts = panel.getAccounts();
-				for (int i = 0; i < accounts.length; i++) {
-					String userName = accounts[i][0];
-					if (name.getText().equals(userName)) {
-						badacct.setText("another account already exists with that name");
-						return;
-					}
+				panel.updateTable();
+				acctSelected = new Account(nam,des,ema,pho,bal);
+				updateAcct = new Account(name.getText(),description.getText(),email.getText(),phone.getText(),bal);
+				System.out.println(updateAcct.toString());
+				panel.addLine("accounts.txt", updateAcct.toString());
+				String filename = ("transactions/" + acctSelected.getName()+ ".txt");
+				transactions = getTransFromText(filename);
+				for (int i = 0; i < transactions.length; i++) {
+					String tname = transactions[i][0];
+					String tdate = transactions[i][1];
+					String bala = (transactions[i][2]);
+					bala = bala.replace("$","");
+					double tbal = Double.parseDouble(bala);
+
+					Integer tcode = Integer.parseInt(transactions[i][3]);
+					String tdes = transactions[i][4];
+
+					Transaction t = new Transaction(updateAcct.getName(), tdate, tbal, tcode, tdes);
+					panel.addLine("transactions/" + updateAcct.getName() + ".txt",t.toString());
+					panel.deleteLine("transactions/" + tname + ".txt",t.toString());
 				}
-				Account acct = new Account(name.getText(),
-						description.getText(), email.getText(),
-						phone.getText(), Double.parseDouble(balance.getText()));
-				panel.addLine("accounts.txt", acct.toString());
-				Transaction t = new Transaction(acct.getName(),
-						acct.getBalance(), "starting balance", 50109);
-				if (acct.getBalance() != 0) {
-					panel.addLine("transactions/" + acct.getName() + ".txt",
-							t.toString());
-				} else {
-					panel.addLine("transactions/" + acct.getName() + ".txt", "");
+				panel.deleteLine("accounts.txt", acctSelected.toString());
+				panel.updateTable();
+				File transactionFile = new File("transactions/" + acctSelected.getName() + ".txt");
+				try{
+				PrintWriter pw = new PrintWriter(filename);
+				pw.close();}
+				catch(FileNotFoundException e){
+					System.out.println("Cant find file");
+					e.printStackTrace();
 				}
+				transactionFile.delete();
+
+				System.out.println(acctSelected.toString());
+
 				name.setText("");
 				description.setText("");
 				email.setText("");
 				phone.setText("");
-				balance.setText("");
 				panel.updateTable();
 				panel.switchPanel("InitialView");
 
@@ -163,5 +232,29 @@ public class ModifyAcct extends JPanel  {
 				panel.switchPanel("InitialView");
 			}
 		}
+		private String[][] getTransFromText(String filename) {
+		ArrayList<String[]> temp = new ArrayList<String[]>();
+		Scanner file = null;
+		try {
+			file = new Scanner(new FileReader(filename));
+		} catch (FileNotFoundException e) {
+			System.out.println("Cant find file");
+			e.printStackTrace();
+		}
+		while (file.hasNext()) {
+			String nextLine = file.nextLine();
+			if (!nextLine.equals("")){
+			String[] transaction = nextLine.split(",");
+			String strBalance = transaction[2];
+			transaction[2] = fmt.format(Double.parseDouble(strBalance));
+			temp.add(transaction);
+		}
+		}
+		String[][] transactions = new String[temp.size()][4];
+		for (int i = 0; i < temp.size(); i++) {
+			transactions[i] = temp.get(i);
+		}
+		return transactions;
+	}
 	}
 }

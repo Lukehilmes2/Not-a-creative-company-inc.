@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?><project name="Not So Creative Incoprated" company="" webLink="http://" view-date="2017-11-27" view-index="0" gantt-divider-location="555" resource-divider-location="300" version="2.8.5" locale="en_US">
     <description/>
     <view zooming-state="default:0" id="gantt-chart">
-        <field id="tpd3" name="Name" width="225" order="0"/>
-        <field id="tpd4" name="Begin date" width="100" order="1"/>
-        <field id="tpd5" name="End date" width="101" order="2"/>
-        <field id="tpc1" name="Group Member" width="125" order="3"/>
+        <field id="tpd3" name="Name" width="219" order="0"/>
+        <field id="tpd4" name="Begin date" width="97" order="1"/>
+        <field id="tpd5" name="End date" width="98" order="2"/>
+        <field id="tpc1" name="Group Member" width="122" order="3"/>
     </view>
     <view id="resource-table">
         <field id="0" name="Name" width="210" order="0"/>
@@ -137,16 +137,23 @@ Cody: 1.5 Hours]]></notes>
                 <customproperty taskproperty-id="tpc1" value="Luke: 1.5 hour"/>
             </task>
         </task>
-        <task id="52" name="Sprint5" meeting="false" start="2017-11-28" duration="5" complete="0" expand="true">
+        <task id="52" name="Sprint5" meeting="false" start="2017-11-27" duration="5" complete="0" expand="true">
             <task id="53" name="Fee totals displayed" color="#8cb6ce" meeting="false" start="2017-11-28" duration="1" complete="0" expand="true">
                 <customproperty taskproperty-id="tpc1" value="Max: 1.5 Hours"/>
             </task>
             <task id="56" name="Wrote and added help page" color="#8cb6ce" meeting="false" start="2017-12-01" duration="1" complete="0" expand="true">
                 <customproperty taskproperty-id="tpc1" value="Max: 1.5 Hours"/>
             </task>
-            <task id="57" name="Auto logout if inactive" color="#8cb6ce" meeting="false" start="2017-12-04" duration="1" complete="0" expand="true">
+            <task id="57" name="Auto logout if inactive" color="#8cb6ce" meeting="false" start="2017-11-27" duration="1" complete="0" expand="true">
                 <customproperty taskproperty-id="tpc1" value="Max: 1 Hour"/>
             </task>
+            <task id="58" name="Modify Account" meeting="false" start="2017-11-27" duration="1" complete="0" expand="true">
+                <customproperty taskproperty-id="tpc1" value="Luke: 3 Hours"/>
+            </task>
+            <task id="59" name="removed buttons and got tabs to work" meeting="false" start="2017-11-27" duration="1" complete="0" expand="true">
+                <customproperty taskproperty-id="tpc1" value="Luke: .5 Hours"/>
+            </task>
+            <task id="61" name="User tests" meeting="false" start="2017-11-27" duration="1" complete="0" expand="true"/>
         </task>
     </tasks>
     <resources/>
