@@ -13,7 +13,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-<<<<<<< HEAD
 import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -33,10 +32,6 @@ import java.io.FileReader;
 import java.text.DecimalFormat;
 import java.io.File;
 import java.nio.file.Files;
-=======
-
-import javax.imageio.ImageIO;
->>>>>>> 382c5a8bc95a0f63e6ab3dadc286ead00dcb04db
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -53,12 +48,8 @@ public class MainPanel extends JPanel {
 	private final String companyName = "Developed by NACC inc.";
 	private final double minutesAutoLogOut = 10;
 	private Timer timer;
-<<<<<<< HEAD
 	private DecimalFormat fmt = new DecimalFormat("$0.00");
 
-=======
-	
->>>>>>> 382c5a8bc95a0f63e6ab3dadc286ead00dcb04db
 	public MainPanel() {
 
 		cards = new CardLayout();
@@ -129,7 +120,7 @@ public class MainPanel extends JPanel {
 		pnlViewAcct.updateTable();
 		pnlTransactionView.updateTable();
 	}
-	
+
 	public String[][] getTransFromText(String filename) {
 	ArrayList<String[]> temp = new ArrayList<String[]>();
 	Scanner file = null;
