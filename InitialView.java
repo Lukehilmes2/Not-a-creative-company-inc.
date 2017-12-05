@@ -100,7 +100,7 @@ public class InitialView extends JPanel {
 		uniFee = getFees(.08);
 		creditCardFee = getFees(.04);
 		lblUniFee.setText("University fee: " + fmt.format(uniFee));
-		lblCreditCardFee.setText("Creedit Card Fee: "
+		lblCreditCardFee.setText("Credit Card Fee: "
 				+ fmt.format(creditCardFee));
 
 		btnNoDelete = new JButton("No");
@@ -124,10 +124,10 @@ public class InitialView extends JPanel {
 
 		JPanel cdelete = new JPanel();
 		cdelete.setLayout(new BoxLayout(cdelete, BoxLayout.Y_AXIS));
-		cdelete.add(lblDelete);
-		cdelete.add(btnYesDelete);
-		cdelete.add(btnNoDelete);
-		cdelete.add(lblEmptyAccount);
+		butpan.add(lblDelete);
+		butpan.add(btnYesDelete);
+		butpan.add(btnNoDelete);
+		butpan.add(lblEmptyAccount);
 		add(butpan, BorderLayout.WEST);
 		add(cdelete, BorderLayout.SOUTH);
 		JPanel MenuBar = new JPanel();
@@ -199,7 +199,7 @@ public class InitialView extends JPanel {
 		uniFee = getFees(.08);
 		creditCardFee = getFees(.04);
 		lblUniFee.setText("University fee: " + fmt.format(uniFee));
-		lblCreditCardFee.setText("Creedit Card Fee: "
+		lblCreditCardFee.setText("Credit Card Fee: "
 				+ fmt.format(creditCardFee));
 	}
 
@@ -292,9 +292,21 @@ public class InitialView extends JPanel {
 				lblDelete.setVisible(false);
 				btnYesDelete.setVisible(false);
 				btnNoDelete.setVisible(false);
-				File transactionFile = new File("transactions/"
-						+ acctSelected.getName() + ".txt");
-				transactionFile.delete();
+				String filename = ("transactions/"+ acctSelected.getName() + ".txt");
+				String[][] transactions = panel.getTransFromText(filename);
+				for (int i = 0; i < transactions.length; i++) {
+					String tname = transactions[i][0];
+					String tdate = transactions[i][1];
+					String bala = (transactions[i][2]);
+					bala = bala.replace("$","");
+					double tbal = Double.parseDouble(bala);
+
+					Integer tcode = Integer.parseInt(transactions[i][3]);
+					String tdes = transactions[i][4];
+
+					Transaction t = new Transaction(acctSelected.getName(), tdate, tbal, tcode, tdes);
+					panel.deleteLine("transactions/" + acctSelected.getName() + ".txt",t.toString());
+				}
 				panel.deleteLine("accounts.txt", acctSelected.toString());
 				updateTable();
 			} else if (evt.getSource() == help) {
