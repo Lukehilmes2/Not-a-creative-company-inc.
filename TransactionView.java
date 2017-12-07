@@ -88,7 +88,7 @@ public class TransactionView extends JPanel {
 				btnYesDelete.setVisible(false);
 				btnNoDelete.setVisible(false);
 			} else if (e.getSource() == btnAddTrans) {
-				panel.switchPanel("AddTrans");
+				panel.switchPanel("AddTransAll");
 			}
 
 		}

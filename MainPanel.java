@@ -39,7 +39,7 @@ public class MainPanel extends JPanel {
 
 	private CardLayout cards;
 	private JPanel pnlCreateAcct, pnlConfirmDelete, pnlAddTrans, pnlBenefits,
-			pnlModifyAcct;
+			pnlModifyAcct,pnlAddTransAll;
 	private Login pnlLogin;
 	private ViewAcct pnlViewAcct;
 	private InitialView pnlInitialView;
@@ -62,6 +62,7 @@ public class MainPanel extends JPanel {
 		pnlAddTrans = new AddTrans(this);
 		pnlBenefits = new Benefits(this);
 		pnlTransactionView = new TransactionView(this);
+		pnlAddTransAll = new AddTransAll(this);
 		add(pnlLogin, "Login");
 		add(pnlInitialView, "InitialView");
 		add(pnlCreateAcct, "CreateAcct");
@@ -70,6 +71,7 @@ public class MainPanel extends JPanel {
 		add(pnlAddTrans, "AddTrans");
 		add(pnlBenefits, "Benefits");
 		add(pnlTransactionView, "TransactionView");
+		add(pnlAddTransAll);
 		cards.show(this, "Login");
 
 		timer = new Timer(((int) (1000 * 60 * minutesAutoLogOut)),
