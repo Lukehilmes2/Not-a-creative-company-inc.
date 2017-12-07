@@ -18,6 +18,7 @@ import java.text.DecimalFormat;
 import java.io.File;
 import java.nio.file.Files;
 import java.io.PrintWriter;
+
 public class ModifyAcct extends JPanel implements ActionListener {
 
 	private JTextField name;
@@ -31,29 +32,22 @@ public class ModifyAcct extends JPanel implements ActionListener {
 	private InitialView init;
 	private JComboBox<String> users;
 	private String[] userlist;
-	private String[][] accounts,transactions;
-	private Account acctSelected,updateAcct;
+	private String[][] accounts, transactions;
+	private Account acctSelected, updateAcct;
 	private DecimalFormat fmt = new DecimalFormat("$0.00");
-	private String nam,des,ema, pho;
+	private String nam, des, ema, pho;
 	private double bal;
+	private JPanel panel1;
+	GridBagConstraints cs;
+	public ModifyAcct(MainPanel panel) {
 
-	public ModifyAcct(MainPanel panel){
 		this.panel = panel;
-
-
-		accounts = panel.getAccounts();
-
-		userlist = new String[accounts.length];
-		for (int i = 0; i < accounts.length; i++) {
-
-			userlist[i] = (accounts[i][0]);
-		}
-
-
 		setLayout(new BorderLayout());
-		JPanel panel1 = new JPanel(new GridBagLayout());
-		GridBagConstraints cs = new GridBagConstraints();
+		panel1 = new JPanel(new GridBagLayout());
+		cs = new GridBagConstraints();
 		cs.fill = GridBagConstraints.HORIZONTAL;
+		users = new JComboBox<>();
+		updateStuff();
 
 		acct = new JLabel();
 		acct.setText("Modify Which Account?");
@@ -62,7 +56,6 @@ public class ModifyAcct extends JPanel implements ActionListener {
 		cs.gridwidth = 1;
 		cs.ipady = 20;
 		panel1.add(acct, cs);
-
 
 		lblName = new JLabel("Username: ");
 		cs.gridx = 0;
@@ -136,7 +129,6 @@ public class ModifyAcct extends JPanel implements ActionListener {
 
 		back = new JButton("Back");
 
-		users = new JComboBox<>(userlist);
 		cs.gridx = 1;
 		cs.gridy = 0;
 		cs.gridwidth = 1;
@@ -148,28 +140,34 @@ public class ModifyAcct extends JPanel implements ActionListener {
 		create.addActionListener(new ButtonListener());
 		users.addActionListener(this);
 	}
+
 	public void actionPerformed(ActionEvent e) {
 
-		String curUserName = users.getSelectedItem().toString();
+		String curUserName;
+		try {
+			curUserName = users.getSelectedItem().toString();
+		} catch (NullPointerException ev) {
+			return;
+		}
 		for (int i = 0; i < accounts.length; i++) {
-		if (accounts[i][0].equals(curUserName)){
-			name.setText(accounts[i][0]);
-			description.setText(accounts[i][1]);
-			email.setText(accounts[i][2]);
-			phone.setText(accounts[i][3]);
-			nam = accounts[i][0];
-			des= accounts[i][1];
-			ema = accounts[i][2];
-			pho= accounts[i][3];
-			String bala = (accounts[i][4]);
-			bala = bala.replace("$","");
-			bal = Double.parseDouble(bala);
-		}
+			if (accounts[i][0].equals(curUserName)) {
+				name.setText(accounts[i][0]);
+				description.setText(accounts[i][1]);
+				email.setText(accounts[i][2]);
+				phone.setText(accounts[i][3]);
+				nam = accounts[i][0];
+				des = accounts[i][1];
+				ema = accounts[i][2];
+				pho = accounts[i][3];
+				String bala = (accounts[i][4]);
+				bala = bala.replace("$", "");
+				bal = Double.parseDouble(bala);
+			}
 
 		}
-
 
 	}
+
 	private class ButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {
 			if (arg0.getSource() == create) {
@@ -185,14 +183,14 @@ public class ModifyAcct extends JPanel implements ActionListener {
 				updateAcct = new Account(name.getText(),description.getText(),email.getText(),phone.getText(),bal);
 
 				panel.addLine("accounts.txt", updateAcct.toString());
-				String filename = ("transactions/" + acctSelected.getName()+ ".txt");
+				String filename = ("transactions/" + acctSelected.getName() + ".txt");
 				transactions = getTransFromText(filename);
 				String tname = "";
 				for (int i = 0; i < transactions.length; i++) {
 					tname = transactions[i][0];
 					String tdate = transactions[i][1];
 					String bala = (transactions[i][2]);
-					bala = bala.replace("$","");
+					bala = bala.replace("$", "");
 					double tbal = Double.parseDouble(bala);
 
 					Integer tcode = Integer.parseInt(transactions[i][3]);
@@ -234,29 +232,46 @@ public class ModifyAcct extends JPanel implements ActionListener {
 				panel.switchPanel("InitialView");
 			}
 		}
+
 		private String[][] getTransFromText(String filename) {
-		ArrayList<String[]> temp = new ArrayList<String[]>();
-		Scanner file = null;
-		try {
-			file = new Scanner(new FileReader(filename));
-		} catch (FileNotFoundException e) {
-			System.out.println("Cant find file");
-			e.printStackTrace();
+			ArrayList<String[]> temp = new ArrayList<String[]>();
+			Scanner file = null;
+			try {
+				file = new Scanner(new FileReader(filename));
+			} catch (FileNotFoundException e) {
+				System.out.println("Cant find file");
+				e.printStackTrace();
+			}
+			while (file.hasNext()) {
+				String nextLine = file.nextLine();
+				if (!nextLine.equals("")) {
+					String[] transaction = nextLine.split(",");
+					String strBalance = transaction[2];
+					transaction[2] = fmt.format(Double.parseDouble(strBalance));
+					temp.add(transaction);
+				}
+			}
+			String[][] transactions = new String[temp.size()][4];
+			for (int i = 0; i < temp.size(); i++) {
+				transactions[i] = temp.get(i);
+			}
+			return transactions;
 		}
-		while (file.hasNext()) {
-			String nextLine = file.nextLine();
-			if (!nextLine.equals("")){
-			String[] transaction = nextLine.split(",");
-			String strBalance = transaction[2];
-			transaction[2] = fmt.format(Double.parseDouble(strBalance));
-			temp.add(transaction);
-		}
-		}
-		String[][] transactions = new String[temp.size()][4];
-		for (int i = 0; i < temp.size(); i++) {
-			transactions[i] = temp.get(i);
-		}
-		return transactions;
 	}
+
+	public void updateStuff() {
+
+		panel.updateTable();
+		accounts = panel.getAccounts();
+		userlist = new String[accounts.length];
+		for (int i = 0; i < accounts.length; i++) {
+
+			System.out.println(accounts[i][0]);
+			userlist[i] = (accounts[i][0]);
+		}
+		users.removeAllItems();
+	    for(String s : userlist){
+	        users.addItem(s);
+	    }
 	}
 }
