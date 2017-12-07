@@ -147,10 +147,15 @@ public class AddTrans extends JPanel implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			String curCode = Codes.getSelectedItem().toString();
 			Character g = curCode.charAt(0);
-
 			if (e.getSource() == btnBack) {
 				panel.switchPanel("ViewAcct");
 			} else if (e.getSource() == btnAddTrans) {
+				try{
+					Double.parseDouble(txtAmount.getText());
+				} catch (NumberFormatException ev) {
+					lblError.setText("Please give a valid number format(no $, e.g. 54.33)");
+					return;
+				}
 				if (txtAmount.getText() != null
 						&& txtAmount.getText().matches("[-+]?\\d*\\.?\\d+") == false) {
 					lblError.setText("Please Enter a Valid number for the amount!");

@@ -1,7 +1,5 @@
 import java.awt.CardLayout;
-import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -99,7 +97,7 @@ public class MainPanel extends JPanel {
 	public void paint(Graphics g) {
 
 		super.paint(g);
-		g.drawString(companyName, 10, 450);
+		g.drawString(companyName, 520, 480);
 	}
 
 	public Account getAcct() {
