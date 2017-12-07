@@ -39,6 +39,7 @@ public class TransactionView extends JPanel {
 	public TransactionView(MainPanel panel) {
 
 		this.panel = panel;
+		panel.updateTable();
 		btnDelTrans = new JButton("Delete transaction");
 		btnYesDelete = new JButton("Yes, delete transaction");
 		btnNoDelete = new JButton("No, don't delete");
@@ -75,6 +76,7 @@ public class TransactionView extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 
 			if (e.getSource() == btnBack) {
+				panel.updateTable();
 				panel.switchPanel("InitialView");
 			} else if (e.getSource() == btnYesDelete) {
 				lblDelete.setVisible(false);
@@ -88,6 +90,7 @@ public class TransactionView extends JPanel {
 				btnYesDelete.setVisible(false);
 				btnNoDelete.setVisible(false);
 			} else if (e.getSource() == btnAddTrans) {
+				panel.updateStuff();
 				panel.switchPanel("AddTransAll");
 			}
 

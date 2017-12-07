@@ -36,8 +36,8 @@ import javax.swing.Timer;
 public class MainPanel extends JPanel {
 
 	private CardLayout cards;
-	private JPanel pnlCreateAcct, pnlConfirmDelete, pnlAddTrans, pnlBenefits,
-			pnlAddTransAll;
+	private JPanel pnlCreateAcct, pnlConfirmDelete, pnlAddTrans, pnlBenefits;
+	private AddTransAll pnlAddTransAll;
 	private ModifyAcct pnlModifyAcct;
 	private Login pnlLogin;
 	private ViewAcct pnlViewAcct;
@@ -123,9 +123,11 @@ public class MainPanel extends JPanel {
 	}
 
 	public void updateStuff() {
-		
+
 		pnlModifyAcct.updateStuff();
+		pnlAddTransAll.updateStuff();
 	}
+
 	public String[][] getTransFromText(String filename) {
 	ArrayList<String[]> temp = new ArrayList<String[]>();
 	Scanner file = null;

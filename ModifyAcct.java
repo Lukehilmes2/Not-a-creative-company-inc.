@@ -42,6 +42,7 @@ public class ModifyAcct extends JPanel implements ActionListener {
 	public ModifyAcct(MainPanel panel) {
 
 		this.panel = panel;
+		panel.updateTable();
 		setLayout(new BorderLayout());
 		panel1 = new JPanel(new GridBagLayout());
 		cs = new GridBagConstraints();
@@ -181,13 +182,15 @@ public class ModifyAcct extends JPanel implements ActionListener {
 
 				acctSelected = new Account(nam,des,ema,pho,bal);
 				updateAcct = new Account(name.getText(),description.getText(),email.getText(),phone.getText(),bal);
-
+				if(!updateAcct.getName().equals(nam) || !updateAcct.getDescription().equals(des)|| !updateAcct.getEmail().equals(ema) || !updateAcct.getPhone().equals(pho)){
 				panel.addLine("accounts.txt", updateAcct.toString());
+				panel.deleteLine("accounts.txt", acctSelected.toString());
+			}
 				String filename = ("transactions/" + acctSelected.getName() + ".txt");
 				transactions = getTransFromText(filename);
-				String tname = "";
+
 				for (int i = 0; i < transactions.length; i++) {
-					tname = transactions[i][0];
+					String tname = transactions[i][0];
 					String tdate = transactions[i][1];
 					String bala = (transactions[i][2]);
 					bala = bala.replace("$", "");
@@ -197,13 +200,13 @@ public class ModifyAcct extends JPanel implements ActionListener {
 					String tdes = transactions[i][4];
 
 					Transaction t = new Transaction(updateAcct.getName(), tdate, tbal, tcode, tdes);
-					if(!updateAcct.getName().equals(tname)){
+					if(!updateAcct.getName().equals(tname)|| !updateAcct.getDescription().equals(des)|| !updateAcct.getEmail().equals(ema) || !updateAcct.getPhone().equals(pho)){
 					panel.addLine("transactions/" + updateAcct.getName() + ".txt",t.toString());
 					panel.deleteLine("transactions/" + tname + ".txt",t.toString());
 				}
 				}
-				panel.deleteLine("accounts.txt", acctSelected.toString());
-				if(!updateAcct.getName().equals(nam) && !updateAcct.getDescription().equals(des)&& !updateAcct.getEmail().equals(ema)){
+
+				if(!updateAcct.getName().equals(nam)){
 				File transactionFile = new File("transactions/" + acctSelected.getName() + ".txt");
 				try{
 				PrintWriter pw = new PrintWriter(filename);
@@ -214,7 +217,7 @@ public class ModifyAcct extends JPanel implements ActionListener {
 				}
 				transactionFile.delete();
 			}
-
+				panel.updateTable();
 				name.setText("");
 				description.setText("");
 				email.setText("");
@@ -229,6 +232,8 @@ public class ModifyAcct extends JPanel implements ActionListener {
 				phone.setText("");
 				badacct.setText("");
 				panel.updateTrans();
+				panel.updateTable();
+				panel.updateStuff();
 				panel.switchPanel("InitialView");
 			}
 		}
@@ -265,8 +270,6 @@ public class ModifyAcct extends JPanel implements ActionListener {
 		accounts = panel.getAccounts();
 		userlist = new String[accounts.length];
 		for (int i = 0; i < accounts.length; i++) {
-
-			System.out.println(accounts[i][0]);
 			userlist[i] = (accounts[i][0]);
 		}
 		users.removeAllItems();
@@ -274,4 +277,5 @@ public class ModifyAcct extends JPanel implements ActionListener {
 	        users.addItem(s);
 	    }
 	}
+
 }

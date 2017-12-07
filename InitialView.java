@@ -264,7 +264,7 @@ public class InitialView extends JPanel {
 				panel.setAccount(acctSelected);
 				panel.switchPanel("ViewAcct");
 			} else if (evt.getSource() == modAct) {
-				
+
 				panel.updateStuff();
 				panel.setAccount(acctSelected);
 				panel.switchPanel("ModifyAcct");
@@ -273,6 +273,7 @@ public class InitialView extends JPanel {
 			} else if (evt.getSource() == benefits) {
 				panel.switchPanel("Benefits");
 			} else if (evt.getSource() == viewtransactions) {
+				panel.updateTrans();
 				panel.switchPanel("TransactionView");
 			} else if (evt.getSource() == deleteAct) {
 				if (acctSelected != null) {
@@ -288,6 +289,8 @@ public class InitialView extends JPanel {
 				if (acctSelected.getBalance() != 0) {
 
 					lblEmptyAccount.setText(strEmptyAccount);
+					panel.updateTable();
+					panel.updateStuff();
 					return;
 				}
 				lblDelete.setVisible(false);
