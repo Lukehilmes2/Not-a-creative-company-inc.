@@ -113,12 +113,12 @@ public class CreateAcct extends JPanel {
 		cs.gridy = 14;
 		cs.gridwidth = 2;
 		cs.ipady = 20;
-		panel1.add(badacct, cs);
 
 		back = new JButton("Back");
 
 		add(panel1, BorderLayout.CENTER);
 		add(back, BorderLayout.NORTH);
+		add(badacct, BorderLayout.SOUTH);
 		back.addActionListener(new ButtonListener());
 		create.addActionListener(new ButtonListener());
 	}
@@ -131,6 +131,12 @@ public class CreateAcct extends JPanel {
 						|| !email.getText().matches(".*\\w.*")
 						|| !phone.getText().matches(".*\\w.*")) {
 					badacct.setText("Please fill out all the fields!");
+					return;
+				}
+				try{
+					Double.parseDouble(balance.getText());
+				} catch (NumberFormatException ev) {
+					badacct.setText("Please give a valid number format(no $, e.g. 54.33)");
 					return;
 				}
 				String[][] accounts = panel.getAccounts();

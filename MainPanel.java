@@ -11,9 +11,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-<<<<<<< HEAD
-
-=======
 import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -33,7 +30,6 @@ import java.io.FileReader;
 import java.text.DecimalFormat;
 import java.io.File;
 import java.nio.file.Files;
->>>>>>> 955e4e34aed125e008b3b824e6681a7bbb7ddc1b
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -99,7 +95,7 @@ public class MainPanel extends JPanel {
 	public void paint(Graphics g) {
 
 		super.paint(g);
-		g.drawString(companyName, 10, 450);
+		g.drawString(companyName, 520, 480);
 	}
 
 	public Account getAcct() {

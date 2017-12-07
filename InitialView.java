@@ -64,7 +64,7 @@ public class InitialView extends JPanel {
 		help = new JMenuItem("Help");
 		logout = new JMenuItem("Logout");
 		makeAct = new JMenuItem("Make Account");
-		benefits = new JMenuItem("Benefits");
+		benefits = new JMenuItem("Benefits Calculator");
 		deleteAct = new JMenuItem("Delete Account");
 		viewAct = new JMenuItem("View Account");
 		viewtransactions = new JMenuItem("View Transactions");

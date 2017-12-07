@@ -1,3 +1,6 @@
+import java.awt.BorderLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
@@ -7,9 +10,6 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import java.awt.BorderLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 
 public class Benefits extends JPanel {
 
@@ -98,7 +98,13 @@ public class Benefits extends JPanel {
 				panel.switchPanel("InitialView");
 			} else if (e.getSource() == btnCalculate) {
 
-				double amount = Double.parseDouble(txtAmount.getText());
+				double amount = 0;
+				try {
+					 amount = Double.parseDouble(txtAmount.getText());	
+				} catch (NumberFormatException er) {
+					lblAmount.setText("Please give a valid number format(no $, e.g. 54.33");
+					return;
+				}
 				double benefits = 0;
 				String type = jobTypes.getSelectedItem().toString();
 				if (type.equals("Student")) {
