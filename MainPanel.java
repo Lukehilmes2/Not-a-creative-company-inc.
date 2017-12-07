@@ -37,7 +37,8 @@ public class MainPanel extends JPanel {
 
 	private CardLayout cards;
 	private JPanel pnlCreateAcct, pnlConfirmDelete, pnlAddTrans, pnlBenefits,
-			pnlModifyAcct,pnlAddTransAll;
+			pnlAddTransAll;
+	private ModifyAcct pnlModifyAcct;
 	private Login pnlLogin;
 	private ViewAcct pnlViewAcct;
 	private InitialView pnlInitialView;
@@ -121,6 +122,10 @@ public class MainPanel extends JPanel {
 		pnlTransactionView.updateTable();
 	}
 
+	public void updateStuff() {
+		
+		pnlModifyAcct.updateStuff();
+	}
 	public String[][] getTransFromText(String filename) {
 	ArrayList<String[]> temp = new ArrayList<String[]>();
 	Scanner file = null;
