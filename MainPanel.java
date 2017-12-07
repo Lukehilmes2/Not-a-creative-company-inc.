@@ -69,7 +69,7 @@ public class MainPanel extends JPanel {
 		add(pnlAddTrans, "AddTrans");
 		add(pnlBenefits, "Benefits");
 		add(pnlTransactionView, "TransactionView");
-		add(pnlAddTransAll);
+		add(pnlAddTransAll,"AddTransAll");
 		cards.show(this, "Login");
 
 		timer = new Timer(((int) (1000 * 60 * minutesAutoLogOut)),
