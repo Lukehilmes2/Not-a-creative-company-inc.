@@ -41,13 +41,8 @@ public class AddTransAll extends JPanel implements ActionListener {
 
 		this.panel = panel;
 
-		accounts = panel.getAccounts();
-
-		userlist = new String[accounts.length];
-		for (int i = 0; i < accounts.length; i++) {
-
-			userlist[i] = (accounts[i][0]);
-		}
+		users = new JComboBox<>();
+		updateStuff();
 
 		dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
 		JPanel panel1 = new JPanel(new GridBagLayout());
@@ -130,12 +125,14 @@ public class AddTransAll extends JPanel implements ActionListener {
 		panel1.add(Codes, cs);
 		Codes.addActionListener(this);
 
-		users = new JComboBox<>(userlist);
+
 		cs.gridx = 1;
 		cs.gridy = 0;
 		cs.gridwidth = 1;
 		cs.ipady = 20;
 		panel1.add(users,cs);		
+		panel1.add(users,cs);
+
 	}
 
 	public void actionPerformed(ActionEvent e) {
@@ -194,7 +191,7 @@ public class AddTransAll extends JPanel implements ActionListener {
 	}
 
 	private void addTrans(String username) {
-
+		String curCode = Codes.getSelectedItem().toString();
 		String date = txtDate.getText();
 		int code = Integer.parseInt(curCode.substring(0, 5));
 		String description = txtDescription.getText();
@@ -205,5 +202,20 @@ public class AddTransAll extends JPanel implements ActionListener {
 		panel.addLine("transactions/" + username + ".txt",
 				t.toString());
 		panel.updateTrans();
+	}
+	public void updateStuff() {
+
+		panel.updateTable();
+		accounts = panel.getAccounts();
+		userlist = new String[accounts.length];
+		for (int i = 0; i < accounts.length; i++) {
+
+			System.out.println(accounts[i][0]);
+			userlist[i] = (accounts[i][0]);
+		}
+		users.removeAllItems();
+			for(String s : userlist){
+					users.addItem(s);
+			}
 	}
 }

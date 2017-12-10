@@ -39,9 +39,11 @@ public class ModifyAcct extends JPanel implements ActionListener {
 	private double bal;
 	private JPanel panel1;
 	GridBagConstraints cs;
+
 	public ModifyAcct(MainPanel panel) {
-		
+
 		this.panel = panel;
+		panel.updateTable();
 		setLayout(new BorderLayout());
 		panel1 = new JPanel(new GridBagLayout());
 		cs = new GridBagConstraints();
@@ -145,7 +147,7 @@ public class ModifyAcct extends JPanel implements ActionListener {
 
 		String curUserName;
 		try {
-			curUserName = users.getSelectedItem().toString();	
+			curUserName = users.getSelectedItem().toString();
 		} catch (NullPointerException ev) {
 			return;
 		}
@@ -181,9 +183,15 @@ public class ModifyAcct extends JPanel implements ActionListener {
 				acctSelected = new Account(nam, des, ema, pho, bal);
 				updateAcct = new Account(name.getText(), description.getText(),
 						email.getText(), phone.getText(), bal);
+				acctSelected = new Account(nam,des,ema,pho,bal);
+				updateAcct = new Account(name.getText(),description.getText(),email.getText(),phone.getText(),bal);
+				if(!updateAcct.getName().equals(nam) || !updateAcct.getDescription().equals(des)|| !updateAcct.getEmail().equals(ema) || !updateAcct.getPhone().equals(pho)){
 				panel.addLine("accounts.txt", updateAcct.toString());
+				panel.deleteLine("accounts.txt", acctSelected.toString());
+			}
 				String filename = ("transactions/" + acctSelected.getName() + ".txt");
 				transactions = getTransFromText(filename);
+
 				for (int i = 0; i < transactions.length; i++) {
 					String tname = transactions[i][0];
 					String tdate = transactions[i][1];
@@ -194,27 +202,25 @@ public class ModifyAcct extends JPanel implements ActionListener {
 					Integer tcode = Integer.parseInt(transactions[i][3]);
 					String tdes = transactions[i][4];
 
-					Transaction t = new Transaction(updateAcct.getName(),
-							tdate, tbal, tcode, tdes);
-					panel.addLine("transactions/" + updateAcct.getName()
-							+ ".txt", t.toString());
-					panel.deleteLine("transactions/" + tname + ".txt",
-							t.toString());
+					Transaction t = new Transaction(updateAcct.getName(), tdate, tbal, tcode, tdes);
+					if(!updateAcct.getName().equals(tname)|| !updateAcct.getDescription().equals(des)|| !updateAcct.getEmail().equals(ema) || !updateAcct.getPhone().equals(pho)){
+					panel.addLine("transactions/" + updateAcct.getName() + ".txt",t.toString());
+					panel.deleteLine("transactions/" + tname + ".txt",t.toString());
 				}
-				panel.deleteLine("accounts.txt", acctSelected.toString());
-				panel.updateTable();
-				File transactionFile = new File("transactions/"
-						+ acctSelected.getName() + ".txt");
-				try {
-					PrintWriter pw = new PrintWriter(filename);
-					pw.close();
-				} catch (FileNotFoundException e) {
+				}
+
+				if(!updateAcct.getName().equals(nam)){
+				File transactionFile = new File("transactions/" + acctSelected.getName() + ".txt");
+				try{
+				PrintWriter pw = new PrintWriter(filename);
+				pw.close();}
+				catch(FileNotFoundException e){
 					System.out.println("Cant find file");
 					e.printStackTrace();
 				}
 				transactionFile.delete();
-
-				name.setText("");
+			}
+				panel.updateTable();
 				description.setText("");
 				email.setText("");
 				phone.setText("");
@@ -228,6 +234,8 @@ public class ModifyAcct extends JPanel implements ActionListener {
 				phone.setText("");
 				badacct.setText("");
 				panel.updateTrans();
+				panel.updateTable();
+				panel.updateStuff();
 				panel.switchPanel("InitialView");
 			}
 		}
@@ -257,9 +265,9 @@ public class ModifyAcct extends JPanel implements ActionListener {
 			return transactions;
 		}
 	}
-	
+
 	public void updateStuff() {
-		
+
 		panel.updateTable();
 		accounts = panel.getAccounts();
 		userlist = new String[accounts.length];
@@ -267,8 +275,9 @@ public class ModifyAcct extends JPanel implements ActionListener {
 			userlist[i] = (accounts[i][0]);
 		}
 		users.removeAllItems();
-	    for(String s : userlist){
-	        users.addItem(s);
-	    }
+		for (String s : userlist) {
+			users.addItem(s);
+		}
 	}
+
 }

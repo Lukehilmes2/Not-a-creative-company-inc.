@@ -1,1 +1,1 @@
-for runnig the jar file, use java -far "filename"
+for runnig the jar file, use java -jar "filename"
