@@ -70,7 +70,7 @@ public class MainPanel extends JPanel {
 		add(pnlAddTrans, "AddTrans");
 		add(pnlBenefits, "Benefits");
 		add(pnlTransactionView, "TransactionView");
-		add(pnlAddTransAll,"AddTransAll");
+		add(pnlAddTransAll, "AddTransAll");
 		cards.show(this, "Login");
 
 		timer = new Timer(((int) (1000 * 60 * minutesAutoLogOut)),
@@ -123,33 +123,35 @@ public class MainPanel extends JPanel {
 	}
 
 	public void updateStuff() {
-		
+
 		pnlModifyAcct.updateStuff();
 	}
+
 	public String[][] getTransFromText(String filename) {
-	ArrayList<String[]> temp = new ArrayList<String[]>();
-	Scanner file = null;
-	try {
-		file = new Scanner(new FileReader(filename));
-	} catch (FileNotFoundException e) {
-		System.out.println("Cant find file");
-		e.printStackTrace();
+		ArrayList<String[]> temp = new ArrayList<String[]>();
+		Scanner file = null;
+		try {
+			file = new Scanner(new FileReader(filename));
+		} catch (FileNotFoundException e) {
+			System.out.println("Cant find file");
+			e.printStackTrace();
+		}
+		while (file.hasNext()) {
+			String nextLine = file.nextLine();
+			if (!nextLine.equals("")) {
+				String[] transaction = nextLine.split(",");
+				String strBalance = transaction[2];
+				transaction[2] = fmt.format(Double.parseDouble(strBalance));
+				temp.add(transaction);
+			}
+		}
+		String[][] transactions = new String[temp.size()][4];
+		for (int i = 0; i < temp.size(); i++) {
+			transactions[i] = temp.get(i);
+		}
+		return transactions;
 	}
-	while (file.hasNext()) {
-		String nextLine = file.nextLine();
-		if (!nextLine.equals("")){
-		String[] transaction = nextLine.split(",");
-		String strBalance = transaction[2];
-		transaction[2] = fmt.format(Double.parseDouble(strBalance));
-		temp.add(transaction);
-	}
-	}
-	String[][] transactions = new String[temp.size()][4];
-	for (int i = 0; i < temp.size(); i++) {
-		transactions[i] = temp.get(i);
-	}
-	return transactions;
-}
+
 	public double getDoubleFrom$(String str) {
 		int isNegative = 1;
 		if (str.substring(0, 1).equals("-")) {

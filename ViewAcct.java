@@ -35,12 +35,14 @@ public class ViewAcct extends JPanel {
 	private DecimalFormat fmt = new DecimalFormat("$#0.00");
 	NumberFormat $fmt = NumberFormat.getCurrencyInstance();
 	private JLabel lblTotalBalance;
+	private String strConfirmDelete = "<html>Are you sure you want<br>" +
+			"to delete the transaction?";
 	
 	public ViewAcct(MainPanel panel) {
 			
 		this.panel = panel;
 		btnDelTrans = new JButton("Delete transaction");
-		lblDelete = new JLabel("Are you sure you want to delete this transaction?");
+		lblDelete = new JLabel(strConfirmDelete);
 		btnYesDelete = new JButton("Yes, delete transaction");
 		btnNoDelete = new JButton("No, don't delete");
 		btnAddTrans = new JButton("Add transaction");
@@ -173,6 +175,7 @@ public class ViewAcct extends JPanel {
 		      return false;//This causes all cells to be not editable
 		    }
 		};
+		transactions.getTableHeader().setReorderingAllowed(false);
 		transactions.setModel(model);
 		if (account != null) {
 			panel.deleteLine("accounts.txt", account.toString());

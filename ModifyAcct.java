@@ -163,9 +163,8 @@ public class ModifyAcct extends JPanel implements ActionListener {
 				bala = bala.replace("$", "");
 				bal = Double.parseDouble(bala);
 			}
-
 		}
-
+		panel.updateTrans();
 	}
 
 	private class ButtonListener implements ActionListener {
@@ -182,7 +181,6 @@ public class ModifyAcct extends JPanel implements ActionListener {
 				acctSelected = new Account(nam, des, ema, pho, bal);
 				updateAcct = new Account(name.getText(), description.getText(),
 						email.getText(), phone.getText(), bal);
-				System.out.println(updateAcct.toString());
 				panel.addLine("accounts.txt", updateAcct.toString());
 				String filename = ("transactions/" + acctSelected.getName() + ".txt");
 				transactions = getTransFromText(filename);
@@ -215,8 +213,6 @@ public class ModifyAcct extends JPanel implements ActionListener {
 					e.printStackTrace();
 				}
 				transactionFile.delete();
-
-				System.out.println(acctSelected.toString());
 
 				name.setText("");
 				description.setText("");
@@ -268,8 +264,6 @@ public class ModifyAcct extends JPanel implements ActionListener {
 		accounts = panel.getAccounts();
 		userlist = new String[accounts.length];
 		for (int i = 0; i < accounts.length; i++) {
-
-			System.out.println(accounts[i][0]);
 			userlist[i] = (accounts[i][0]);
 		}
 		users.removeAllItems();

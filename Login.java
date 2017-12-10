@@ -72,8 +72,7 @@ class Login extends JPanel {
 		panel1.add(lblAutoLogOut, cs);
 		panel1.setBorder(new LineBorder(Color.GRAY));
 
-		login = new JButton("Login");
-		login.setBorderPainted(false);
+		login = new RedButton("Login");
 		lblBadLogin = new JLabel("");
 		login.addActionListener(new ButtonListener());
 		JPanel bp = new JPanel();

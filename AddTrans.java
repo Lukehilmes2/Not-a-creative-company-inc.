@@ -120,8 +120,12 @@ public class AddTrans extends JPanel implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-
-		curCode = Codes.getSelectedItem().toString();
+		
+		try {
+			curCode = Codes.getSelectedItem().toString();	
+		} catch (NullPointerException er) {
+			curCode = "50109";
+		}
 		Character g = curCode.charAt(0);
 
 		if (curCode.contains("Credit")) {
@@ -163,6 +167,10 @@ public class AddTrans extends JPanel implements ActionListener {
 						"([0-9]{2})-([0-9]{2})-([0-9]{4})") == false) {
 					lblError.setText("Please Enter a Correctly Formatted Date! (dd-mm-yyy)");
 				} else {
+					if (txtDescription.getText().replaceAll("\\s+","").equals("")) {
+						lblError.setText("Please give a description to this transaction");
+						return;
+					}
 					addTrans();
 					txtAmount.setText("");
 					txtDescription.setText("");

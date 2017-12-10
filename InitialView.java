@@ -47,9 +47,12 @@ public class InitialView extends JPanel {
 			viewtransactions, benefits,modAct;
 	private double uniFee;
 	private double creditCardFee;
-	private final String strEmptyAccount = "This account can't be deleted because it has transactions";
+	private final String strEmptyAccount = "<html>This account can't be " +
+			"<br>deleted because it<br>" +
+			"has transactions</html>";
 	private DecimalFormat fmt = new DecimalFormat("$0.00");
-
+	private String strConfirmDelete = "<html>Are you sure you want<br>" +
+			"to delete the account?";
 	public InitialView(MainPanel panel) {
 
 		this.panel = panel;
@@ -104,8 +107,8 @@ public class InitialView extends JPanel {
 				+ fmt.format(creditCardFee));
 
 		btnNoDelete = new JButton("No");
-		lblDelete = new JLabel("Are you sure you want to delete your account?");
-		btnYesDelete = new JButton("Yes, delete account");
+		lblDelete = new JLabel(strConfirmDelete);
+		btnYesDelete = new JButton("Yes");
 		lblEmptyAccount = new JLabel("");
 		btnNoDelete.addActionListener(new ButtonListener());
 		btnYesDelete.addActionListener(new ButtonListener());
@@ -124,9 +127,13 @@ public class InitialView extends JPanel {
 
 		JPanel cdelete = new JPanel();
 		cdelete.setLayout(new BoxLayout(cdelete, BoxLayout.Y_AXIS));
+		butpan.add(Box.createVerticalStrut(20));
 		butpan.add(lblDelete);
+		butpan.add(Box.createVerticalStrut(20));
 		butpan.add(btnYesDelete);
+		butpan.add(Box.createVerticalStrut(20));
 		butpan.add(btnNoDelete);
+		butpan.add(Box.createVerticalStrut(20));
 		butpan.add(lblEmptyAccount);
 		add(butpan, BorderLayout.WEST);
 		add(cdelete, BorderLayout.SOUTH);
@@ -169,7 +176,6 @@ public class InitialView extends JPanel {
 						fees += amount / .92 * .08;
 					} else if (percent == .04 && code.equals("50287")) {
 						fees += amount / .92 / .96 * .04;
-
 					}
 				}
 			}
@@ -190,6 +196,7 @@ public class InitialView extends JPanel {
 				return false;// This causes all cells to be not editable
 			}
 		};
+		tblAccts.getTableHeader().setReorderingAllowed(false);
 		tblAccts.setModel(model);
 		double total = 0;
 		for (int i = 0; i < tblAccts.getRowCount(); i++) {
@@ -266,7 +273,6 @@ public class InitialView extends JPanel {
 			} else if (evt.getSource() == modAct) {
 				
 				panel.updateStuff();
-				panel.setAccount(acctSelected);
 				panel.switchPanel("ModifyAcct");
 			} else if (evt.getSource() == logout) {
 				panel.switchPanel("Login");
@@ -308,6 +314,8 @@ public class InitialView extends JPanel {
 					Transaction t = new Transaction(acctSelected.getName(), tdate, tbal, tcode, tdes);
 					panel.deleteLine("transactions/" + acctSelected.getName() + ".txt",t.toString());
 				}
+				File f = new File("transactions/" + acctSelected.getName() + ".txt");
+				f.delete();
 				panel.deleteLine("accounts.txt", acctSelected.toString());
 				updateTable();
 			} else if (evt.getSource() == help) {
