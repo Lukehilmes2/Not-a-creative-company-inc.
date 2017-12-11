@@ -203,28 +203,27 @@ public class ModifyAcct extends JPanel implements ActionListener {
 					String tdes = transactions[i][4];
 
 					Transaction t = new Transaction(updateAcct.getName(), tdate, tbal, tcode, tdes);
-					if(!updateAcct.getName().equals(tname)|| !updateAcct.getDescription().equals(des)|| !updateAcct.getEmail().equals(ema) || !updateAcct.getPhone().equals(pho)){
+					System.out.println(!updateAcct.getName().equals(tname));
+					if(!updateAcct.getName().equals(tname)){
 					panel.addLine("transactions/" + updateAcct.getName() + ".txt",t.toString());
 					panel.deleteLine("transactions/" + tname + ".txt",t.toString());
 				}
 				}
-
-				if(!updateAcct.getName().equals(nam)){
+				System.out.println(!updateAcct.getName().equals(acctSelected.getName()));
+				if(!updateAcct.getName().equals(acctSelected.getName())){
 				File transactionFile = new File("transactions/" + acctSelected.getName() + ".txt");
 				try{
 				PrintWriter pw = new PrintWriter(filename);
 				pw.close();}
 				catch(FileNotFoundException e){
-
 					e.printStackTrace();
 				}
-				transactionFile.delete();
 			}
-				panel.updateTable();
+
 				description.setText("");
 				email.setText("");
 				phone.setText("");
-				panel.updateTable();
+				panel.updateStuff();
 				panel.switchPanel("InitialView");
 
 			} else if (arg0.getSource() == back) {

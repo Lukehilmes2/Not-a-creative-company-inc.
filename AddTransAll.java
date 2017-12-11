@@ -169,7 +169,7 @@ public class AddTransAll extends JPanel implements ActionListener {
 			Character g = curCode.charAt(0);
 			String username = users.getSelectedItem().toString();
 			if (e.getSource() == btnBack) {
-				panel.switchPanel("ViewAcct");
+				panel.switchPanel("TransactionView");
 			} else if (e.getSource() == btnAddTrans) {
 				if (txtAmount.getText() != null
 						&& txtAmount.getText().matches("[-+]?\\d*\\.?\\d+") == false) {
@@ -203,6 +203,7 @@ public class AddTransAll extends JPanel implements ActionListener {
 				amount, code, description);
 		panel.addLine("transactions/" + username + ".txt",t.toString());
 		panel.updateTrans();
+		panel.updateStuff();
 		panel.updateTable();
 	}
 	public void updateStuff() {
