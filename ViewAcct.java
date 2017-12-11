@@ -34,12 +34,12 @@ public class ViewAcct extends JPanel {
 	private JLabel lblDelete;
 	private DecimalFormat fmt = new DecimalFormat("$#0.00");
 	NumberFormat $fmt = NumberFormat.getCurrencyInstance();
-	private JLabel lblTotalBalance;
+	private JLabel lblTotalBalance,lblUsername;
 	private String strConfirmDelete = "<html>Are you sure you want<br>" +
 			"to delete the transaction?";
-	
+
 	public ViewAcct(MainPanel panel) {
-			
+
 		this.panel = panel;
 		btnDelTrans = new JButton("Delete transaction");
 		lblDelete = new JLabel(strConfirmDelete);
@@ -47,9 +47,11 @@ public class ViewAcct extends JPanel {
 		btnNoDelete = new JButton("No, don't delete");
 		btnAddTrans = new JButton("Add transaction");
 		btnBack = new JButton("Back");
+		lblUsername = new JLabel();
 		lblTotalBalance = new JLabel("");
 		add(lblTotalBalance);
 		transactions = new JTable(model);
+		add(lblUsername);
 		add(lblTotalBalance);
 		updateTable();
 		add(transactions);
@@ -70,27 +72,27 @@ public class ViewAcct extends JPanel {
 		btnYesDelete.addActionListener(new ButtonListener());
 		btnNoDelete.addActionListener(new ButtonListener());
 	}
-	
+
 	private double getTotalBalance() {
-		
+
 		double total = 0;
 		for (int i = 0; i < transactions.getRowCount(); i++) {
-			
+
 			total += panel.getDoubleFrom$((String)transactions.getValueAt(i, 1));
 		}
 		return total;
 	}
-	
+
 	private class ButtonListener implements ActionListener {
-		
+
 		public void actionPerformed(ActionEvent e) {
-			
+
 			if (e.getSource() == btnBack) {
 				setAcct(null);
 				panel.switchPanel("InitialView");
 			}
 			else if (e.getSource() == btnDelTrans) {
-				
+
 				lblDelete.setVisible(true);
 				btnYesDelete.setVisible(true);
 				btnNoDelete.setVisible(true);
@@ -112,12 +114,12 @@ public class ViewAcct extends JPanel {
 			}
 		}
 	}
-	
+
 	private class TableListener implements MouseListener {
 
 		public void mouseClicked(java.awt.event.MouseEvent evt) {
 
-			int row = transactions.rowAtPoint(evt.getPoint());		
+			int row = transactions.rowAtPoint(evt.getPoint());
 			String date = (String)transactions.getValueAt(row, 0);
 			double dblAmount = panel.getDoubleFrom$((String)transactions.getValueAt(row, 1));
 			int code = Integer.parseInt((String)transactions.getValueAt(row, 2));
@@ -129,10 +131,10 @@ public class ViewAcct extends JPanel {
  		public void mousePressed(MouseEvent arg0) {}
  		public void mouseReleased(MouseEvent arg0) {}
   	}
-	
+
 	private String[][] getTransactions() {
 
-		
+
 		ArrayList<String[]> temp = new ArrayList<String[]>();
 		Scanner file = null;
 		if(account == null) {
@@ -163,11 +165,12 @@ public class ViewAcct extends JPanel {
 	      for (int i = 0; i < transactions.length; i++) {
 	    	  transactions[i] = temp.get(i);
 	      }
+				lblUsername.setText(account.getName());
 	      return transactions;
 	}
 
 	public void updateTable() {
-		
+
 		transData = getTransactions();
 		model = new DefaultTableModel(transData, columnNames){
 		    public boolean isCellEditable(int row, int column)
@@ -180,14 +183,14 @@ public class ViewAcct extends JPanel {
 		if (account != null) {
 			panel.deleteLine("accounts.txt", account.toString());
 			account.setBalance(getTotalBalance());
-			lblTotalBalance.setText("total balance: " + fmt.format(account.getBalance()));
+			lblTotalBalance.setText("Total Balance: " + fmt.format(account.getBalance()));
 			panel.addLine("accounts.txt", account.toString());
 			panel.updateTable();
 		}
 	}
-	
+
 	public void setAcct(Account account) {
-		
+
 		this.account = account;
 		updateTable();
 	}

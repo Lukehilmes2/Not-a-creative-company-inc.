@@ -43,7 +43,7 @@ public class ModifyAcct extends JPanel implements ActionListener {
 	public ModifyAcct(MainPanel panel) {
 
 		this.panel = panel;
-		panel.updateTable();
+		
 		setLayout(new BorderLayout());
 		panel1 = new JPanel(new GridBagLayout());
 		cs = new GridBagConstraints();

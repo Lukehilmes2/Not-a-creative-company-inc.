@@ -120,9 +120,9 @@ public class AddTrans extends JPanel implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		
+
 		try {
-			curCode = Codes.getSelectedItem().toString();	
+			curCode = Codes.getSelectedItem().toString();
 		} catch (NullPointerException er) {
 			curCode = "50109";
 		}
@@ -152,6 +152,9 @@ public class AddTrans extends JPanel implements ActionListener {
 			String curCode = Codes.getSelectedItem().toString();
 			Character g = curCode.charAt(0);
 			if (e.getSource() == btnBack) {
+				txtAmount.setText("");
+				txtDescription.setText("");
+				lblError.setText("");
 				panel.switchPanel("ViewAcct");
 			} else if (e.getSource() == btnAddTrans) {
 				try{
@@ -174,6 +177,7 @@ public class AddTrans extends JPanel implements ActionListener {
 					addTrans();
 					txtAmount.setText("");
 					txtDescription.setText("");
+					lblError.setText("");
 					panel.switchPanel("ViewAcct");
 				}
 			}

@@ -39,7 +39,7 @@ public class TransactionView extends JPanel {
 	public TransactionView(MainPanel panel) {
 
 		this.panel = panel;
-		panel.updateTable();
+		
 		btnDelTrans = new JButton("Delete transaction");
 		btnYesDelete = new JButton("Yes, delete transaction");
 		btnNoDelete = new JButton("No, don't delete");

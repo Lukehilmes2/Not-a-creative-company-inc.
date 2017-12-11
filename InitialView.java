@@ -264,14 +264,11 @@ public class InitialView extends JPanel {
 
 		public void actionPerformed(ActionEvent evt) {
 			if (evt.getSource() == makeAct) {
-				panel.setAccount(acctSelected);
 				panel.switchPanel("CreateAcct");
 			} else if (evt.getSource() == viewAct) {
-
 				panel.setAccount(acctSelected);
 				panel.switchPanel("ViewAcct");
 			} else if (evt.getSource() == modAct) {
-
 				panel.updateStuff();
 				panel.switchPanel("ModifyAcct");
 			} else if (evt.getSource() == logout) {
@@ -283,6 +280,10 @@ public class InitialView extends JPanel {
 				panel.switchPanel("TransactionView");
 			} else if (evt.getSource() == deleteAct) {
 				if (acctSelected != null) {
+
+					strConfirmDelete = "<html>Are you sure you want<br>" +
+							"to delete "+acctSelected.getName()+"?";
+					lblDelete.setText(strConfirmDelete);
 					lblDelete.setVisible(true);
 					btnYesDelete.setVisible(true);
 					btnNoDelete.setVisible(true);

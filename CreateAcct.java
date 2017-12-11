@@ -5,11 +5,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
-
+import java.awt.Color;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import java.util.regex.*;
 
 public class CreateAcct extends JPanel {
 
@@ -22,8 +23,11 @@ public class CreateAcct extends JPanel {
 	private int txtFieldLength = 10;
 	private MainPanel panel;
 
+
+
 	public CreateAcct(MainPanel panel) {
 		this.panel = panel;
+
 		setLayout(new BorderLayout());
 		JPanel panel1 = new JPanel(new GridBagLayout());
 		GridBagConstraints cs = new GridBagConstraints();
@@ -88,7 +92,7 @@ public class CreateAcct extends JPanel {
 		cs.ipady = 20;
 		panel1.add(balance, cs);
 
-		lblPhone = new JLabel("Phone: ");
+		lblPhone = new JLabel("Phone: (###-###-####)");
 		cs.gridx = 0;
 		cs.gridy = 10;
 		cs.gridwidth = 1;
@@ -122,7 +126,13 @@ public class CreateAcct extends JPanel {
 		back.addActionListener(new ButtonListener());
 		create.addActionListener(new ButtonListener());
 	}
+	public static final Pattern VALID_EMAIL_ADDRESS_REGEX =
+	    Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 
+	public static boolean validate(String emailStr) {
+	        Matcher matcher =  VALID_EMAIL_ADDRESS_REGEX.matcher(emailStr);
+	        return matcher.find();
+	}
 	private class ButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {
 			if (arg0.getSource() == create) {
@@ -133,16 +143,36 @@ public class CreateAcct extends JPanel {
 					badacct.setText("Please fill out all the fields!");
 					return;
 				}
+				if(!phone.getText().matches("(?:\\d{3}-){2}\\d{4}")){
+					phone.setBackground(Color.RED);
+					badacct.setText("Enter a Valid phone number");
+					return;
+				}
+				else{
+					phone.setBackground(Color.WHITE);
+				}
+				if(validate(email.getText())==false){
+						email.setBackground(Color.RED);
+						return;
+					}
+				else{
+					email.setBackground(Color.WHITE);
+				}
+
 				try{
 					Double.parseDouble(balance.getText());
 				} catch (NumberFormatException ev) {
+
+					balance.setBackground(Color.RED);
 					badacct.setText("Please give a valid number format(no $, e.g. 54.33)");
 					return;
 				}
+
 				String[][] accounts = panel.getAccounts();
 				for (int i = 0; i < accounts.length; i++) {
 					String userName = accounts[i][0];
 					if (name.getText().equals(userName)) {
+						name.setBackground(Color.RED);
 						badacct.setText("another account already exists with that name");
 						return;
 					}
@@ -159,6 +189,9 @@ public class CreateAcct extends JPanel {
 				} else {
 					panel.addLine("transactions/" + acct.getName() + ".txt", "");
 				}
+				phone.setBackground(Color.WHITE);
+				balance.setBackground(Color.WHITE);
+				name.setBackground(Color.WHITE);
 				name.setText("");
 				description.setText("");
 				email.setText("");
