@@ -103,6 +103,7 @@ public class ViewAcct extends JPanel {
 				btnNoDelete.setVisible(false);
 				panel.deleteLine("transactions/" + account.getName() + ".txt", transSelected.toString());
 				panel.updateTrans();
+				updateTable();
 			}
 			else if (e.getSource() == btnNoDelete) {
 				lblDelete.setVisible(false);

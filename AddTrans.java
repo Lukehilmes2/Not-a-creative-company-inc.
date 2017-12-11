@@ -5,7 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -33,6 +34,7 @@ public class AddTrans extends JPanel implements ActionListener {
 			"62817 Meeting & Conference Cost", "62852 Bank Service Charges" };
 	private JComboBox Codes;
 	SimpleDateFormat dateFormat;
+	private DecimalFormat fmt = new DecimalFormat("0.00");
 
 	public AddTrans(MainPanel panel) {
 
@@ -189,8 +191,8 @@ public class AddTrans extends JPanel implements ActionListener {
 		String date = txtDate.getText();
 		int code = Integer.parseInt(curCode.substring(0, 5));
 		String description = txtDescription.getText();
-		double amount = Double.parseDouble(txtAmount.getText()) * ccRate
-				* expenseRate * uniFee;
+		String amt = fmt.format(Double.parseDouble(txtAmount.getText())* ccRate* expenseRate * uniFee);
+		double amount = Double.parseDouble(amt);
 		Transaction t = new Transaction(panel.getAcct().getName(), date,
 				amount, code, description);
 		panel.addLine("transactions/" + panel.getAcct().getName() + ".txt",

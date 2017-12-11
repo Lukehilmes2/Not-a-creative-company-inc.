@@ -43,7 +43,7 @@ public class ModifyAcct extends JPanel implements ActionListener {
 	public ModifyAcct(MainPanel panel) {
 
 		this.panel = panel;
-		
+
 		setLayout(new BorderLayout());
 		panel1 = new JPanel(new GridBagLayout());
 		cs = new GridBagConstraints();
@@ -215,7 +215,7 @@ public class ModifyAcct extends JPanel implements ActionListener {
 				PrintWriter pw = new PrintWriter(filename);
 				pw.close();}
 				catch(FileNotFoundException e){
-					System.out.println("Cant find file");
+
 					e.printStackTrace();
 				}
 				transactionFile.delete();
@@ -246,7 +246,7 @@ public class ModifyAcct extends JPanel implements ActionListener {
 			try {
 				file = new Scanner(new FileReader(filename));
 			} catch (FileNotFoundException e) {
-				System.out.println("Cant find file");
+
 				e.printStackTrace();
 			}
 			while (file.hasNext()) {

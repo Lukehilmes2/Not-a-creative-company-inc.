@@ -39,7 +39,7 @@ public class TransactionView extends JPanel {
 	public TransactionView(MainPanel panel) {
 
 		this.panel = panel;
-		
+
 		btnDelTrans = new JButton("Delete transaction");
 		btnYesDelete = new JButton("Yes, delete transaction");
 		btnNoDelete = new JButton("No, don't delete");
@@ -78,18 +78,29 @@ public class TransactionView extends JPanel {
 			if (e.getSource() == btnBack) {
 				panel.updateTable();
 				panel.switchPanel("InitialView");
-			} else if (e.getSource() == btnYesDelete) {
+			}
+			if(e.getSource() == btnDelTrans){
+				lblDelete.setVisible(true);
+				btnYesDelete.setVisible(true);
+				btnNoDelete.setVisible(true);
+			}
+			if (e.getSource() == btnYesDelete) {
 				lblDelete.setVisible(false);
 				btnYesDelete.setVisible(false);
 				btnNoDelete.setVisible(false);
-				panel.deleteLine("transactions/" + acctName + ".txt",
-						transSelected.toString());
+
+				panel.deleteLine("transactions/" + acctName+ ".txt", transSelected.toString());
 				panel.updateTrans();
-			} else if (e.getSource() == btnNoDelete) {
+				panel.updateTable();
+				updateTable();
+
+			}
+			if (e.getSource() == btnNoDelete) {
 				lblDelete.setVisible(false);
 				btnYesDelete.setVisible(false);
 				btnNoDelete.setVisible(false);
-			} else if (e.getSource() == btnAddTrans) {
+			}
+			if (e.getSource() == btnAddTrans) {
 				panel.updateStuff();
 				panel.switchPanel("AddTransAll");
 			}
@@ -104,7 +115,7 @@ public class TransactionView extends JPanel {
 			int row = transactions.rowAtPoint(evt.getPoint());
 			acctName = (String) transactions.getValueAt(row, 0);
 			String date = (String) transactions.getValueAt(row, 1);
-			double dblAmount = panel.getDoubleFrom$((String) transactions
+			double dblAmount = getDoubleFrom$((String) transactions
 					.getValueAt(row, 2));
 			int code = Integer.parseInt((String) transactions
 					.getValueAt(row, 3));
@@ -125,7 +136,20 @@ public class TransactionView extends JPanel {
 		public void mouseReleased(MouseEvent arg0) {
 		}
 	}
+	public double getDoubleFrom$(String str) {
+		int isNegative = 1;
+		if (str.substring(0, 1).equals("-")) {
+			isNegative = -1;
+			String temp = str.substring(2, str.length());
+			str = temp;
+		} else {
+			String temp = str.substring(1, str.length());
+			str = temp;
+		}
 
+		return Double.parseDouble(str) * isNegative;
+
+	}
 	private String[][] getTransactions() {
 
 		ArrayList<String[]> temp = new ArrayList<String[]>();

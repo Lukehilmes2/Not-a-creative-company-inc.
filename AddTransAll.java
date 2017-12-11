@@ -11,7 +11,8 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 public class AddTransAll extends JPanel implements ActionListener {
 
 	private JLabel lblDate, lblAmount, lblDescription, lblAdd, lblError;
@@ -36,7 +37,7 @@ public class AddTransAll extends JPanel implements ActionListener {
 	private JComboBox<String> users;
 	private String[] userlist;
 	private String[][] accounts,transactions;
-
+	private DecimalFormat fmt = new DecimalFormat("0.00");
 	public AddTransAll(MainPanel panel) {
 
 		this.panel = panel;
@@ -130,7 +131,7 @@ public class AddTransAll extends JPanel implements ActionListener {
 		cs.gridy = 0;
 		cs.gridwidth = 1;
 		cs.ipady = 20;
-		panel1.add(users,cs);		
+		panel1.add(users,cs);
 		panel1.add(users,cs);
 
 	}
@@ -161,7 +162,7 @@ public class AddTransAll extends JPanel implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
 			try {
-				curCode = Codes.getSelectedItem().toString();	
+				curCode = Codes.getSelectedItem().toString();
 			} catch (NullPointerException er) {
 				curCode = "50109";
 			}
@@ -195,13 +196,14 @@ public class AddTransAll extends JPanel implements ActionListener {
 		String date = txtDate.getText();
 		int code = Integer.parseInt(curCode.substring(0, 5));
 		String description = txtDescription.getText();
-		double amount = Double.parseDouble(txtAmount.getText()) * ccRate
-				* expenseRate * uniFee;
+		String amt = fmt.format(Double.parseDouble(txtAmount.getText())* ccRate * expenseRate * uniFee);
+		double amount = Double.parseDouble(amt);
+
 		Transaction t = new Transaction(username, date,
 				amount, code, description);
-		panel.addLine("transactions/" + username + ".txt",
-				t.toString());
+		panel.addLine("transactions/" + username + ".txt",t.toString());
 		panel.updateTrans();
+		panel.updateTable();
 	}
 	public void updateStuff() {
 
@@ -210,7 +212,7 @@ public class AddTransAll extends JPanel implements ActionListener {
 		userlist = new String[accounts.length];
 		for (int i = 0; i < accounts.length; i++) {
 
-			System.out.println(accounts[i][0]);
+
 			userlist[i] = (accounts[i][0]);
 		}
 		users.removeAllItems();

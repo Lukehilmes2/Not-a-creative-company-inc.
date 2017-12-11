@@ -134,7 +134,7 @@ public class MainPanel extends JPanel {
 		try {
 			file = new Scanner(new FileReader(filename));
 		} catch (FileNotFoundException e) {
-			System.out.println("Cant find file");
+
 			e.printStackTrace();
 		}
 		while (file.hasNext()) {
