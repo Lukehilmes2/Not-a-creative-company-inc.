@@ -212,6 +212,9 @@ public class AddTrans extends JPanel implements ActionListener {
 				amount, code, description);
 		panel.addLine("transactions/" + panel.getAcct().getName() + ".txt",
 				t.toString());
+		panel.deleteLine("accounts.txt", panel.getAcct().toString());
+		panel.getAcct().setBalance(panel.getAcct().getBalance() + amount);
+		panel.addLine("accounts.txt", panel.getAcct().toString());
 		panel.updateTrans();
 	}
 }

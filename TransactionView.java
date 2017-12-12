@@ -1,3 +1,4 @@
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -40,24 +41,28 @@ public class TransactionView extends JPanel {
 
 		this.panel = panel;
 
+		BorderLayout border = new BorderLayout();
+		setLayout(border);
+		JPanel pnlDelete = new JPanel();
 		btnDelTrans = new JButton("Delete transaction");
-		btnYesDelete = new JButton("Yes, delete transaction");
+		btnYesDelete = new JButton("Yes, delete");
 		btnNoDelete = new JButton("No, don't delete");
 		btnAddTrans = new JButton("Add transaction");
 		btnBack = new JButton("Back");
-		lblDelete = new JLabel("Are you sure you want to delete this account?");
+		lblDelete = new JLabel("Are you sure you want to delete this transaction?");
 		lblTotalBalance = new JLabel("");
 		add(lblTotalBalance);
 		transactions = new JTable(model);
 		add(lblTotalBalance);
 		updateTable();
-		add(transactions);
+		add(transactions, BorderLayout.EAST);
 		add(btnDelTrans);
 		add(btnAddTrans);
 		add(btnBack);
-		add(lblDelete);
-		add(btnYesDelete);
-		add(btnNoDelete);
+		pnlDelete.add(lblDelete);
+		pnlDelete.add(btnYesDelete);
+		pnlDelete.add(btnNoDelete);
+		add(pnlDelete, border.WEST);
 		btnYesDelete.setVisible(false);
 		btnNoDelete.setVisible(false);
 		lblDelete.setVisible(false);
@@ -79,6 +84,9 @@ public class TransactionView extends JPanel {
 				updateTable();
 				panel.updateTrans();
 				panel.updateStuff();
+				lblDelete.setVisible(false);
+				btnYesDelete.setVisible(false);
+				btnNoDelete.setVisible(false);
 				panel.switchPanel("InitialView");
 			}
 			if(e.getSource() == btnDelTrans){

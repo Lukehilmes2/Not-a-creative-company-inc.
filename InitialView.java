@@ -222,8 +222,19 @@ public class InitialView extends JPanel {
 		while (file.hasNext()) {
 			String nextLine = file.nextLine();
 			String[] account = nextLine.split(",");
-			String strBalance = account[4];
-			account[4] = fmt.format(Double.parseDouble(strBalance));
+			double balance = 0;
+			Scanner money = null;
+			try {
+				money = new Scanner(new FileReader("transactions/" + account[0] + ".txt"));
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+			while (money.hasNext()) {
+				String nextT = money.nextLine();
+				String[] transaction = nextT.split(",");
+				balance += Double.parseDouble(transaction[2]);
+			}
+			account[4] = fmt.format(balance);
 			temp.add(account);
 		}
 		String[][] accounts = new String[temp.size()][5];
