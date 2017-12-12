@@ -140,9 +140,19 @@ public class CreateAcct extends JPanel {
 						|| !description.getText().matches(".*\\w.*")
 						|| !email.getText().matches(".*\\w.*")
 						|| !phone.getText().matches(".*\\w.*")) {
+					name.setBackground(Color.RED);
+					description.setBackground(Color.RED);
+					email.setBackground(Color.RED);
+					phone.setBackground(Color.RED);
+					balance.setBackground(Color.RED);
 					badacct.setText("Please fill out all the fields!");
 					return;
 				}
+				name.setBackground(Color.WHITE);
+				description.setBackground(Color.WHITE);
+				email.setBackground(Color.WHITE);
+				phone.setBackground(Color.WHITE);
+				balance.setBackground(Color.WHITE);
 				if(!phone.getText().matches("(?:\\d{3}-){2}\\d{4}")){
 					phone.setBackground(Color.RED);
 					badacct.setText("Enter a Valid phone number");

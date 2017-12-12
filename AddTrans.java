@@ -12,7 +12,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
+import java.awt.Color;
 public class AddTrans extends JPanel implements ActionListener {
 
 	private JLabel lblDate, lblAmount, lblDescription, lblAdd, lblError;
@@ -162,17 +162,29 @@ public class AddTrans extends JPanel implements ActionListener {
 				try{
 					Double.parseDouble(txtAmount.getText());
 				} catch (NumberFormatException ev) {
+					txtAmount.setBackground(Color.RED);
+					txtDate.setBackground(Color.WHITE);
+					txtDescription.setBackground(Color.WHITE);
 					lblError.setText("Please give a valid number format(no $, e.g. 54.33)");
 					return;
 				}
 				if (txtAmount.getText() != null
 						&& txtAmount.getText().matches("[-+]?\\d*\\.?\\d+") == false) {
+							txtAmount.setBackground(Color.RED);
+							txtDate.setBackground(Color.WHITE);
+							txtDescription.setBackground(Color.WHITE);
 					lblError.setText("Please Enter a Valid number for the amount!");
 				} else if (txtDate.getText().matches(
 						"([0-9]{2})-([0-9]{2})-([0-9]{4})") == false) {
+							txtAmount.setBackground(Color.WHITE);
+							txtDate.setBackground(Color.RED);
+							txtDescription.setBackground(Color.WHITE);
 					lblError.setText("Please Enter a Correctly Formatted Date! (dd-mm-yyy)");
 				} else {
 					if (txtDescription.getText().replaceAll("\\s+","").equals("")) {
+						txtAmount.setBackground(Color.WHITE);
+						txtDate.setBackground(Color.WHITE);
+						txtDescription.setBackground(Color.RED);
 						lblError.setText("Please give a description to this transaction");
 						return;
 					}
@@ -180,6 +192,9 @@ public class AddTrans extends JPanel implements ActionListener {
 					txtAmount.setText("");
 					txtDescription.setText("");
 					lblError.setText("");
+					txtAmount.setBackground(Color.WHITE);
+					txtDate.setBackground(Color.WHITE);
+					txtDescription.setBackground(Color.WHITE);
 					panel.switchPanel("ViewAcct");
 				}
 			}

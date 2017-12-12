@@ -4,7 +4,7 @@ import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
-
+import java.awt.Insets;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -14,7 +14,7 @@ import javax.swing.JTextField;
 public class Benefits extends JPanel {
 
 	private JComboBox<String> jobTypes;
-	String[] strJobTypes = { "job type:", "Student", "Faculty" };
+	String[] strJobTypes = { "Job Type:", "Student", "Faculty" };
 	private JButton btnCalculate;
 	private JTextField txtAmount;
 	private JLabel lblAmount;
@@ -46,44 +46,51 @@ public class Benefits extends JPanel {
 		cs.gridx = 1;
 		cs.gridy = 0;
 		cs.gridwidth = 1;
-		cs.ipady = 50;
+		cs.ipady = 20;
 		panel1.add(lblTitle, cs);
 
-		cs.gridx = 1;
-		cs.gridy = 1;
+		cs.gridx = 0;
+		cs.gridy = 4;
 		cs.gridwidth = 1;
-		cs.ipady = 35;
+		cs.ipady = 20;
+		cs.insets = new Insets(25,0,0,0);
 		panel1.add(btnBack, cs);
 
 		cs.gridx = 1;
 		cs.gridy = 2;
 		cs.gridwidth = 1;
 		cs.ipady = 20;
+		cs.insets = new Insets(25,0,0,0);
 		panel1.add(jobTypes, cs);
 
 		cs.gridx = 0;
 		cs.gridy = 3;
 		cs.gridwidth = 1;
-		cs.ipady = 10;
+		cs.ipady = 20;
+		cs.insets = new Insets(25,0,0,0);
 		panel1.add(lblTxtAmount, cs);
 
 		cs.gridx = 1;
 		cs.gridy = 3;
 		cs.gridwidth = 1;
-		cs.ipady = 10;
+		cs.ipady = 20;
+		cs.insets = new Insets(25,0,0,0);
 		panel1.add(txtAmount, cs);
 
 		cs.gridx = 1;
 		cs.gridy = 4;
 		cs.gridwidth = 1;
-		cs.ipady = 50;
+		cs.ipady = 20;
+		cs.insets = new Insets(25,15,0,0);
 		panel1.add(btnCalculate, cs);
 
 		cs.gridx = 1;
 		cs.gridy = 5;
 		cs.gridwidth = 1;
-		cs.ipady = 50;
+		cs.ipady = 20;
+		cs.insets = new Insets(25,0,0,0);
 		panel1.add(lblAmount, cs);
+		add(lblTitle,BorderLayout.NORTH);
 		add(panel1, BorderLayout.CENTER);
 	}
 
@@ -100,7 +107,7 @@ public class Benefits extends JPanel {
 
 				double amount = 0;
 				try {
-					 amount = Double.parseDouble(txtAmount.getText());	
+					 amount = Double.parseDouble(txtAmount.getText());
 				} catch (NumberFormatException er) {
 					lblAmount.setText("Please give a valid number format(no $, e.g. 54.33");
 					return;

@@ -76,7 +76,7 @@ public class TransactionView extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 
 			if (e.getSource() == btnBack) {
-				panel.updateTable();
+				updateTable();
 				panel.updateTrans();
 				panel.updateStuff();
 				panel.switchPanel("InitialView");

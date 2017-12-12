@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.awt.Color;
 public class AddTransAll extends JPanel implements ActionListener {
 
 	private JLabel lblDate, lblAmount, lblDescription, lblAdd, lblError;
@@ -43,7 +44,7 @@ public class AddTransAll extends JPanel implements ActionListener {
 		this.panel = panel;
 
 		users = new JComboBox<>();
-		updateStuff();
+		//updateStuff();
 
 		dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
 		JPanel panel1 = new JPanel(new GridBagLayout());
@@ -169,22 +170,47 @@ public class AddTransAll extends JPanel implements ActionListener {
 			Character g = curCode.charAt(0);
 			String username = users.getSelectedItem().toString();
 			if (e.getSource() == btnBack) {
+				panel.updateTrans();
 				panel.switchPanel("TransactionView");
 			} else if (e.getSource() == btnAddTrans) {
 				if (txtAmount.getText() != null
 						&& txtAmount.getText().matches("[-+]?\\d*\\.?\\d+") == false) {
+					txtAmount.setBackground(Color.RED);
+					txtDate.setBackground(Color.WHITE);
+					txtDescription.setBackground(Color.WHITE);
+
 					lblError.setText("Please Enter a Valid number for the amount!");
 				} else if (txtDate.getText().matches(
 						"([0-9]{2})-([0-9]{2})-([0-9]{4})") == false) {
+					txtDate.setBackground(Color.RED);
+
+					txtDescription.setBackground(Color.WHITE);
+					txtAmount.setBackground(Color.WHITE);
 					lblError.setText("Please Enter a Correctly Formatted Date! (dd-mm-yyy)");
-				} else {
+				}else if (txtDate.getText().matches("([0-9]{2})-([0-9]{2})-([0-9]{4})") == false && txtAmount.getText() != null
+						&& txtAmount.getText().matches("[-+]?\\d*\\.?\\d+") == false && (txtDescription.getText().replaceAll("\\s+","").equals(""))) {
+					txtDate.setBackground(Color.RED);
+
+					txtDescription.setBackground(Color.RED);
+					txtAmount.setBackground(Color.RED);
+					lblError.setText("Enter all fields");
+				}
+				 else {
 					if (txtDescription.getText().replaceAll("\\s+","").equals("")) {
+						txtDescription.setBackground(Color.RED);
+						txtDate.setBackground(Color.WHITE);
+
+						txtAmount.setBackground(Color.WHITE);
 						lblError.setText("Please give a description to this transaction");
 						return;
 					}
+
 					addTrans(username);
 					txtAmount.setText("");
 					txtDescription.setText("");
+					txtDate.setBackground(Color.WHITE);
+					txtDescription.setBackground(Color.WHITE);
+					txtAmount.setBackground(Color.WHITE);
 					panel.switchPanel("TransactionView");
 				}
 			}
@@ -203,8 +229,6 @@ public class AddTransAll extends JPanel implements ActionListener {
 				amount, code, description);
 		panel.addLine("transactions/" + username + ".txt",t.toString());
 		panel.updateTrans();
-		panel.updateStuff();
-		panel.updateTable();
 	}
 	public void updateStuff() {
 
