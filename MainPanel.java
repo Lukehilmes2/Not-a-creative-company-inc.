@@ -11,27 +11,13 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.awt.BorderLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
-import javax.swing.JComboBox;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import java.util.*;
-import java.util.Scanner;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.text.DecimalFormat;
-import java.io.File;
-import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.Scanner;
+
 import javax.swing.JPanel;
 import javax.swing.Timer;
+import javax.swing.UIManager;
 
 public class MainPanel extends JPanel {
 
@@ -51,6 +37,10 @@ public class MainPanel extends JPanel {
 
 	public MainPanel() {
 
+		try {
+			UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
+		} catch (Exception e) {
+		}
 		cards = new CardLayout();
 		setLayout(cards);
 		pnlLogin = new Login(this);
@@ -117,7 +107,7 @@ public class MainPanel extends JPanel {
 	}
 
 	public void updateTrans() {
-		
+
 		pnlViewAcct.updateTable();
 		pnlTransactionView.updateTable();
 	}
