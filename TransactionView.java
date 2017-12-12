@@ -42,7 +42,6 @@ public class TransactionView extends JPanel {
 		this.panel = panel;
 
 		BorderLayout border = new BorderLayout();
-		setLayout(border);
 		JPanel pnlDelete = new JPanel();
 		btnDelTrans = new JButton("Delete transaction");
 		btnYesDelete = new JButton("Yes, delete");
@@ -55,14 +54,14 @@ public class TransactionView extends JPanel {
 		transactions = new JTable(model);
 		add(lblTotalBalance);
 		updateTable();
-		add(transactions, BorderLayout.EAST);
+		add(transactions);
 		add(btnDelTrans);
 		add(btnAddTrans);
 		add(btnBack);
 		pnlDelete.add(lblDelete);
 		pnlDelete.add(btnYesDelete);
 		pnlDelete.add(btnNoDelete);
-		add(pnlDelete, border.WEST);
+		add(pnlDelete);
 		btnYesDelete.setVisible(false);
 		btnNoDelete.setVisible(false);
 		lblDelete.setVisible(false);
