@@ -47,6 +47,7 @@ public class InitialView extends JPanel {
 			viewtransactions, benefits,modAct;
 	private double uniFee;
 	private double creditCardFee;
+	private double total;
 	private final String strEmptyAccount = "<html>This account can't be " +
 			"<br>deleted because it<br>" +
 			"has transactions</html>";
@@ -183,6 +184,20 @@ public class InitialView extends JPanel {
 		return fees;
 	}
 
+	public double getUniFee() {
+	
+		return uniFee;
+	}
+	
+	public double getCreditCardFee() {
+		
+		return creditCardFee;
+	}
+	
+	public double getTotal() {
+		
+		return total;
+	}
 	public String[][] getAccounts() {
 
 		return accounts;
@@ -198,7 +213,7 @@ public class InitialView extends JPanel {
 		};
 		tblAccts.getTableHeader().setReorderingAllowed(false);
 		tblAccts.setModel(model);
-		double total = 0;
+		total = 0;
 		for (int i = 0; i < tblAccts.getRowCount(); i++) {
 			total += panel.getDoubleFrom$((String) tblAccts.getValueAt(i, 4));
 		}
@@ -235,7 +250,6 @@ public class InitialView extends JPanel {
 				balance += Double.parseDouble(transaction[2]);
 			}
 			account[4] = fmt.format(balance);
-			System.out.println(fmt.format(balance));
 			temp.add(account);
 		}
 		String[][] accounts = new String[temp.size()][5];

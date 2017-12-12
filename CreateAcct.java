@@ -119,7 +119,12 @@ public class CreateAcct extends JPanel {
 		cs.ipady = 20;
 
 		back = new JButton("Back");
-
+		cs.gridx = 0;
+		cs.gridy = 4;
+		cs.gridwidth = 1;
+		cs.ipady = 20;
+		panel1.add(back, cs);
+		
 		add(panel1, BorderLayout.CENTER);
 		add(back, BorderLayout.NORTH);
 		add(badacct, BorderLayout.SOUTH);
