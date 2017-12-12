@@ -82,6 +82,21 @@ public class MainPanel extends JPanel {
 		addMouseMotionListener(new IdleListener());
 	}
 
+	public double getUniFee() {
+		
+		return pnlInitialView.getUniFee();
+	}
+	
+	public double getCreditCardFee() {
+		
+		return pnlInitialView.getCreditCardFee();
+	}
+	
+	public double getTotal() {
+		
+		return pnlInitialView.getTotal();
+	}
+	
 	public String[][] getAccounts() {
 		return pnlInitialView.getAccounts();
 	}

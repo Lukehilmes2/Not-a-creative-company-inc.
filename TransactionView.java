@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -24,15 +26,15 @@ public class TransactionView extends JPanel {
 
 	private String acctName;
 	private JTable transactions;
-	private String[] columnNames = { "account", "date", "amount", "code",
-			"description" };
+	private String[] columnNames = { "Account", "Date", "Amount", "Code",
+			"Description" };
 	private String[][] transData;
 	private TableModel model;
 	private Transaction transSelected;
 	private JButton btnDelTrans, btnYesDelete, btnNoDelete, btnAddTrans,
 			btnBack;
 	private MainPanel panel;
-	private JLabel lblDelete;
+	private JLabel lblDelete, lblTotal, lblUniFee, lblCreditCardFee;
 	private DecimalFormat fmt = new DecimalFormat("$#0.00");
 	NumberFormat $fmt = NumberFormat.getCurrencyInstance();
 	private JLabel lblTotalBalance;
@@ -42,26 +44,46 @@ public class TransactionView extends JPanel {
 		this.panel = panel;
 
 		BorderLayout border = new BorderLayout();
+		setLayout(border);
 		JPanel pnlDelete = new JPanel();
+		JPanel pnlDisplay = new JPanel();
 		btnDelTrans = new JButton("Delete transaction");
 		btnYesDelete = new JButton("Yes, delete");
 		btnNoDelete = new JButton("No, don't delete");
 		btnAddTrans = new JButton("Add transaction");
 		btnBack = new JButton("Back");
-		lblDelete = new JLabel("Are you sure you want to delete this transaction?");
+		lblDelete = new JLabel("<html>Are you sure you<br>" +
+				"want to delete this<br>" +
+				"transaction?");
 		lblTotalBalance = new JLabel("");
 		add(lblTotalBalance);
 		transactions = new JTable(model);
 		add(lblTotalBalance);
+		lblTotal = new JLabel("");
+		lblUniFee = new JLabel("");
+		lblCreditCardFee = new JLabel("");
 		updateTable();
-		add(transactions);
-		add(btnDelTrans);
-		add(btnAddTrans);
-		add(btnBack);
+		
+		pnlDisplay.add(transactions);
+		pnlDisplay.add(btnDelTrans);
+		pnlDisplay.add(btnAddTrans);
+		pnlDisplay.add(btnBack);		
+
+		pnlDelete.setLayout(new BoxLayout(pnlDelete, BoxLayout.Y_AXIS));
+		pnlDelete.add(lblTotal);
+		pnlDelete.add(Box.createVerticalStrut(20));
+		pnlDelete.add(lblUniFee);
+		pnlDelete.add(Box.createVerticalStrut(20));
+		pnlDelete.add(lblCreditCardFee);
 		pnlDelete.add(lblDelete);
+		pnlDelete.add(Box.createVerticalStrut(20));
 		pnlDelete.add(btnYesDelete);
+		pnlDelete.add(Box.createVerticalStrut(20));
 		pnlDelete.add(btnNoDelete);
-		add(pnlDelete);
+		
+		add(pnlDelete, BorderLayout.WEST);
+		add(transactions, BorderLayout.EAST);
+		add(pnlDisplay, BorderLayout.NORTH);
 		btnYesDelete.setVisible(false);
 		btnNoDelete.setVisible(false);
 		lblDelete.setVisible(false);
@@ -201,6 +223,9 @@ public class TransactionView extends JPanel {
 				return false;// This causes all cells to be not editable
 			}
 		};
+		lblTotal.setText("Total balance: " + fmt.format(panel.getTotal()));
+		lblUniFee.setText("University fee: " + fmt.format(panel.getUniFee()));
+		lblCreditCardFee.setText("Credit card fee: " + fmt.format(panel.getCreditCardFee()));
 		transactions.setModel(model);
 	}
 }

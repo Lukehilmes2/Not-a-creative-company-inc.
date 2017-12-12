@@ -109,7 +109,8 @@ public class Benefits extends JPanel {
 				try {
 					 amount = Double.parseDouble(txtAmount.getText());
 				} catch (NumberFormatException er) {
-					lblAmount.setText("Please give a valid number format(no $, e.g. 54.33");
+					lblAmount.setText("<html>Please give a valid number<br>" +
+							"<br>format(no $, e.g. 54.33)");
 					return;
 				}
 				double benefits = 0;
