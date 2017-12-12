@@ -151,7 +151,11 @@ public class AddTrans extends JPanel implements ActionListener {
 	private class ButtonListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent e) {
-			String curCode = Codes.getSelectedItem().toString();
+			try {
+				curCode = Codes.getSelectedItem().toString();
+			} catch (NullPointerException er) {
+				curCode = "50109";
+			}
 			Character g = curCode.charAt(0);
 			if (e.getSource() == btnBack) {
 				txtAmount.setText("");

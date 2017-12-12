@@ -235,6 +235,7 @@ public class InitialView extends JPanel {
 				balance += Double.parseDouble(transaction[2]);
 			}
 			account[4] = fmt.format(balance);
+			System.out.println(fmt.format(balance));
 			temp.add(account);
 		}
 		String[][] accounts = new String[temp.size()][5];
