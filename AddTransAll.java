@@ -38,6 +38,7 @@ public class AddTransAll extends JPanel implements ActionListener {
 	private JComboBox<String> users;
 	private String[] userlist;
 	private String[][] accounts,transactions;
+	private Account acct;
 	private DecimalFormat fmt = new DecimalFormat("0.00");
 	public AddTransAll(MainPanel panel) {
 
@@ -169,6 +170,16 @@ public class AddTransAll extends JPanel implements ActionListener {
 			}
 			Character g = curCode.charAt(0);
 			String username = users.getSelectedItem().toString();
+			accounts = panel.getAccounts();
+			for (int i = 0; i < accounts.length; i++) {
+				if(accounts[i][0].equals(username)){
+					double checkbal = panel.getDoubleFrom$(accounts[i][4]);
+					acct = new Account(accounts[i][0],accounts[i][1],accounts[i][2],accounts[i][3],checkbal);
+
+				}
+
+			}
+
 			if (e.getSource() == btnBack) {
 				panel.updateTrans();
 				panel.switchPanel("TransactionView");
@@ -205,7 +216,7 @@ public class AddTransAll extends JPanel implements ActionListener {
 						return;
 					}
 
-					addTrans(username);
+					addTrans(acct);
 					txtAmount.setText("");
 					txtDescription.setText("");
 					txtDate.setBackground(Color.WHITE);
@@ -217,7 +228,7 @@ public class AddTransAll extends JPanel implements ActionListener {
 		}
 	}
 
-	private void addTrans(String username) {
+	private void addTrans(Account acct) {
 		String curCode = Codes.getSelectedItem().toString();
 		String date = txtDate.getText();
 		int code = Integer.parseInt(curCode.substring(0, 5));
@@ -225,10 +236,13 @@ public class AddTransAll extends JPanel implements ActionListener {
 		String amt = fmt.format(Double.parseDouble(txtAmount.getText())* ccRate * expenseRate * uniFee);
 		double amount = Double.parseDouble(amt);
 
-		Transaction t = new Transaction(username, date,
+		Transaction t = new Transaction(acct.getName(), date,
 				amount, code, description);
-		panel.addLine("transactions/" + username + ".txt",t.toString());
-
+		panel.addLine("transactions/" + acct.getName() + ".txt",t.toString());
+		panel.deleteLine("accounts.txt", acct.toString());
+		acct.setBalance(acct.getBalance() + amount);
+		panel.addLine("accounts.txt", acct.toString());
+		panel.updateTable();
 		panel.updateTrans();
 	}
 	public void updateStuff() {

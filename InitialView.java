@@ -280,6 +280,7 @@ public class InitialView extends JPanel {
 			} else if (evt.getSource() == viewAct) {
 				panel.setAccount(acctSelected);
 				panel.switchPanel("ViewAcct");
+				return;
 			} else if (evt.getSource() == modAct) {
 				panel.updateStuff();
 				panel.switchPanel("ModifyAcct");

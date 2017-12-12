@@ -80,9 +80,7 @@ public class TransactionView extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 
 			if (e.getSource() == btnBack) {
-				updateTable();
-				panel.updateTrans();
-				panel.updateStuff();
+
 				lblDelete.setVisible(false);
 				btnYesDelete.setVisible(false);
 				btnNoDelete.setVisible(false);
