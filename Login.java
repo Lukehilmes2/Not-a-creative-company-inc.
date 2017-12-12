@@ -64,7 +64,7 @@ class Login extends JPanel {
 		cs.gridy = 1;
 		cs.gridwidth = 2;
 		panel1.add(password, cs);
-		
+
 		lblAutoLogOut = new JLabel("");
 		cs.gridx = 1;
 		cs.gridy = 2;

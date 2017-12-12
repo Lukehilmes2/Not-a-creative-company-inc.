@@ -114,10 +114,11 @@ public class MainPanel extends JPanel {
 	public void updateTable() {
 
 		pnlInitialView.updateTable();
+		
 	}
 
 	public void updateTrans() {
-		
+
 		pnlViewAcct.updateTable();
 		pnlTransactionView.updateTable();
 	}

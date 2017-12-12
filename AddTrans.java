@@ -179,7 +179,7 @@ public class AddTrans extends JPanel implements ActionListener {
 							txtAmount.setBackground(Color.WHITE);
 							txtDate.setBackground(Color.RED);
 							txtDescription.setBackground(Color.WHITE);
-					lblError.setText("Please Enter a Correctly Formatted Date! (dd-mm-yyy)");
+					lblError.setText("Please Enter a Correctly Formatted Date! (dd-mm-yyyy)");
 				} else {
 					if (txtDescription.getText().replaceAll("\\s+","").equals("")) {
 						txtAmount.setBackground(Color.WHITE);
@@ -215,6 +215,7 @@ public class AddTrans extends JPanel implements ActionListener {
 		panel.deleteLine("accounts.txt", panel.getAcct().toString());
 		panel.getAcct().setBalance(panel.getAcct().getBalance() + amount);
 		panel.addLine("accounts.txt", panel.getAcct().toString());
+		panel.updateTable();
 		panel.updateTrans();
 	}
 }

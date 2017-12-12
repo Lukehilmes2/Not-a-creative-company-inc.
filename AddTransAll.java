@@ -186,7 +186,7 @@ public class AddTransAll extends JPanel implements ActionListener {
 
 					txtDescription.setBackground(Color.WHITE);
 					txtAmount.setBackground(Color.WHITE);
-					lblError.setText("Please Enter a Correctly Formatted Date! (dd-mm-yyy)");
+					lblError.setText("Please Enter a Correctly Formatted Date! (dd-mm-yyyy)");
 				} else if (txtDate.getText().matches("([0-9]{2})-([0-9]{2})-([0-9]{4})") == false && txtAmount.getText() != null
 						&& txtAmount.getText().matches("[-+]?\\d*\\.?\\d+") == false && (txtDescription.getText().replaceAll("\\s+","").equals(""))) {
 					txtDate.setBackground(Color.RED);
@@ -228,7 +228,7 @@ public class AddTransAll extends JPanel implements ActionListener {
 		Transaction t = new Transaction(username, date,
 				amount, code, description);
 		panel.addLine("transactions/" + username + ".txt",t.toString());
-		panel.updateTable();
+
 		panel.updateTrans();
 	}
 	public void updateStuff() {
