@@ -34,7 +34,7 @@ class Login extends JPanel {
 
 		cs.fill = GridBagConstraints.HORIZONTAL;
 		logo = new ImageIcon("logo.jpg");
-		logo1 = new ImageIcon("MT2000.jpg");
+		logo1 = new ImageIcon("MT2000.png");
 
 		lblLogo1 = new JLabel();
 		lblLogo1.setIcon(logo1);
