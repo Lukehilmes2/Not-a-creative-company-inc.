@@ -181,6 +181,12 @@ public class AddTransAll extends JPanel implements ActionListener {
 			}
 
 			if (e.getSource() == btnBack) {
+				txtAmount.setText("");
+				txtDescription.setText("");
+				txtDate.setBackground(Color.WHITE);
+				txtDescription.setBackground(Color.WHITE);
+				txtAmount.setBackground(Color.WHITE);
+				lblError.setText("");
 				panel.updateTrans();
 				panel.switchPanel("TransactionView");
 			} else if (e.getSource() == btnAddTrans) {
@@ -218,6 +224,7 @@ public class AddTransAll extends JPanel implements ActionListener {
 
 					addTrans(acct);
 					txtAmount.setText("");
+					lblError.setText("");
 					txtDescription.setText("");
 					txtDate.setBackground(Color.WHITE);
 					txtDescription.setBackground(Color.WHITE);

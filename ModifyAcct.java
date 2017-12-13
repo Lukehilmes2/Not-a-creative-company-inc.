@@ -18,7 +18,12 @@ import java.text.DecimalFormat;
 import java.io.File;
 import java.nio.file.Files;
 import java.io.PrintWriter;
-
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
 public class ModifyAcct extends JPanel implements ActionListener {
 
 	private JTextField name;
@@ -216,7 +221,15 @@ public class ModifyAcct extends JPanel implements ActionListener {
 				}}
 			}
 			else{
-				panel.addLine("transactions/" + updateAcct.getName() + ".txt","");
+				String file = ("transactions/" + updateAcct.getName() + ".txt");
+				BufferedWriter writer = null;
+				try {
+					writer = new BufferedWriter(new FileWriter(file, true));
+					writer.append("");
+					writer.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 				System.out.println(!updateAcct.getName().equals(acctSelected.getName()));
 				if(!updateAcct.getName().equals(acctSelected.getName())){
@@ -228,7 +241,7 @@ public class ModifyAcct extends JPanel implements ActionListener {
 					e.printStackTrace();
 				}
 			}
-
+				badacct.setText("");
 				description.setText("");
 				email.setText("");
 				phone.setText("");
