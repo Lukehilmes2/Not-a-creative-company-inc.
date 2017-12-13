@@ -13,6 +13,7 @@ import java.util.Scanner;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -38,6 +39,8 @@ public class ViewAcct extends JPanel {
 	private JLabel lblTotalBalance, lblUsername;
 	private String strConfirmDelete = "<html>Are you sure you want<br>"
 			+ "to delete the<br> " + "transaction?";
+	private JLabel lblImg;
+	private ImageIcon img;
 
 	public ViewAcct(MainPanel panel) {
 
@@ -59,10 +62,15 @@ public class ViewAcct extends JPanel {
 		lblTotalBalance = new JLabel("");
 		pnlDisplay.add(lblTotalBalance);
 		transactions = new JTable(model);
+		lblImg = new JLabel("");
+		img = new ImageIcon("smallMT2000.png");
+		lblImg.setIcon(img);
 		updateTable();
+		
 		pnlDisplay.add(btnDelTrans);
 		pnlDisplay.add(btnAddTrans);
 		pnlDisplay.add(btnBack);
+		pnlDelete.add(lblImg);
 		pnlDelete.add(lblUsername);
 		pnlDelete.add(Box.createVerticalStrut(20));
 		pnlDelete.add(lblTotalBalance);

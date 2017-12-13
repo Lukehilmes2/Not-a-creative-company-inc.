@@ -14,6 +14,7 @@ import java.util.Scanner;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -38,6 +39,8 @@ public class TransactionView extends JPanel {
 	private DecimalFormat fmt = new DecimalFormat("$#0.00");
 	NumberFormat $fmt = NumberFormat.getCurrencyInstance();
 	private JLabel lblTotalBalance;
+	private JLabel lblImg;
+	private ImageIcon img;
 
 	public TransactionView(MainPanel panel) {
 
@@ -62,6 +65,9 @@ public class TransactionView extends JPanel {
 		lblTotal = new JLabel("");
 		lblUniFee = new JLabel("");
 		lblCreditCardFee = new JLabel("");
+		lblImg = new JLabel("");
+		img = new ImageIcon("smallMT2000.png");
+		lblImg.setIcon(img);
 		updateTable();
 		pnlDisplay.add(transactions);
 		pnlDisplay.add(btnDelTrans);
@@ -69,6 +75,7 @@ public class TransactionView extends JPanel {
 		pnlDisplay.add(btnBack);		
 
 		pnlDelete.setLayout(new BoxLayout(pnlDelete, BoxLayout.Y_AXIS));
+		pnlDelete.add(lblImg);
 		pnlDelete.add(lblTotal);
 		pnlDelete.add(Box.createVerticalStrut(20));
 		pnlDelete.add(lblUniFee);

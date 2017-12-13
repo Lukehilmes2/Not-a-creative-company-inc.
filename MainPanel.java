@@ -31,10 +31,10 @@ public class MainPanel extends JPanel {
 	private InitialView pnlInitialView;
 	private TransactionView pnlTransactionView;
 	private Account acct;
-	private final String companyName = "Developed by NACC inc.";
 	private final double minutesAutoLogOut = 10;
 	private Timer timer;
 	private DecimalFormat fmt = new DecimalFormat("$0.00");
+	private final String companyName = "Made by NACC inc.";
 
 	public MainPanel() {
 
@@ -82,6 +82,12 @@ public class MainPanel extends JPanel {
 		addMouseMotionListener(new IdleListener());
 	}
 
+
+	public void paint(Graphics g) {
+		
+		super.paint(g);
+		g.drawString(companyName, 10, this.getHeight() - 10);
+	}
 	public double getUniFee() {
 		
 		return pnlInitialView.getUniFee();
@@ -104,12 +110,6 @@ public class MainPanel extends JPanel {
 	public void setAccount(Account acct) {
 		this.acct = acct;
 		pnlViewAcct.setAcct(acct);
-	}
-
-	public void paint(Graphics g) {
-
-		super.paint(g);
-		g.drawString(companyName, 520, 480);
 	}
 
 	public Account getAcct() {

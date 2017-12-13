@@ -12,8 +12,8 @@ import java.util.Scanner;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -41,6 +41,8 @@ public class InitialView extends JPanel {
 	private JLabel lblEmptyAccount;
 	private JLabel lblUniFee;
 	private JLabel lblCreditCardFee;
+	private JLabel lblImg;
+	private ImageIcon img;
 	private JMenuBar mb;
 	private JMenu Logout, Benefits, Transactions, Accounts, Help;
 	private JMenuItem help, logout, makeAct, deleteAct, viewAct,
@@ -98,6 +100,9 @@ public class InitialView extends JPanel {
 		help.addActionListener(new ButtonListener());
 		modAct.addActionListener(new ButtonListener());
 
+		lblImg = new JLabel("");
+		img = new ImageIcon("smallMT2000.png");
+		lblImg.setIcon(img);
 		lblTotalBalance = new JLabel("");
 		lblUniFee = new JLabel("");
 		lblCreditCardFee = new JLabel("");
@@ -120,6 +125,7 @@ public class InitialView extends JPanel {
 		butpan.setLayout(new BoxLayout(butpan, BoxLayout.Y_AXIS));
 
 
+		butpan.add(lblImg);
 		butpan.add(lblTotalBalance);
 		butpan.add(Box.createVerticalStrut(20));
 		butpan.add(lblUniFee);
@@ -148,7 +154,6 @@ public class InitialView extends JPanel {
 		btnYesDelete.setVisible(false);
 		btnNoDelete.setVisible(false);
 		tblAccts.addMouseListener(new TableListener());
-
 	}
 
 	private double getFees(double percent) {
@@ -296,6 +301,9 @@ public class InitialView extends JPanel {
 			if (evt.getSource() == makeAct) {
 				panel.switchPanel("CreateAcct");
 			} else if (evt.getSource() == viewAct) {
+				if(acctSelected == null) {
+					return;
+				}
 				panel.setAccount(acctSelected);
 				panel.switchPanel("ViewAcct");
 				return;

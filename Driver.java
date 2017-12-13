@@ -14,7 +14,5 @@ class Driver {
 		frame.add(panel);
 		frame.pack();
 		frame.setVisible(true);
-		frame.setBackground(Color.RED);
-		frame.getContentPane().setBackground(Color.CYAN);
 	}
 }
