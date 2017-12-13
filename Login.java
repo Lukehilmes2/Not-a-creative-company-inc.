@@ -69,7 +69,6 @@ class Login extends JPanel {
 		cs.gridy = 2;
 		cs.gridwidth = 3;
 		panel1.add(lblAutoLogOut, cs);
-		//panel1.setBorder(new LineBorder(Color.GRAY));
 
 		login = new JButton("Login");
 		lblBadLogin = new JLabel("");
@@ -80,7 +79,7 @@ class Login extends JPanel {
 		bp.add(lblBadLogin);
 		add(panel2, BorderLayout.NORTH);
 		add(panel1, BorderLayout.CENTER);
-		add(bp, BorderLayout.PAGE_END);
+		add(bp, BorderLayout.SOUTH);
 
 	}
 

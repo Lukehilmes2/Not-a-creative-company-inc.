@@ -71,7 +71,6 @@ class Driver extends JFrame {
         	driver.reSize();
         }
         public void componentShown(ComponentEvent arg0) {
-        	driver.reSize();
         }
     }
 }
