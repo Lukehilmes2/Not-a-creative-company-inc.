@@ -197,7 +197,7 @@ public class ModifyAcct extends JPanel implements ActionListener {
 			}
 				String filename = ("transactions/" + acctSelected.getName() + ".txt");
 				transactions = getTransFromText(filename);
-
+				if(transactions.length != 0){
 				for (int i = 0; i < transactions.length; i++) {
 					String tname = transactions[i][0];
 					String tdate = transactions[i][1];
@@ -213,8 +213,11 @@ public class ModifyAcct extends JPanel implements ActionListener {
 					if(!updateAcct.getName().equals(tname)){
 					panel.addLine("transactions/" + updateAcct.getName() + ".txt",t.toString());
 					panel.deleteLine("transactions/" + tname + ".txt",t.toString());
-				}
-				}
+				}}
+			}
+			else{
+				panel.addLine("transactions/" + updateAcct.getName() + ".txt","");
+			}
 				System.out.println(!updateAcct.getName().equals(acctSelected.getName()));
 				if(!updateAcct.getName().equals(acctSelected.getName())){
 				File transactionFile = new File("transactions/" + acctSelected.getName() + ".txt");
