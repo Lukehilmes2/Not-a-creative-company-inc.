@@ -1,11 +1,13 @@
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
-import java.awt.Insets;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -100,6 +102,7 @@ public class Benefits extends JPanel {
 
 		public void actionPerformed(ActionEvent e) {
 
+			txtAmount.setBackground(Color.WHITE);
 			if (e.getSource() == btnBack) {
 
 				txtAmount.setText("");
@@ -111,6 +114,7 @@ public class Benefits extends JPanel {
 				try {
 					 amount = Double.parseDouble(txtAmount.getText());
 				} catch (NumberFormatException er) {
+					txtAmount.setBackground(Color.RED);
 					lblAmount.setText("<html>Please give a valid number<br>" +
 							"<br>format(no $, e.g. 54.33)");
 					return;
@@ -123,7 +127,9 @@ public class Benefits extends JPanel {
 					benefits = amount * facultyBenefit;
 				} else {
 					lblAmount
-							.setText("Please give a valid job type in the dropdown menu");
+							.setText("<html>Please give a valid<br>" +
+									"job type in the dropdown" +
+									"<br> menu");
 					return;
 				}
 				lblAmount.setText("Amount: " + fmt.format(amount)

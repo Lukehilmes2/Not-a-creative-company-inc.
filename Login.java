@@ -87,8 +87,8 @@ class Login extends JPanel {
 	public void autoLogOut() {
 
 		lblAutoLogOut
-				.setText("<html>You were inactive for 10 minutes.<br>"
-						+ "We logged you out automatically for security reasons.</html>");
+				.setText("<html>You were inactive for too long. We<br>"
+						+"logged you out automatically for security.</html>");
 		panel.switchPanel("Login");
 	}
 
@@ -104,6 +104,7 @@ class Login extends JPanel {
 				username.setText("");
 				password.setText("");
 				lblAutoLogOut.setText("");
+				panel.switchLogin();
 				return;
 			}
 

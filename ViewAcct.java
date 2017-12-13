@@ -38,9 +38,7 @@ public class ViewAcct extends JPanel {
 	NumberFormat $fmt = NumberFormat.getCurrencyInstance();
 	private JLabel lblTotalBalance, lblUsername;
 	private String strConfirmDelete = "<html>Are you sure you want<br>"
-			+ "to delete the<br> " + "transaction?";
-	private JLabel lblImg;
-	private ImageIcon img;
+			+ "to delete this?";
 
 	public ViewAcct(MainPanel panel) {
 
@@ -62,15 +60,12 @@ public class ViewAcct extends JPanel {
 		lblTotalBalance = new JLabel("");
 		pnlDisplay.add(lblTotalBalance);
 		transactions = new JTable(model);
-		lblImg = new JLabel("");
-		img = new ImageIcon("smallMT2000.png");
-		lblImg.setIcon(img);
 		updateTable();
 		
 		pnlDisplay.add(btnDelTrans);
 		pnlDisplay.add(btnAddTrans);
 		pnlDisplay.add(btnBack);
-		pnlDelete.add(lblImg);
+		pnlDelete.add(Box.createVerticalStrut(140));
 		pnlDelete.add(lblUsername);
 		pnlDelete.add(Box.createVerticalStrut(20));
 		pnlDelete.add(lblTotalBalance);
@@ -148,6 +143,9 @@ public class ViewAcct extends JPanel {
 
 		public void actionPerformed(ActionEvent e) {
 
+			lblDelete.setVisible(false);
+			btnYesDelete.setVisible(false);
+			btnNoDelete.setVisible(false);
 			if (e.getSource() == btnBack) {
 				setAcct(null);
 				panel.switchPanel("InitialView");

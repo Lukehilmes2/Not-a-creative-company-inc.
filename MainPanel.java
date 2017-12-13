@@ -1,5 +1,4 @@
 import java.awt.CardLayout;
-import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -15,6 +14,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 import javax.swing.UIManager;
@@ -31,22 +31,22 @@ public class MainPanel extends JPanel {
 	private InitialView pnlInitialView;
 	private TransactionView pnlTransactionView;
 	private Account acct;
-	private final double minutesAutoLogOut = 10;
+	private final double minutesAutoLogOut = 1;
 	private Timer timer;
 	private DecimalFormat fmt = new DecimalFormat("$0.00");
-	private final String companyName = "Made by NACC inc.";
-
-	public MainPanel() {
+	private Driver driver;
+	public MainPanel(Driver driver) {
 
 		try {
-		    for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-		        if ("Nimbus".equals(info.getName())) {
-		            UIManager.setLookAndFeel(info.getClassName());
-		            break;
-		        }
-		    }
+			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+				if ("Nimbus".equals(info.getName())) {
+					UIManager.setLookAndFeel(info.getClassName());
+					break;
+				}
+			}
 		} catch (Exception e) {
 		}
+		this.driver = driver;
 		cards = new CardLayout();
 		setLayout(cards);
 		pnlLogin = new Login(this);
@@ -75,6 +75,9 @@ public class MainPanel extends JPanel {
 					public void actionPerformed(ActionEvent e) {
 
 						switchPanel("Login");
+						if (isLoggedIn()) {
+							switchLogin();
+						}
 						pnlLogin.autoLogOut();
 					}
 				});
@@ -82,27 +85,21 @@ public class MainPanel extends JPanel {
 		addMouseMotionListener(new IdleListener());
 	}
 
-
-	public void paint(Graphics g) {
-		
-		super.paint(g);
-		g.drawString(companyName, 10, this.getHeight() - 10);
-	}
 	public double getUniFee() {
-		
+
 		return pnlInitialView.getUniFee();
 	}
-	
+
 	public double getCreditCardFee() {
-		
+
 		return pnlInitialView.getCreditCardFee();
 	}
-	
+
 	public double getTotal() {
-		
+
 		return pnlInitialView.getTotal();
 	}
-	
+
 	public String[][] getAccounts() {
 		return pnlInitialView.getAccounts();
 	}
@@ -125,7 +122,7 @@ public class MainPanel extends JPanel {
 	public void updateTable() {
 
 		pnlInitialView.updateTable();
-		
+
 	}
 
 	public void updateTrans() {
@@ -266,6 +263,13 @@ public class MainPanel extends JPanel {
 		}
 	}
 
+	public void switchLogin() {
+		driver.switchLogin();
+	}
+	
+	public boolean isLoggedIn() {
+		return driver.isLoggedIn();
+	}
 	private class IdleListener implements MouseMotionListener {
 
 		public void mouseDragged(MouseEvent arg0) {

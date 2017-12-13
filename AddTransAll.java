@@ -118,6 +118,7 @@ public class AddTransAll extends JPanel implements ActionListener {
 		lblError = new JLabel();
 		add(panel1, BorderLayout.CENTER);
 		add(panel2, BorderLayout.NORTH);
+		lblError.setHorizontalAlignment(JLabel.CENTER);
 		add(lblError, BorderLayout.SOUTH);
 
 		Codes = new JComboBox(codesList);

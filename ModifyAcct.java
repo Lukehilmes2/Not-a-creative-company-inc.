@@ -1,4 +1,5 @@
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -11,7 +12,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import java.util.*;
-import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.text.DecimalFormat;
@@ -173,16 +175,61 @@ public class ModifyAcct extends JPanel implements ActionListener {
 		}
 		panel.updateTrans();
 	}
+	
+	public static final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile(
+			"^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$",
+			Pattern.CASE_INSENSITIVE);
+
+	public static boolean validate(String emailStr) {
+		Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(emailStr);
+		return matcher.find();
+	}
 
 	private class ButtonListener implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {
 			if (arg0.getSource() == create) {
+				if ((!name.getText().matches(".*\\w.*"))) {
+					name.setBackground(Color.RED);	
+				}
+				else {
+					name.setBackground(Color.WHITE);
+				}
+				if ((!description.getText().matches(".*\\w.*"))) {
+					description.setBackground(Color.RED);
+				} else {
+					description.setBackground(Color.WHITE);
+				}
+				if ((!email.getText().matches(".*\\w.*"))) {
+					email.setBackground(Color.RED);
+				} else {
+					email.setBackground(Color.WHITE);
+				}
+				if ((!phone.getText().matches(".*\\w.*"))) {
+					phone.setBackground(Color.RED);
+				} else {
+					phone.setBackground(Color.WHITE);
+				}
 				if (!name.getText().matches(".*\\w.*")
 						|| !description.getText().matches(".*\\w.*")
 						|| !email.getText().matches(".*\\w.*")
 						|| !phone.getText().matches(".*\\w.*")) {
-					badacct.setText("Please fill out all the fields!");
+					badacct.setText("<html>Please fill out<br>" +
+							"all the fields!");
 					return;
+				}
+				if (!phone.getText().matches("(?:\\d{3}-){2}\\d{4}")) {
+					phone.setBackground(Color.RED);
+					badacct.setText("Enter a Valid phone number");
+					return;
+				} else {
+					phone.setBackground(Color.WHITE);
+				}
+				if (validate(email.getText()) == false) {
+					email.setBackground(Color.RED);
+					badacct.setText("Please provide a valid email");
+					return;
+				} else {
+					email.setBackground(Color.WHITE);
 				}
 				panel.updateTable();
 				acctSelected = new Account(nam, des, ema, pho, bal);
@@ -200,7 +247,7 @@ public class ModifyAcct extends JPanel implements ActionListener {
 				if(!updateAcct.getName().equals(nam) || !updateAcct.getDescription().equals(des)|| !updateAcct.getEmail().equals(ema) || !updateAcct.getPhone().equals(pho)){
 					panel.addLine("accounts.txt", updateAcct.toString());
 					panel.deleteLine("accounts.txt", acctSelected.toString());
-			}
+				}
 				String filename = ("transactions/" + acctSelected.getName() + ".txt");
 				transactions = getTransFromText(filename);
 				if(transactions.length != 0){
@@ -221,7 +268,7 @@ public class ModifyAcct extends JPanel implements ActionListener {
 					panel.deleteLine("transactions/" + tname + ".txt",t.toString());
 				}}
 			}
-			else{
+			else {
 				String file = ("transactions/" + updateAcct.getName() + ".txt");
 				BufferedWriter writer = null;
 				try {
@@ -255,6 +302,11 @@ public class ModifyAcct extends JPanel implements ActionListener {
 				email.setText("");
 				phone.setText("");
 				badacct.setText("");
+				name.setBackground(Color.WHITE);
+				description.setBackground(Color.WHITE);
+				email.setBackground(Color.WHITE);
+				phone.setBackground(Color.WHITE);
+				balance.setBackground(Color.WHITE);
 				panel.updateTrans();
 				panel.updateTable();
 				panel.updateStuff();

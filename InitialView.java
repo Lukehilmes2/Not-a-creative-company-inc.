@@ -41,8 +41,6 @@ public class InitialView extends JPanel {
 	private JLabel lblEmptyAccount;
 	private JLabel lblUniFee;
 	private JLabel lblCreditCardFee;
-	private JLabel lblImg;
-	private ImageIcon img;
 	private JMenuBar mb;
 	private JMenu Logout, Benefits, Transactions, Accounts, Help;
 	private JMenuItem help, logout, makeAct, deleteAct, viewAct,
@@ -100,9 +98,7 @@ public class InitialView extends JPanel {
 		help.addActionListener(new ButtonListener());
 		modAct.addActionListener(new ButtonListener());
 
-		lblImg = new JLabel("");
-		img = new ImageIcon("smallMT2000.png");
-		lblImg.setIcon(img);
+
 		lblTotalBalance = new JLabel("");
 		lblUniFee = new JLabel("");
 		lblCreditCardFee = new JLabel("");
@@ -125,7 +121,7 @@ public class InitialView extends JPanel {
 		butpan.setLayout(new BoxLayout(butpan, BoxLayout.Y_AXIS));
 
 
-		butpan.add(lblImg);
+		butpan.add(Box.createVerticalStrut(160));
 		butpan.add(lblTotalBalance);
 		butpan.add(Box.createVerticalStrut(20));
 		butpan.add(lblUniFee);
@@ -154,6 +150,7 @@ public class InitialView extends JPanel {
 		btnYesDelete.setVisible(false);
 		btnNoDelete.setVisible(false);
 		tblAccts.addMouseListener(new TableListener());
+
 	}
 
 	private double getFees(double percent) {
@@ -298,6 +295,14 @@ public class InitialView extends JPanel {
 	private class ButtonListener implements ActionListener {
 
 		public void actionPerformed(ActionEvent evt) {
+			
+			lblEmptyAccount.setText("");
+			if (evt.getSource() != deleteAct) {
+			
+				lblDelete.setVisible(false);
+				btnYesDelete.setVisible(false);
+				btnNoDelete.setVisible(false);
+			}
 			if (evt.getSource() == makeAct) {
 				panel.switchPanel("CreateAcct");
 			} else if (evt.getSource() == viewAct) {
@@ -311,6 +316,7 @@ public class InitialView extends JPanel {
 				panel.updateStuff();
 				panel.switchPanel("ModifyAcct");
 			} else if (evt.getSource() == logout) {
+				panel.switchLogin();
 				panel.switchPanel("Login");
 			} else if (evt.getSource() == benefits) {
 				panel.switchPanel("Benefits");
@@ -326,10 +332,6 @@ public class InitialView extends JPanel {
 					btnYesDelete.setVisible(true);
 					btnNoDelete.setVisible(true);
 				}
-			} else if (evt.getSource() == btnNoDelete) {
-				lblDelete.setVisible(false);
-				btnYesDelete.setVisible(false);
-				btnNoDelete.setVisible(false);
 			} else if (evt.getSource() == btnYesDelete) {
 				if (acctSelected.getBalance() != 0) {
 

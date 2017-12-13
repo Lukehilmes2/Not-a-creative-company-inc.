@@ -110,6 +110,7 @@ public class AddTrans extends JPanel implements ActionListener {
 		lblError = new JLabel();
 		add(panel1, BorderLayout.CENTER);
 		add(panel2, BorderLayout.NORTH);
+		lblError.setHorizontalAlignment(JLabel.CENTER);
 		add(lblError, BorderLayout.SOUTH);
 
 		Codes = new JComboBox(codesList);
@@ -161,6 +162,9 @@ public class AddTrans extends JPanel implements ActionListener {
 				txtAmount.setText("");
 				txtDescription.setText("");
 				lblError.setText("");
+				txtAmount.setBackground(Color.WHITE);
+				txtDate.setBackground(Color.WHITE);
+				txtDescription.setBackground(Color.WHITE);
 				panel.switchPanel("ViewAcct");
 			} else if (e.getSource() == btnAddTrans) {
 				try{
