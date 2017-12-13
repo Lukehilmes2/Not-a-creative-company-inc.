@@ -183,18 +183,24 @@ public class ModifyAcct extends JPanel implements ActionListener {
 				acctSelected = new Account(nam, des, ema, pho, bal);
 				updateAcct = new Account(name.getText(), description.getText(),
 						email.getText(), phone.getText(), bal);
-				for(int i = 0; i < userlist.length; i++) {
-					if (userlist[i].equals(name.getText()) && !userlist[i].equals(users.getSelectedItem().toString())) {
+				for (int i = 0; i < userlist.length; i++) {
+					if (userlist[i].equals(name.getText())
+							&& !userlist[i].equals(users.getSelectedItem()
+									.toString())) {
 						badacct.setText("Can't use an already existing name");
 						return;
 					}
 				}
-				acctSelected = new Account(nam,des,ema,pho,bal);
-				updateAcct = new Account(name.getText(),description.getText(),email.getText(),phone.getText(),bal);
-				if(!updateAcct.getName().equals(nam) || !updateAcct.getDescription().equals(des)|| !updateAcct.getEmail().equals(ema) || !updateAcct.getPhone().equals(pho)){
+				acctSelected = new Account(nam, des, ema, pho, bal);
+				updateAcct = new Account(name.getText(), description.getText(),
+						email.getText(), phone.getText(), bal);
+				if (!updateAcct.getName().equals(nam)
+						|| !updateAcct.getDescription().equals(des)
+						|| !updateAcct.getEmail().equals(ema)
+						|| !updateAcct.getPhone().equals(pho)) {
 					panel.addLine("accounts.txt", updateAcct.toString());
 					panel.deleteLine("accounts.txt", acctSelected.toString());
-			}
+				}
 				String filename = ("transactions/" + acctSelected.getName() + ".txt");
 				transactions = getTransFromText(filename);
 
@@ -208,23 +214,28 @@ public class ModifyAcct extends JPanel implements ActionListener {
 					Integer tcode = Integer.parseInt(transactions[i][3]);
 					String tdes = transactions[i][4];
 
-					Transaction t = new Transaction(updateAcct.getName(), tdate, tbal, tcode, tdes);
+					Transaction t = new Transaction(updateAcct.getName(),
+							tdate, tbal, tcode, tdes);
 					System.out.println(!updateAcct.getName().equals(tname));
-					if(!updateAcct.getName().equals(tname)){
-					panel.addLine("transactions/" + updateAcct.getName() + ".txt",t.toString());
-					panel.deleteLine("transactions/" + tname + ".txt",t.toString());
+					if (!updateAcct.getName().equals(tname)) {
+						panel.addLine("transactions/" + updateAcct.getName()
+								+ ".txt", t.toString());
+						panel.deleteLine("transactions/" + tname + ".txt",
+								t.toString());
+					}
 				}
+				System.out.println(!updateAcct.getName().equals(
+						acctSelected.getName()));
+				if (!updateAcct.getName().equals(acctSelected.getName())) {
+					File transactionFile = new File("transactions/"
+							+ acctSelected.getName() + ".txt");
+					try {
+						PrintWriter pw = new PrintWriter(filename);
+						pw.close();
+					} catch (FileNotFoundException e) {
+						e.printStackTrace();
+					}
 				}
-				System.out.println(!updateAcct.getName().equals(acctSelected.getName()));
-				if(!updateAcct.getName().equals(acctSelected.getName())){
-				File transactionFile = new File("transactions/" + acctSelected.getName() + ".txt");
-				try{
-				PrintWriter pw = new PrintWriter(filename);
-				pw.close();}
-				catch(FileNotFoundException e){
-					e.printStackTrace();
-				}
-			}
 
 				description.setText("");
 				email.setText("");

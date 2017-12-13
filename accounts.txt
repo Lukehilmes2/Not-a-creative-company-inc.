@@ -1,4 +1,2 @@
-Rob Smith,Teacher,smith.rob@yahoo.com,(406)358-4590,0.0
-Lukeh,Student,luke.hilmes@umontana.edu,509-999-9013,300.0
-Mike Cassens,Teacher,Mike.Cassens@Umontana.edu,(406)851-3651,460.0
-Trish Duce,Teacher,ducepa@umontana.edu,(406)456-8394,529.92
+max,not a test,notmax@jesus.com,555-565-5555,0.0
+pikael,tester,thibeaumax@gmail.com,406-214-1680,50.0
