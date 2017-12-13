@@ -249,7 +249,11 @@ public class InitialView extends JPanel {
 				String[] transaction = nextT.split(",");
 				balance += Double.parseDouble(transaction[2]);
 			}
+			Account tempAcct = new Account(account[0], account[1], account[2], account[3], Double.parseDouble(account[4]));
+			panel.deleteLine("accounts.txt", tempAcct.toString());
 			account[4] = fmt.format(balance);
+			tempAcct.setBalance(balance);
+			panel.addLine("accounts.txt", tempAcct.toString());
 			temp.add(account);
 		}
 		String[][] accounts = new String[temp.size()][5];
@@ -303,7 +307,6 @@ public class InitialView extends JPanel {
 			} else if (evt.getSource() == benefits) {
 				panel.switchPanel("Benefits");
 			} else if (evt.getSource() == viewtransactions) {
-				panel.updateTrans();
 				panel.switchPanel("TransactionView");
 			} else if (evt.getSource() == deleteAct) {
 				if (acctSelected != null) {

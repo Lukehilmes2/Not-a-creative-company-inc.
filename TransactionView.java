@@ -75,6 +75,7 @@ public class TransactionView extends JPanel {
 		pnlDelete.add(lblUniFee);
 		pnlDelete.add(Box.createVerticalStrut(20));
 		pnlDelete.add(lblCreditCardFee);
+		pnlDelete.add(Box.createVerticalStrut(20));
 		pnlDelete.add(lblDelete);
 		pnlDelete.add(Box.createVerticalStrut(20));
 		pnlDelete.add(btnYesDelete);

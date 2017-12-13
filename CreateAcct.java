@@ -168,6 +168,7 @@ public class CreateAcct extends JPanel {
 				}
 				if(validate(email.getText())==false){
 						email.setBackground(Color.RED);
+						badacct.setText("Please provide a valid email");
 						return;
 					}
 				else{

@@ -183,11 +183,17 @@ public class ModifyAcct extends JPanel implements ActionListener {
 				acctSelected = new Account(nam, des, ema, pho, bal);
 				updateAcct = new Account(name.getText(), description.getText(),
 						email.getText(), phone.getText(), bal);
+				for(int i = 0; i < userlist.length; i++) {
+					if (userlist[i].equals(name.getText()) && !userlist[i].equals(users.getSelectedItem().toString())) {
+						badacct.setText("Can't use an already existing name");
+						return;
+					}
+				}
 				acctSelected = new Account(nam,des,ema,pho,bal);
 				updateAcct = new Account(name.getText(),description.getText(),email.getText(),phone.getText(),bal);
 				if(!updateAcct.getName().equals(nam) || !updateAcct.getDescription().equals(des)|| !updateAcct.getEmail().equals(ema) || !updateAcct.getPhone().equals(pho)){
-				panel.addLine("accounts.txt", updateAcct.toString());
-				panel.deleteLine("accounts.txt", acctSelected.toString());
+					panel.addLine("accounts.txt", updateAcct.toString());
+					panel.deleteLine("accounts.txt", acctSelected.toString());
 			}
 				String filename = ("transactions/" + acctSelected.getName() + ".txt");
 				transactions = getTransFromText(filename);
