@@ -15,8 +15,7 @@ class Driver extends JFrame {
 	static int width = 700;
 	static int height = 500;
 	public Driver() {
-		super("Money Tracker 2000");
-		this.addComponentListener(new FrameListen(this));
+		super("Money Tracker 2000 - Made by NACC inc.");
 	}
 	
 	public static void main(String[] args) {
@@ -27,50 +26,8 @@ class Driver extends JFrame {
 		driver.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		driver.setPreferredSize(new Dimension(width, height));
 		panel = new MainPanel(driver);
-		panel.setSize(width, height);
-		pnlGlass = new Glass();
-		pnlGlass.setSize(width, height);
-		pnlGlass.setOpaque(false);
-		JLayeredPane jp = driver.getLayeredPane();
-		jp.add(panel, Integer.valueOf(1));
-		jp.add(pnlGlass, Integer.valueOf(2));
+		driver.add(panel);
 		driver.pack();
-		jp.setVisible(true);
-		driver.reSize();
 		driver.setVisible(true);
 	}
-	
-	public void switchLogin() {
-		
-		pnlGlass.setLoggedIn(!pnlGlass.isLoggedIn());
-	}
-	
-	public boolean isLoggedIn() {
-		return pnlGlass.isLoggedIn();
-	}
-	public void reSize() {
-		
-	     
-    	Rectangle r = getBounds();
-    	width = r.width;
-    	height = r.height;
-		pnlGlass.setSize(width, height);
-		panel.setSize(width, height);
-	}
-	private class FrameListen implements ComponentListener{
-     
-		private Driver driver;
-		public FrameListen(Driver driver) {
-			this.driver = driver;
-		}
-		public void componentHidden(ComponentEvent arg0) {
-        }
-        public void componentMoved(ComponentEvent arg0) {   
-        }
-        public void componentResized(ComponentEvent arg0) {
-        	driver.reSize();
-        }
-        public void componentShown(ComponentEvent arg0) {
-        }
-    }
 }

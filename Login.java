@@ -103,7 +103,7 @@ class Login extends JPanel {
 				username.setText("");
 				password.setText("");
 				lblAutoLogOut.setText("");
-				panel.switchLogin();
+				panel.setLoggedIn(true);
 				return;
 			}
 

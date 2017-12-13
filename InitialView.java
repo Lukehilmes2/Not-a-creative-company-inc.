@@ -316,7 +316,7 @@ public class InitialView extends JPanel {
 				panel.updateStuff();
 				panel.switchPanel("ModifyAcct");
 			} else if (evt.getSource() == logout) {
-				panel.switchLogin();
+				panel.setLoggedIn(false);
 				panel.switchPanel("Login");
 			} else if (evt.getSource() == benefits) {
 				panel.switchPanel("Benefits");

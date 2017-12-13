@@ -1,4 +1,6 @@
 import java.awt.CardLayout;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -14,7 +16,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import javax.swing.JFrame;
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 import javax.swing.UIManager;
@@ -35,8 +37,16 @@ public class MainPanel extends JPanel {
 	private Timer timer;
 	private DecimalFormat fmt = new DecimalFormat("$0.00");
 	private Driver driver;
+	private Image img;
+	private boolean loggedIn = false;
+	
 	public MainPanel(Driver driver) {
 
+		try {
+			img = ImageIO.read(new File("smallMT2000.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		try {
 			for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
 				if ("Nimbus".equals(info.getName())) {
@@ -68,16 +78,13 @@ public class MainPanel extends JPanel {
 		add(pnlTransactionView, "TransactionView");
 		add(pnlAddTransAll, "AddTransAll");
 		cards.show(this, "Login");
-
 		timer = new Timer(((int) (1000 * 60 * minutesAutoLogOut)),
 				new ActionListener() {
 
 					public void actionPerformed(ActionEvent e) {
 
 						switchPanel("Login");
-						if (isLoggedIn()) {
-							switchLogin();
-						}
+						loggedIn = false;
 						pnlLogin.autoLogOut();
 					}
 				});
@@ -262,13 +269,19 @@ public class MainPanel extends JPanel {
 			e.printStackTrace();
 		}
 	}
-
-	public void switchLogin() {
-		driver.switchLogin();
+	public void paint(Graphics g) {
+		
+		super.paint(g);
+		if(loggedIn) {
+			g.drawImage(img, -15, 30, null);	
+		}
 	}
 	
 	public boolean isLoggedIn() {
-		return driver.isLoggedIn();
+		return loggedIn;
+	}
+	public void setLoggedIn(boolean loggedIn) {
+		this.loggedIn = loggedIn;
 	}
 	private class IdleListener implements MouseMotionListener {
 
