@@ -173,7 +173,7 @@ public class InitialView extends JPanel {
 					double amount = Double.parseDouble(nextLine.next());
 					String code = nextLine.next();
 					String description = nextLine.next();
-					if (code.equals("50109") && percent == .08) {
+					if (code.charAt(0) == '5' && percent == .08) {
 						fees += amount / .92 * .08;
 					} else if (percent == .04 && code.equals("50287")) {
 						fees += amount / .92 / .96 * .04;
@@ -336,7 +336,6 @@ public class InitialView extends JPanel {
 				String filename = ("transactions/"+ acctSelected.getName() + ".txt");
 				String[][] transactions = panel.getTransFromText(filename);
 				for (int i = 0; i < transactions.length; i++) {
-					String tname = transactions[i][0];
 					String tdate = transactions[i][1];
 					String bala = (transactions[i][2]);
 					bala = bala.replace("$","");

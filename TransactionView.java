@@ -63,7 +63,6 @@ public class TransactionView extends JPanel {
 		lblUniFee = new JLabel("");
 		lblCreditCardFee = new JLabel("");
 		updateTable();
-		
 		pnlDisplay.add(transactions);
 		pnlDisplay.add(btnDelTrans);
 		pnlDisplay.add(btnAddTrans);
@@ -222,6 +221,7 @@ public class TransactionView extends JPanel {
 				return false;// This causes all cells to be not editable
 			}
 		};
+		transactions.getTableHeader().setReorderingAllowed(false);
 		lblTotal.setText("Total balance: " + fmt.format(panel.getTotal()));
 		lblUniFee.setText("University fee: " + fmt.format(panel.getUniFee()));
 		lblCreditCardFee.setText("Credit card fee: " + fmt.format(panel.getCreditCardFee()));

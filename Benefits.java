@@ -1,4 +1,5 @@
 import java.awt.BorderLayout;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -48,6 +49,7 @@ public class Benefits extends JPanel {
 		cs.gridwidth = 1;
 		cs.ipady = 20;
 		panel1.add(lblTitle, cs);
+		lblTitle.setFont(new Font(this.getFont().getFontName(), Font.BOLD, lblTitle.getFont().getSize()));
 
 		cs.gridx = 0;
 		cs.gridy = 4;
@@ -90,7 +92,7 @@ public class Benefits extends JPanel {
 		cs.ipady = 20;
 		cs.insets = new Insets(25,0,0,0);
 		panel1.add(lblAmount, cs);
-		add(lblTitle,BorderLayout.NORTH);
+		
 		add(panel1, BorderLayout.CENTER);
 	}
 

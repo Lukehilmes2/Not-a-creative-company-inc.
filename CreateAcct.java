@@ -11,6 +11,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import java.util.regex.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
 
 public class CreateAcct extends JPanel {
 
@@ -22,8 +28,6 @@ public class CreateAcct extends JPanel {
 	private String file = "accounts.txt";
 	private int txtFieldLength = 10;
 	private MainPanel panel;
-
-
 
 	public CreateAcct(MainPanel panel) {
 		this.panel = panel;
@@ -124,7 +128,7 @@ public class CreateAcct extends JPanel {
 		cs.gridwidth = 1;
 		cs.ipady = 20;
 		panel1.add(back, cs);
-		
+
 		add(panel1, BorderLayout.CENTER);
 		add(back, BorderLayout.NORTH);
 		add(badacct, BorderLayout.SOUTH);
@@ -203,7 +207,16 @@ public class CreateAcct extends JPanel {
 					panel.addLine("transactions/" + acct.getName() + ".txt",
 							t.toString());
 				} else {
-					panel.addLine("transactions/" + acct.getName() + ".txt", "");
+					String filename = ("transactions/" + acct.getName() + ".txt");
+					BufferedWriter writer = null;
+					try {
+						writer = new BufferedWriter(new FileWriter(filename, true));
+						writer.append("");
+						writer.close();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+
 				}
 				phone.setBackground(Color.WHITE);
 				balance.setBackground(Color.WHITE);
@@ -222,6 +235,12 @@ public class CreateAcct extends JPanel {
 				email.setText("");
 				phone.setText("");
 				badacct.setText("");
+				name.setBackground(Color.WHITE);
+				description.setBackground(Color.WHITE);
+				email.setBackground(Color.WHITE);
+				phone.setBackground(Color.WHITE);
+				balance.setBackground(Color.WHITE);
+
 				panel.updateTrans();
 				panel.switchPanel("InitialView");
 			}
