@@ -1,5 +1,3 @@
-max,not a test,notmax@jesus.com,555-565-5555,0.0
-pikael,tester,thibeaumax@gmail.com,406-214-1680,50.0
 Patricia Duce,Teacher,patricia.duce@umontana.edu,406-253-6569,60.0
 Michael Cassens,Teacher,michael.cassens@umontana.edu,406-251-2555,45.0
 Travis Wheeler,Teacher,whller.travis@umontana.edu,406-987-9879,52.0
