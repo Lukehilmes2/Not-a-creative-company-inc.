@@ -1,9 +1,9 @@
-Patricia Duce,Teacher,patricia.duce@umontana.edu,406-253-6569,60.0
 Michael Cassens,Teacher,michael.cassens@umontana.edu,406-251-2555,45.0
 Travis Wheeler,Teacher,whller.travis@umontana.edu,406-987-9879,52.0
 Cody Vacca,Student,cody.vacca@umontana.edu,406-951-9515,0.0
-Jesse Johnson,Teacher,jesse.johnson@umontana.edu,406-853-2081,148.12
+Jesse Johnson,Teacher,jesse.johnson@umontana.edu,406-853-2081,79.12
 Yolanda Reimer,Teacher,reimer.yolanda@umontana.edu,406-951-3578,70.68
 Max Thibeau,Student,max.thibeau@umontana.edu,406-652-6523,156.0
 Luke Hilmes,Student,luke.hilmes@umontana.edu,509-999-9013,562.0
 Rob Smith,Teacher,rob.smith@umontana.edu,406-852-9632,47.46
+Patricia Duce,Teacher,patricia.duce@umontana.edu,406-253-6569,60.0

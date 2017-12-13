@@ -1,3 +1,4 @@
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Transaction {
@@ -13,7 +14,7 @@ public class Transaction {
 			int code) {
 
 		this.account = account;
-		date = new Date().toString();
+		date = new SimpleDateFormat("MM-dd-yyyy").format(new Date()).toString();
 		this.amount = amount;
 		this.description = description;
 		this.code = code;

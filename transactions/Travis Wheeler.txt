@@ -1,1 +1,1 @@
-Travis Wheeler,Tue Dec 12 17:14:41 MST 2017,52.0,50109,starting balance
+Travis Wheeler,12-14-2017,52.0,50109,starting balance

@@ -1,2 +1,2 @@
-Max Thibeau,Tue Dec 12 17:16:16 MST 2017,41.0,50109,starting balance
+Max Thibeau,12-10-2017,41.0,50109,starting balance
 Max Thibeau,12-12-2017,115.0,50109,Recruitment
