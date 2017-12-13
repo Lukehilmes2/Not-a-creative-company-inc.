@@ -1,3 +1,2 @@
 Rob Smith,Tue Dec 12 17:14:01 MST 2017,98.0,50109,starting balance
 Rob Smith,12-12-2017,-100.0,62817,Computer Science Fair
-Rob Smith,12-12-2017,49.46,50287,Eggs
