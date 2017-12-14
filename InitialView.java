@@ -121,7 +121,6 @@ public class InitialView extends JPanel {
 		butpan.setLayout(new BoxLayout(butpan, BoxLayout.Y_AXIS));
 
 
-		butpan.add(Box.createVerticalStrut(160));
 		butpan.add(lblTotalBalance);
 		butpan.add(Box.createVerticalStrut(20));
 		butpan.add(lblUniFee);

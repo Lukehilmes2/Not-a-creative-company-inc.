@@ -70,7 +70,6 @@ public class TransactionView extends JPanel {
 		pnlDisplay.add(btnBack);		
 
 		pnlDelete.setLayout(new BoxLayout(pnlDelete, BoxLayout.Y_AXIS));
-		pnlDelete.add(Box.createVerticalStrut(160));
 		pnlDelete.add(lblTotal);
 		pnlDelete.add(Box.createVerticalStrut(20));
 		pnlDelete.add(lblUniFee);

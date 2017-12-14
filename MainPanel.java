@@ -267,13 +267,6 @@ public class MainPanel extends JPanel {
 			e.printStackTrace();
 		}
 	}
-	public void paint(Graphics g) {
-		
-		super.paint(g);
-		if(loggedIn) {
-			g.drawImage(img, -15, 30, null);	
-		}
-	}
 	
 	public boolean isLoggedIn() {
 		return loggedIn;

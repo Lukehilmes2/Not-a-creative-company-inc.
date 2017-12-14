@@ -65,7 +65,6 @@ public class ViewAcct extends JPanel {
 		pnlDisplay.add(btnDelTrans);
 		pnlDisplay.add(btnAddTrans);
 		pnlDisplay.add(btnBack);
-		pnlDelete.add(Box.createVerticalStrut(140));
 		pnlDelete.add(lblUsername);
 		pnlDelete.add(Box.createVerticalStrut(20));
 		pnlDelete.add(lblTotalBalance);
