@@ -306,7 +306,6 @@ public class ModifyAcct extends JPanel implements ActionListener {
 				description.setBackground(Color.WHITE);
 				email.setBackground(Color.WHITE);
 				phone.setBackground(Color.WHITE);
-				balance.setBackground(Color.WHITE);
 				panel.updateTrans();
 				panel.updateTable();
 				panel.updateStuff();

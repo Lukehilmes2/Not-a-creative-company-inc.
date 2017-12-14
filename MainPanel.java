@@ -36,11 +36,10 @@ public class MainPanel extends JPanel {
 	private final double minutesAutoLogOut = 1;
 	private Timer timer;
 	private DecimalFormat fmt = new DecimalFormat("$0.00");
-	private Driver driver;
 	private Image img;
 	private boolean loggedIn = false;
 	
-	public MainPanel(Driver driver) {
+	public MainPanel() {
 
 		try {
 			img = ImageIO.read(new File("smallMT2000.png"));
@@ -56,7 +55,6 @@ public class MainPanel extends JPanel {
 			}
 		} catch (Exception e) {
 		}
-		this.driver = driver;
 		cards = new CardLayout();
 		setLayout(cards);
 		pnlLogin = new Login(this);
