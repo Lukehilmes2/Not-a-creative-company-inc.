@@ -175,7 +175,7 @@ public class ModifyAcct extends JPanel implements ActionListener {
 		}
 		panel.updateTrans();
 	}
-	
+
 	public static final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile(
 			"^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$",
 			Pattern.CASE_INSENSITIVE);
@@ -189,7 +189,7 @@ public class ModifyAcct extends JPanel implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {
 			if (arg0.getSource() == create) {
 				if ((!name.getText().matches(".*\\w.*"))) {
-					name.setBackground(Color.RED);	
+					name.setBackground(Color.RED);
 				}
 				else {
 					name.setBackground(Color.WHITE);
@@ -306,10 +306,10 @@ public class ModifyAcct extends JPanel implements ActionListener {
 				description.setBackground(Color.WHITE);
 				email.setBackground(Color.WHITE);
 				phone.setBackground(Color.WHITE);
-				balance.setBackground(Color.WHITE);
-				panel.updateTrans();
-				panel.updateTable();
-				panel.updateStuff();
+				
+				//panel.updateTrans();
+				//panel.updateTable();
+				//panel.updateStuff();
 				panel.switchPanel("InitialView");
 			}
 		}
