@@ -306,16 +306,13 @@ public class ModifyAcct extends JPanel implements ActionListener {
 				description.setBackground(Color.WHITE);
 				email.setBackground(Color.WHITE);
 				phone.setBackground(Color.WHITE);
-<<<<<<< HEAD
 				
 				//panel.updateTrans();
 				//panel.updateTable();
 				//panel.updateStuff();
-=======
 				panel.updateTrans();
 				panel.updateTable();
 				panel.updateStuff();
->>>>>>> b430581bf7930ac34eaa1616188789444beafef2
 				panel.switchPanel("InitialView");
 			}
 		}
