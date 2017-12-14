@@ -143,14 +143,18 @@ public class ViewAcct extends JPanel {
 
 		public void actionPerformed(ActionEvent e) {
 
-			lblDelete.setVisible(false);
-			btnYesDelete.setVisible(false);
-			btnNoDelete.setVisible(false);
+			panel.setLoggedIn(true);
+			panel.repaint();
+			if(e.getSource() != btnDelTrans) {
+				
+				lblDelete.setVisible(false);
+				btnYesDelete.setVisible(false);
+				btnNoDelete.setVisible(false);
+			}
 			if (e.getSource() == btnBack) {
 				setAcct(null);
 				panel.switchPanel("InitialView");
 			} else if (e.getSource() == btnDelTrans) {
-
 				lblDelete.setVisible(true);
 				btnYesDelete.setVisible(true);
 				btnNoDelete.setVisible(true);
